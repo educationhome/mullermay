@@ -1,0 +1,163 @@
+$color-purple: #9566AC;
+$color-warm-white: #FFF7EC;
+$color-dark-grey: #2E2D2C;
+$color-dark-green: #103928;
+$color-orange: #EE974B;
+$color-white: #FFF;
+
+$color-background: $color-warm-white;
+
+$font-primary: 'Asap', sans-serif;
+
+
+$font-size-copy: 2.4em;
+$font-size-copy--mobile: 1.8em;
+
+$font-size-copy-small: 1.8em;
+$font-size-copy-small--mobile: 1.4em;
+
+$font-size-copy-very-small: 1.4em;
+$font-size-copy-very-small--mobile: 1.0em;
+
+$font-size-copy-very-small-blog: 1em;
+$font-size-copy-very-small-blog--mobile: 0.6em;
+
+$font-size-overline: 1.8em; // 
+
+$font-size-heading-h1 : 6.5em;
+$font-size-heading-h1--mobile : 4.1em;
+$font-size-heading-h1--small : 2em;
+
+$font-size-heading-h2 : 4.1em;
+$font-size-heading-h2--mobile : 3.5em;
+$font-size-heading-h2--small : 2em;
+
+$font-size-heading-h3: 3.3rem;
+$font-size-heading-h3--mobile: 3rem;
+
+$line-height: 105%;
+$headline-line-height: 105%;
+
+$ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+
+$z-indexes: (
+    "cookie",
+    "preloader",
+    "transition",
+    "modal",
+    "scrollbar",
+    "header",
+    "main",
+    "noise",
+    "zero",
+);
+
+
+$bp-mid-phone: 360px;
+$bp-phone: 480px;
+$bp-large-phone: 600px;
+$bp-small-tablet: 768px;
+$bp-mid-tablet: 896px;
+$bp-tablet: 1024px;
+$bp-small-desktop: 1440px;
+
+$breakpoints: (
+    "small-phone": 320px,
+    "mid-phone": $bp-mid-phone,
+    "phone": $bp-phone,
+    "large-phone": $bp-large-phone,
+    "small-tablet": $bp-small-tablet,
+    "mid-tablet": $bp-mid-tablet,
+    "tablet": $bp-tablet,
+    "small-desktop": $bp-small-desktop,
+    "desktop": 1920px,
+    "desktop--height": 1080px,
+    "large-tablet": 1125px,
+);
+
+@import "../../../node_modules/include-media/dist/_include-media.scss";
+
+
+
+//
+// Eases.
+//
+
+$Power1EaseOut: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+$Power2EaseOut: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+$Power3EaseOut: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+$Power4EaseOut: cubic-bezier(0.230, 1.000, 0.320, 1.000);
+$Power1EaseIn: cubic-bezier(0.550, 0.085, 0.680, 0.530) ;
+$Power2EaseIn: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+$Power3EaseIn: cubic-bezier(0.895, 0.030, 0.685, 0.220);
+$Power4EaseIn: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+$ExpoEaseOut: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+$ExpoEaseIn: cubic-bezier(0.950, 0.050, 0.795, 0.035);
+$ExpoEaseInOut: cubic-bezier(1.000, 0.000, 0.000, 1.000);
+$SineEaseOut: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+$SineEaseIn: cubic-bezier(0.470, 0.000, 0.745, 0.715);
+$Power1EaseInOut: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+$Power2EaseInOut: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+$Power3EaseInOut: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+$Power4EaseInOut: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+$SlowEaseOut: cubic-bezier(.04,1.15,0.4,.99);
+$bounce: cubic-bezier(0.17, 0.67, 0.3, 1.33);
+
+
+
+//
+// CSS variables.
+//
+
+:root {
+    --space: 145px; // 2.375
+    --space-large: 240px; // 3
+    --space-super-large: 400px;
+    --space-medium: 128px; // 2.75
+    --space-small: 80px; // 1
+    --space-smaller: 64px; // 1
+    --space-smaller-large: 180px;
+
+
+
+
+
+
+    @include media("<small-desktop") {
+        //--space: 80px;
+        //--space-medium: 80px;
+        //--space-large: 80px;
+    }
+
+
+    @include media("<=small-tablet") {
+        --space: 114px;
+        --space-large: 150px;
+        --space-large: 144px;
+        --space-super-large: 180px;
+        --space-medium: 132px;
+        --space-small: 48px;
+        --space-smaller: 32px;
+    }
+
+    @include media("<=phone") {
+        --space: 76px;
+        --space-large: 110px;
+        --space-large: 96px;
+        --space-super-large: 140px;
+        --space-medium: 88px;
+        --space-small: 32px;
+        --space-smaller: 24px;
+    }
+
+    @include media("<=small-phone") {
+        --space: 57px;
+        --space-large: 92px;
+        --space-large: 72px;
+        --space-super-large: 90px;
+        --space-medium: 66px;
+        --space-small: 24px;
+        --space-smaller: 16px;
+    }
+}

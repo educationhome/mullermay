@@ -1,0 +1,289 @@
+
+//
+// Layout.
+//
+
+@mixin abs {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@mixin cover {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin abs-cover {
+    @include abs;
+    @include cover;
+}
+
+
+
+//
+// Media.
+//
+
+@mixin object-media {
+    display: block;
+
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+
+    vertical-align: middle;
+}
+
+@mixin cover-media {
+    @include object-media;
+
+    max-width: initial;
+    width: 100%;
+    height: 100%;
+
+    object-position: center;
+    object-fit: cover;
+}
+
+@mixin contain-media {
+    @include object-media;
+
+    max-width: initial;
+    width: 100%;
+    height: 100%;
+
+    object-position: center;
+    object-fit: contain;
+}
+
+
+
+//
+// Typography.
+//
+
+// Text.
+
+@mixin text-body {
+    font-family: $font-primary;
+    font-size: $font-size-copy;
+    font-weight: 450;
+
+    //color: $color-text;
+    // color: var(--color-text);
+    line-height: $line-height;
+    letter-spacing: 0.06em;
+
+
+    &.-small {
+        // font-size: $font-size-copy-small;
+
+        @include media("<=small-tablet") {
+            // font-size: $font-size-copy-small--mobile;
+        }
+    }
+
+    &.-uppercase {
+        text-transform: uppercase;
+    }
+
+    &.-very-small {
+        // font-size: $font-size-copy-very-small;
+
+        @include media("<=small-tablet") {
+            // font-size: $font-size-copy-very-small--mobile;
+        }
+    }
+
+    &.-light {
+        // color: $color-text-light;
+    }
+
+
+    @include media("<=small-tablet") {
+        // font-size: $font-size-copy--mobile;
+    }
+}
+
+@mixin text-overline {
+    font-size: $font-size-overline;
+    font-weight: 600;
+    line-height: $line-height;
+    text-transform: uppercase;
+}
+
+
+
+//
+// Other.
+//
+
+@mixin aspect-ratio($value: 100%, $hasText: false) {
+    position: relative;
+
+    width: 100%;
+
+    @if $hasText == false {
+        font-size: 0;
+    }
+
+    overflow: hidden;
+
+
+    &:after {
+        content: "";
+
+        display: inline-block;
+        width: 100%;
+
+        // padding-top: $value;
+    }
+}
+
+@mixin aspect-ratio-media($value: 100%) {
+    @include aspect-ratio($value);
+
+
+    .o-media {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-position: center;
+        object-fit: cover;
+    }
+}
+
+@mixin abs-center() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+@mixin u-hocus {
+    &:focus,
+    &:hover {
+        @content;
+    }
+}
+
+@mixin u-actus {
+    &:focus,
+    &:active {
+        @content;
+    }
+}
+
+@mixin u-truncate($width: 100%) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+
+    @if $width {
+        max-width: $width;
+    }
+}
+
+@mixin u-accessibly-hidden {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+@mixin u-hidden() {
+    display: none;
+    visibility: hidden;
+}
+
+@mixin u-shown($display: block) {
+    display: $display;
+    visibility: visible;
+}
+
+@mixin loaderCircleSize {
+    width: 27rem;
+    height: 27rem;
+
+
+    @include media("<small-desktop") {
+        width: 24rem;
+        height: 24rem;
+    }
+
+    @include media("<=large-phone") {
+        width: 18rem;
+        height: 18rem;
+    }
+
+    @include media("<=mid-phone") {
+        width: 13rem;
+        height: 13rem;
+    }
+}
+
+
+
+@mixin loaderSmallCircleSize {
+    width: 15rem;
+    height: 15rem;
+
+
+    @include media("<small-desktop") {
+        width: 14rem;
+        height: 14rem;
+    }
+
+    @include media("<=large-phone") {
+        width: 13rem;
+        height: 13rem;
+    }
+
+    @include media("<=mid-phone") {
+        width: 12rem;
+        height: 12rem;
+    }
+}
+
+@mixin hide-scroll-bar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+@function z-index($name) {
+    @if index($z-indexes, $name) {
+        @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    } @else {
+        @warn "#{$name} not found";
+
+        @return null;
+    }
+}
+
+@function hexToRgb($hex) {
+    @return red($hex) + "," + green($hex) + "," + blue($hex);
+}
+
+
+
+@import '../../../node_modules/include-media/dist/_include-media.scss';
