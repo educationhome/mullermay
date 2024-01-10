@@ -1,0 +1,113 @@
+@use "../settings/config";
+
+.container {
+
+    &__small {
+        margin: 64px 128px;
+
+        @media(max-width: map-get($breakpoints, "small-desktop")) {
+            margin: 64px 64px;
+        }
+
+        @media(max-width: map-get($breakpoints, "tablet")) {
+            margin: 32px 32px;
+        }
+        
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            margin: 0 16px;
+        }
+    }
+
+    &__small-padding {
+        padding: 64px 128px;
+
+        @media(max-width: map-get($breakpoints, "small-desktop")) {
+            padding: 64px 64px;
+        }
+
+        @media(max-width: map-get($breakpoints, "tablet")) {
+            padding: 32px 32px;
+        }
+        
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            padding: 16px 16px;
+        }
+    }
+
+    &__pos-rel {
+        position: relative;
+    }
+
+    &__of-hdn {
+        overflow: hidden;
+    }
+
+}
+
+.padding {
+    &__left-super-small {
+        padding-left: var(--space-super-small);
+    }
+
+    &__top-super-small {
+        padding-top: var(--space-super-small);
+    }
+
+    &__top-medium {
+        padding-top: var(--space-medium);
+    }
+
+    &__bottom-medium {
+        padding-bottom: var(--space-medium);
+    }
+
+    &__bottom-small {
+       padding-bottom: var(--space-small); 
+    }
+
+    &__top-small {
+        padding-top: var(--space-small);
+    }
+
+    &__top-large {
+        padding-top: var(--space-large);
+    }
+
+
+}
+
+
+.flex {
+    display: flex;
+
+
+    &__column {
+        flex-direction: column;
+    }
+
+    &__row {
+        flex-direction: row;
+    }
+
+}
+
+.margin {
+    &__top-small {
+        margin-top: var(--space-small);
+    }
+
+    &__top-super-small {
+        margin-top: var(--space-super-small);
+    }
+}
+
+.c-padding {
+
+    &__slider {
+        padding-left: 16px;
+
+        @media(min-width: map-get($breakpoints, "small-tablet")) {
+            padding: 64px;
+        }
+    }
+}

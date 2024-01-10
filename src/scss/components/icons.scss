@@ -1,0 +1,88 @@
+@use "../settings/config";
+
+.icon {
+    &__whatsapp-logo {
+        width: 17.05px;
+        height: 17.19px;
+    }
+
+    &__header-logo {
+        width: 40.531px;
+        height: 23.682px;
+    }
+
+    &__header-logo-text {
+        width: 160.669px;
+        height: 29.881px;
+    }
+
+    &__header-menu {
+        width: 24px;
+        height: 24px;
+    }
+
+    &__header-notification {
+        width: 24px;
+        height: 24px;
+    }
+
+    &__logo-white {
+        height: 406px;
+        width: 560px;
+    }
+
+    &__arrow {
+        height: 24px;
+        width: 24px;
+    }
+
+    &__header-video-form {
+        width: 621px;
+        height: 368px;
+    }
+
+    &__background-logo {
+        width: 1068px;
+        height: 621px;
+    }
+    
+    &__review-logo {
+        height: 72px;
+
+        @media (max-width: map-get($breakpoints, "tablet")) {
+            width: 72px;
+        }
+    }
+
+    &__footer-logo-white {
+        width: 56.286px;
+        height: 27.629px;
+    }
+
+    &__footer-logo-text-white {
+        width: 187.447px;
+        height: 34.861px;
+    }
+
+    &__footer-soc-media {
+        width: 32px;
+        height: 32px;
+    }
+
+    &__menu-logo-background {
+        width: 836.049px;
+        height: 488.508px;
+    }
+
+    &__notification-close-button {
+        width: 20px;
+        height: 20px;
+    }
+
+    &__drop-down-button {
+        max-height: 24px;
+        max-width: 24px;
+        width: 100%;
+        height: 100%;
+    }
+}

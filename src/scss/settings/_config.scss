@@ -1,0 +1,95 @@
+// Colors.
+
+$color-purple: #9566AC;
+$color-purple-300: #CAB3D6; 
+$color-purple-100: #EDE6F1; 
+$color-warm-white:  #FFF7EC;
+$color-warm-white80: #FDDDB9;
+$color-warm-white90: #FEEBD2;
+$color-dark-grey: #2E2D2C;
+$color-dark-green: #103928;
+$color-orange: #EE974B;
+$color-white: #FFF;
+
+$color-background: $color-warm-white;
+
+
+// Fonts.
+
+$font-primary: 'Asap', sans-serif;
+$font-secondary: 'Inter', sans-serif;
+
+
+$font-size-copy-very-small: 1.4em;
+$font-size-copy-very-small--mobile: 1.0em;
+
+$font-size-overline: 1.8em;
+
+// h1
+
+$font-size-heading-h1 : 64px;
+$font-size-heading-h1--mobile : 45px;
+$font-size-heading-h1--small : 35px;
+
+// h2
+
+$font-size-heading-h2 : 41px;
+$font-size-heading-h2--mobile : 38px;
+$font-size-heading-h2--small : 35px;
+
+// h3
+
+$font-size-heading-h3: 2.1em;
+$font-size-heading-h3--mobile: 1.9em;
+
+// paragraph
+
+$font-size-paragraph--medium: 23px;
+$font-size-paragraph--medium--mobile: 20px;
+$font-size-paragraph: 18px;
+$font-size-paragraph--mobile: 16px;
+$font-size-paragraph--small: 16px;
+$font-size-paragraph--small--mobile: 14px;
+
+$line-height: 105%;
+$line-height-h2: 110%;
+$line-height-h3: 115%;
+$line-height-paragraph: 30px;
+$line-height-overline: 100%;
+
+
+
+// Breakpoints
+
+$breakpoints: (
+    "small-phone": 320px,
+    "mid-phone": 360px,
+    "phone": 480px,
+    "large-phone": 600px,
+    "small-tablet":  768px,
+    "mid-tablet": 896px,
+    "tablet": 1024px,
+    "large-tablet": 1300px,
+    "small-desktop": 1440px,
+    "desktop": 1920px,
+);
+
+
+:root {
+    --space-small: 32px;
+    --space-medium: 64px;
+    --space-large: 100px;
+
+    --space-super-small: 16px;
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        --space-small: 32px;
+        --space-medium: 32px;
+        --space-large: 120px;
+    }
+
+    @media(max-width: map-get($breakpoints, "phone")) {
+        --space-large: 90px;
+    }
+}
+

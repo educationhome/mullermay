@@ -1,0 +1,54 @@
+@use "../settings/config";
+
+.footer-section {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    overflow: hidden;
+
+    background-color: $color-purple;
+    padding: 64px;
+
+    z-index: 2;
+
+    &__soc-media {
+        display: flex;
+        gap: 8px;
+
+        margin-bottom: 28px;
+    }
+
+    &__links {
+        display: flex;
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    & .icon__footer-logo-background {
+        position: absolute;
+
+        width: 965px;
+        height: 563.856px;
+
+        opacity: 0.3;
+        z-index: -1;
+
+        top: 15px;
+    }
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        padding: 32px;
+
+        & .icon__footer-logo-background {
+            height: 325.542px;
+            width: 615px;
+
+            top: 101px;
+            left: -32px;
+        }
+    }
+}

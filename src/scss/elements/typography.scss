@@ -1,0 +1,77 @@
+@use "../settings/config";
+@import "../tools/mixins";
+
+.heading {
+    font-family:  config.$font-primary;
+    word-break: break-word;
+    line-height: $line-height;
+
+
+    &__h1 {
+        font-size: config.$font-size-heading-h1;
+        font-weight: 600;
+        color: config.$color-purple;
+
+        @media (max-width: map-get($breakpoints, "tablet")) {
+            font-size: config.$font-size-heading-h1--mobile;
+        }
+
+        @media(max-width: map-get($breakpoints, "phone")) {
+            font-size: config.$font-size-heading-h1--small;
+        }
+
+        &.--header {
+            margin: 8px 0 32px 0; 
+        }
+    }
+
+    &__h2 {
+        font-size: config.$font-size-heading-h2;
+        font-weight: 600;
+        color: config.$color-purple;
+
+        @media (max-width: map-get($breakpoints, "small-tablet")) {
+            font-size: config.$font-size-heading-h2--mobile;
+        }
+
+        @media(max-width: map-get($breakpoints, "phone")) {
+            font-size: config.$font-size-heading-h2--small;
+        }
+    }
+
+    &__h3 {
+        color: config.$color-purple;
+        font-size: $font-size-heading-h3;
+        font-weight: 500;
+
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            font-size: $font-size-heading-h3--mobile;
+        }
+    }
+
+    &__uppercase {
+        text-transform: uppercase;
+    }
+}
+
+.paragraph {
+    @include paragraph;
+}
+
+.overline {
+    font-family:  config.$font-primary;
+    font-size: config.$font-size-paragraph;
+    color: config.$color-purple;
+
+    font-style: normal;
+    font-weight: 600;
+    line-height: config.$line-height-overline;
+    text-transform: uppercase;
+}
+
+.text-wrapper {
+
+    &__headline {
+        max-width: 620px;
+    }
+}

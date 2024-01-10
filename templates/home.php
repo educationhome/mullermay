@@ -6,40 +6,27 @@
 
 get_header();
 
-?>
-
-<?php
-
 $pageId = get_the_ID();
 
 ?>
 
-<article id="home-page" data-page-id="<?php echo $pageId; ?>">
+<div id="home-page" data-template="home">
 
-    <!-- HEADER -->
-    <?php get_template_part("partials/common", "header", [
-        "overline" => get_field("page_overline", $pageId),
-        "headline" => get_field("page_header", $pageId),
-        "headerBackground" => get_field("page_header_background", $pageId),
-    ]); ?>
-    <!-- /HEADER -->
+    <!-- Header -->
+    <?php get_template_part("partials/common", "header"); ?>
+    <!-- /Header -->
 
-    <div class="o-container -medium">
-
+    <!-- Content -->
+    <div id="home-page-content">
+        <?php the_content(); ?>
     </div>
-    
+    <!-- /Content -->
 
-    <!-- FLEXIBLE CONTENT -->
-    <div id="page-content" class="s-user-blocks">
-        <?php get_template_part("partials/flexible-content", "loop", [
-                "fieldId" => "home_0_flexible_content",
-                "pageId" => $pageId,
-        ]);
-        ?>
-    </div>
-    <!-- /FLEXIBLE CONTENT -->
+    <!-- Footer -->
+    <?php get_template_part("partials/common", "footer"); ?>
+    <!-- /Footer -->
 
-</article>
+</div>
 
 
 <?php get_footer(); ?>

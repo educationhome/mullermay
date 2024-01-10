@@ -1,70 +1,95 @@
-<?php
+<?php 
+$menuItems = getMenuItems();
 
-/**
- * @var $args array
- */
-
-$headline = $args["headline"];
-$headerBackground = $args["headerBackground"];
-$overline = $args["overline"];
-
-// Menu!!!
-// $menuItems = btc_getMenuItems();
-
-$whatsappLink = "";
-$terminLink = ""; 
-
+$notificationContent = getNotificationContent();
+$notificationHeadline = $notificationContent["headline"];
+$notificationText = $notificationContent["text"];
+$notificationOpenTimes = $notificationContent["openTimes"];
 ?>
 
+<header class="header__desktop || container__small">
 
-<header id="main-header" class="c-header">
-    <div class="c-header_inner || o-padding -small-top -small-bottom">
+    <div class="header__inner --is-desktop">
+        <a class="header__inner__logo" href="<?php echo home_url(); ?>">
+            <?php get_template_part("partials/common", "sprite-svg", [
+                    "name" => "mullermay-logo",
+                    "classes" => "icon__header-logo",
+            ]); ?>
 
-        <div class="c-header_row -center || o-container -small ">
+            <?php get_template_part("partials/common", "sprite-svg", [
+                    "name" => "mullermay-logo-text",
+                    "classes" => "icon__header-logo-text",
+            ]); ?>
+        </a>
 
-            <div class="c-header_column -center">
-                
-                <span class="c-overline || o-text-wrapper -small">
-                    <?php echo $overline; ?>
-                </span>
-                <h1 class="c-heading -h1 || o-text-wrapper -small">
-                    <?php echo $headline; ?>
-                </h1>
+        <?php foreach ($menuItems as $menuItem): ?>
+            <?php if($menuItem["customLink"]["mm_is_cl"]): ?>
+                <a href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__semi-bold"><?php echo $menuItem["customLink"]["mm_cl_label"]; ?></p></a>
+            <?php else: ?>
+                <a href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__semi-bold"><?php echo $menuItem["customLink"]["mm_cl_label"]; ?></p></a>
+            <?php endif; ?>
+        <?php endforeach; ?>
 
-                <div class="c-header_column -center || o-flex || c-header-contact">
-                    <a href="#" type="button" class="c-header-button -bg-orange">
-                        <span class="c-overline -text-tr-none -dark-grey">
-                            <?php _e("Termin finden"); ?>
-                        </span>
-                    </a>
+        <button class="header__notification-button" data-button="information">
+            <?php get_template_part("partials/common", "sprite-svg", [
+                "name" => "notification-button",
+                "classes" => "icon__header-notification",
+            ]); ?>
 
-                    <a href="#" type="button" class="c-header-button -bg-white -gap8 || o-flex -ai-center -no-media">
-                        <?php get_template_part("partials/common", "sprite-svg", [
-                                "name" => "whatsapp",
-                                "classes" => "c-icon -small",
-                        ]); ?>
-                        <span class="c-overline -text-tr-none -dark-green">
-                            <?php _e("Auf Whatsapp chatten"); ?>
-                        </span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="c-header-background_container">
-                <?php
-                    if ($headerBackground["type"] === "video") {
-                        renderVideo($headerBackground, "c-header-background", "playsinline loop muted autoplay");
-                    } else if ($headerBackground["type"] === "image") {
-                        renderImage($headerBackground, "c-header-background");
-                    }
-                ?>
-
-                <?php get_template_part("partials/common", "sprite-svg", [
-                    "name" => "mullermay-video-form",
-                    "classes" => "c-icon -video-form",
-                ]); ?>
-            </div>
-        </div>
+            <p class="paragraph paragraph__primary-family paragraph__bold paragraph__warm-white">Informationen</p>
+        </button>
 
     </div>
+
 </header>
+
+<header class="header__mobile || padding__top-super-small" data-header-mobile>
+
+    <div class="header__inner --is-mobile || container__small"> 
+        <a class="header__inner__logo" href="<?php echo home_url(); ?>">
+            <?php get_template_part("partials/common", "sprite-svg", [
+                    "name" => "mullermay-logo",
+                    "classes" => "icon__header-logo",
+            ]); ?>
+
+            <?php get_template_part("partials/common", "sprite-svg", [
+                    "name" => "mullermay-logo-text",
+                    "classes" => "icon__header-logo-text",
+            ]); ?>
+        </a>
+
+        <button class="button__menu" data-open-menu>
+            <?php get_template_part("partials/common", "sprite-svg", [
+                    "name" => "menu",
+                    "classes" => "icon__header-menu",
+            ]); ?> 
+        </button>
+
+        <div class="header__notification-button" data-button="information">
+            <?php get_template_part("partials/common", "sprite-svg", [
+                "name" => "notification-button",
+                "classes" => "icon__header-notification",
+            ]); ?>
+        </div>
+    </div>
+
+</header>
+
+<div class="notification__content">
+    <div class="notification__block">
+        <div class="notification__block-headline">
+            <p class="paragraph paragraph__warm-white paragraph__primary-family paragraph__semi-bold"><?php echo $notificationHeadline; ?></p>
+            <button class="notification__close-button">
+                <?php get_template_part("partials/common", "sprite-svg", [
+                    "name" => "notification-close-button",
+                    "classes" => "icon__notification-close-button",
+                ]); ?>
+            </button>
+        </div>
+
+        <div class="notification__block-content">
+            <p class="paragraph paragraph__body paragraph__warm-white paragraph__small"><?php echo $notificationText; ?></p>
+            <p class="paragraph paragraph__body paragraph__warm-white paragraph__small"><?php echo $notificationOpenTimes; ?></p>
+        </div>
+    </div>
+</div>

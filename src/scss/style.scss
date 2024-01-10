@@ -1,6 +1,4 @@
-@import "utils/index";
-@import "base/index";
-@import "content/index";
-@import "pages/index";
-@import "layout/index";
-
+@import "./settings";
+@import "./generic";
+@import "./elements";
+@import "./components";

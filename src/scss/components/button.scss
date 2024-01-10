@@ -1,0 +1,68 @@
+@use "../settings/config";
+
+
+.header-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        flex-wrap: wrap;
+        align-items: flex-start;
+
+        & .button {
+            padding: 16px; 
+        }
+    }
+}
+
+.book-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        & .button {
+            padding: 16px; 
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+       }
+    }
+}
+
+.button {
+    display: flex;
+    
+    width: fit-content;
+
+    padding: 20px 40px;
+    border-radius: 16px;
+
+    &.--bg-orange {
+        background-color: config.$color-orange;
+    }
+
+    &.--bg-white {
+        background-color: config.$color-white;
+        gap: 8px;
+    }
+
+    @media(max-width: map-get($breakpoints, "large-tablet")) {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+    }
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        flex-direction: row;
+    }
+}
+
+
+.notification__close-button {
+    cursor: pointer;
+} 

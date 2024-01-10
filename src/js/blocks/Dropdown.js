@@ -1,103 +1,80 @@
-// import {bind, transform} from "../utils/helper";
+import { gsap } from "gsap";
 
+export class DropDown {
 
-// class Dropdown {
+    constructor() {
+        this.root = document.querySelector('[data-template="drop-down"]');
+        
+        if(!this.root) {
+            return;
+        }
+        
+        this.dropDownQuestion = document.querySelectorAll(".fb-drop-down__question");
+        this.dropDown = document.querySelectorAll(".fb-drop-down");
 
-//     constructor($target) {
-//         this.$root = $target;
-//         this.$header = $target.querySelector(".c-dropdown_header");
-//         this.$body = $target.querySelector(".c-dropdown_body");
-//         this.$content = $target.querySelector(".c-dropdown_body-content");
-//         this.$background = $target.querySelector(".c-dropdown_bg");
+        this.dropDown.forEach(element => {
+            this.saveHeight(element);
+            this.hideDropDownText(element);
+        });
 
-//         this.contentHeight = null;
-//         this.backgroundY = null;
+        this.mount();
+    }
 
+    mount() {
+        this.addEvents();
+    }
 
-//         bind(
-//             this,
-//             "onClickDropdownHeader",
-//         );
+    addEvents() {
+        this.dropDownQuestion.forEach(element => {
+            element.addEventListener("click", (e) => this.openDropDown(e));
+        });
+    }
 
+    openDropDown(element) {
+        let parentEl = element.target.parentElement;
 
-//         this.calcValues();
-//         this.mount();
-//     }
+        if (parentEl.classList.contains("fb-drop-down__question")) {
+            parentEl = parentEl.parentElement;
+        }
+        
+        const dropDownText = parentEl.querySelector(".fb-drop-down__text");
+        const dropDownHeight = parentEl.dataset.height;
+        
+        parentEl.classList.toggle("--is-opened");
 
+        if (parentEl.classList.contains("--is-opened")) {
+            dropDownText.style.display = "flex";
 
+            const tl = gsap.timeline();
+            tl.to(dropDownText, { marginTop: "10px", duration: 0 })
+            .to(dropDownText, { maxHeight: dropDownHeight, duration: 0.5, ease: "expo.out" })
+            return;
+        } else {
+            const tl = gsap.timeline();
+            tl.to(dropDownText, { maxHeight: "0", duration: 0.5, ease: "expo.out" })
+            .to(dropDownText, { display: "none", duration: 0 })
+            .to(dropDownText, { marginTop: "0", duration: 0 }, "-=0.250")
+        }
 
-//     // Lifetime functions.
+        
+    }
 
-//     mount() {
-//         this.addEvents();
-//     }
+    getHeight(element) {
+        const dropDownText = element.querySelector(".fb-drop-down__text");
+        const dropDownHeight = dropDownText.clientHeight;
+        return dropDownHeight;
+    }
 
-//     unmount() {
-//         this.removeEvents();
-//     }
+    saveHeight(element) { 
+        const height = this.getHeight(element);
+        element.dataset.height = height;
+    }
 
-//     addEvents() {
-//         this.$header.addEventListener("click", this.onClickDropdownHeader, { passive: true });
-//     }
+    hideDropDownText(element) {
+        const dropDownText = element.querySelector(".fb-drop-down__text");
+        dropDownText.style.display = "none";
+        dropDownText.style.maxHeight = 0;
+    }
 
-//     removeEvents() {
-//         this.$header.removeEventListener("click", this.onClickDropdownHeader);
-//     }
+}
 
-
-
-//     // Setup.
-
-//     // Helper.
-
-//     calcValues() {
-//         this.isMobileSize = window.innerWidth < 1024;
-//         this.contentHeight = Math.max(this.$content.offsetHeight, this.isMobileSize ? 0 : 400);
-
-//         if (this.$background && !this.isMobileSize) {
-//             const dropdownBounds = this.$root.getBoundingClientRect();
-//             const backgroundBounds = this.$background.getBoundingClientRect();
-//             this.backgroundY = ((dropdownBounds.height + this.contentHeight) / 2) - (backgroundBounds.height / 2);
-//         }
-//     }
-
-//     closeDropdown() {
-//         if (this.$background && !this.isMobileSize) {
-//             transform(this.$background, `translateY(0)`);
-//         }
-
-//         this.$body.style.height = 0;
-
-//         this.$root.classList.remove("is-open");
-//     }
-
-//     openDropdown() {
-//         this.$body.style.height = `${this.contentHeight}px`;
-
-//         if (this.$background && !this.isMobileSize) {
-//             transform(this.$background, `translateY(${this.backgroundY}px)`);
-//         }
-
-//         this.$root.classList.add("is-open");
-//     }
-
-
-
-//     // Event callbacks.
-
-//     onResize(event) {
-//         console.log("DDResize");
-
-//         // this.calcValues();
-//     }
-
-//     onClickDropdownHeader(event) {
-//         if (this.$root.classList.contains("is-open")) {
-//             this.closeDropdown();
-//         } else {
-//             this.openDropdown();
-//         }
-//     }
-// }
-
-// export default Dropdown;

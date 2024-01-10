@@ -17,8 +17,8 @@ export default {
     output: {
         dir: "dist",
         format: "esm",
-        entryFileNames: "[name].[hash].js",
-        chunkFileNames: "[name].[hash].js",
+        entryFileNames: "[name].js",
+        chunkFileNames: "[name].js",
     },
     treeshake: isProd,
     preserveEntrySignatures: false,

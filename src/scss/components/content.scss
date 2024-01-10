@@ -1,0 +1,443 @@
+@use "../settings/config";
+@import "../tools/mixins";
+
+// Flexible Content
+
+.fb-team-member {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    z-index: 2;
+    border-radius: 40px;
+
+    background-color: $color-warm-white80;
+    padding: 32px 32px 0 32px;
+    gap: 50px;
+
+    &__image {
+
+        & .icon__logo-white {
+            display: none;
+
+
+            .fb-review {
+
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+
+    @media(max-width: map-get($breakpoints, "phone")) {
+        font-size: config.$font-size-heading-h1--small;
+    }
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        flex-direction: column;
+
+        padding: 32px 24px;
+
+        gap: 32px;
+
+        &__image {
+            background-color: #feebd2;
+            border-radius: 24px;
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            justify-content: center;
+
+            & img {
+                z-index: 1;
+            }
+
+            & .icon__logo-white {
+                position: absolute;
+
+                display: flex;
+
+                z-index: 0;
+                left: -113px;
+                top: 43px;
+            }
+        }
+
+        &__background {
+            display: none;
+        }
+    }
+
+    &__background {
+        position: absolute;
+        z-index: -1;
+
+        left: -451px;
+        bottom: -295px;
+    }
+}
+
+
+.fb-home-services-list {
+    display: flex;
+    flex-direction: column;
+    border-radius: 40px;
+
+    background-color: $color-warm-white80;
+    padding: 32px;
+    
+    margin-top: 32px;
+
+    & .heading__h2 {
+        max-width: 696px;
+    }
+
+    &__info {
+        display: flex;
+        gap: 32px;
+
+        & img {
+            object-fit: cover;
+            max-width: 600px;
+            max-height: 400px;
+            border-radius: 16px;
+        }
+
+        @media(max-width: map-get($breakpoints, "tablet")) {
+            flex-direction: column;
+            gap: 16px;
+
+            & img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    &__block {
+        display: flex;
+        padding: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        border-radius: 24px;
+        background: $color-white;
+
+        max-height: 400px;
+        max-width: 362px;
+        width: 100%;
+
+        min-height: 278px;
+
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+           max-width: none;
+           width: 100%;
+           min-height: 0;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        gap: 16px;
+
+        margin-top: 32px;
+
+        & img {
+            margin-bottom: 16px;
+        }
+
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            gap: 8px;
+        }
+    }
+
+    & .padding__top-medium {
+        padding-top: 64px;
+    }
+}
+
+.fb-drop-down {
+    border-radius: 10px;
+
+    background-color: $color-warm-white80;
+    padding: 16px;
+    gap: 10px;
+    
+    &__question {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 21px;
+
+        svg {
+            transition: transform 0.250s;
+            transform: rotate(-180deg);
+        }
+    }
+
+    &__text {
+        overflow: hidden;
+        height: 100%;
+        margin-top: 10px;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        
+        margin: 32px 0;
+
+        
+        &.--is-mobile {
+            @media(min-width: map-get($breakpoints, "small-tablet")) {
+                display: none;
+            }
+        }
+
+        &.--is-desktop {
+            flex-direction: row;
+            gap: 32px;
+
+            & .fb-drop-down-table {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                max-width: 50%;
+                width: 100%;
+            }
+
+            @media(max-width: map-get($breakpoints, "small-tablet")) {
+                display: none;
+            }
+        }
+    }
+
+    &.--is-opened {
+        .fb-drop-down__question {
+            & svg {
+                transform: rotate(0deg);
+            }
+        }
+
+        .fb-drop-down__text {
+            display: flex;
+        }
+    }
+}
+
+.fb-home-small-info-block {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    border-radius: 40px;
+
+    background-color: $color-warm-white80;
+    padding: 32px;
+    
+    margin-top: 32px;
+}
+
+.text-content {
+    p {
+        @include paragraph;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+
+.fb-review {
+    &__item {
+        display: flex;
+        
+        flex-direction: row;
+        align-items: flex-start;
+
+        gap: 26px;
+
+        z-index: 2;
+        border-radius: 40px;
+
+        background-color: $color-warm-white80;
+        padding: 32px;
+        
+        margin-top: 32px;
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+    }
+}
+
+
+.fl-book-now {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 64px;
+
+    align-items: center;
+    text-align: center;
+    gap: 64px;
+    border-radius: 16px;
+
+    background-color: $color-purple-100;
+
+    &__soc-media {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        gap: 32px;
+    }
+
+}
+
+.notification {
+
+    &__content {
+        background-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        height: 100vh;
+
+        top: 0;
+        position: fixed;
+        z-index: -1;
+
+        transition: background-color 0.3s ease-in-out;
+
+        overflow: hidden;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        padding: 32px;
+        margin: 0 16px;
+
+        background-color: $color-purple;
+        border-radius: 40px;
+
+        position: absolute;
+        bottom: 0;
+
+        transform: translateY(100%);
+        transition: transform 0.4s ease-in-out;
+
+        &-headline {
+            display: flex;
+            justify-content: space-between;
+
+            width: 100%;
+        }
+
+        &-content {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 41px;
+
+            & p:nth-child(1) {
+                max-width: 280px;
+            }
+
+            @media(max-width: map-get($breakpoints, "small-tablet")) {
+                flex-direction: column;
+                gap: 16px;
+            }           
+        }
+    }
+}
+
+
+.container__404 {
+    background-color: $color-warm-white90;
+    border-radius: 40px;
+
+    padding: 64px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 32px;
+
+    &-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        gap: 8px;
+
+        max-width: 440px;
+
+        strong {
+            font-weight: 600;
+            color: #2E2D2C;
+        }
+
+        p {
+            @include paragraph;
+            font-weight: 400;
+            line-height: 28px;
+        } 
+    }
+
+    &-mobile-image {
+        display: none;
+    }
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        align-items: flex-start;
+
+        margin-top: 100px;
+
+        border-radius: 0%;
+        background-color: transparent;
+        padding: 32px 16px;
+
+        &-text {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        &-image {
+            display: none;
+        }
+
+        &-mobile-image {
+            display: initial;
+        }
+    }
+}

@@ -1,0 +1,72 @@
+@use "../settings/config";
+
+@mixin paragraph {
+    font-family: config.$font-secondary;
+    font-size: config.$font-size-paragraph;
+    font-weight: 400;
+    word-break: break-word;
+
+    color: #2E2D2C;
+
+    line-height: config.$line-height-paragraph;
+
+
+    &__small {
+        font-size: config.$font-size-paragraph--small;
+    }
+
+    &__medium {
+        font-size: config.$font-size-paragraph--medium;
+        line-height: config.$line-height-h3;
+
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            font-size: config.$font-size-paragraph--medium--mobile;
+        }
+    }
+
+    &__semi-bold {
+        font-weight: 600;
+        line-height: 24px;
+    }
+
+    &__dark-grey {
+        color: config.$color-dark-grey;
+    }
+
+    &__dark-green {
+        color: config.$color-dark-green;
+    }
+
+    &__primary-family {
+        font-family: config.$font-primary;
+    }
+
+    &__bold {
+        line-height: 20px;
+        font-weight: 700;
+    }
+
+    &__warm-white {
+        color: config.$color-warm-white;
+    }
+
+    &__body {
+        font-weight: 400;
+        line-height: 24px;
+    }
+
+    &__copyright {
+        opacity: 0.6;
+        color: rgba(255, 247, 236, 0.50);
+    }
+
+    &__menu {
+        font-size: 20px;
+        font-weight: 600;
+        width: fit-content;
+    }
+
+    &__ln_h_normal {
+        line-height: normal;
+    }
+}

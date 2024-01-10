@@ -1,13 +1,9 @@
 <?php
-
-/**
- * @var $args array
- */
+// Code for sprite SVG 
 
 $name = $args["name"];
 $classes = $args["classes"] ?? "";
-$classes = "c-svg-" . $name . " || o-media || " . $classes;
-$url = gtdir("/assets/images/sprite.svg") . "#$name";
+$url = get_template_directory_uri() . "/assets/images/sprite.svg" . "#$name";
 
 echo <<<HTML
 <svg class="$classes" aria-hidden="true" focusable="false" role="img">
@@ -15,3 +11,4 @@ echo <<<HTML
 </svg>
 HTML;
 
+?>
