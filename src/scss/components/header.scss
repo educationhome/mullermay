@@ -6,7 +6,7 @@
     top: 0;
     z-index: 10;
 
-    @media(max-width: map-get($breakpoints, "small-tablet")) {
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
         position: fixed;
         display: block;
     }
@@ -15,7 +15,7 @@
 .header__desktop {
     display: block;
 
-    @media(max-width: map-get($breakpoints, "small-tablet")) {
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
         display: none;
     }
 }
@@ -58,7 +58,7 @@
         }
     }
 
-    @media(max-width: map-get($breakpoints, "tablet")) {
+    @media(max-width: map-get($breakpoints, "medium-tablet")) {
         & .icon__header-logo-text {
             width: 113.669px;
         }
@@ -100,7 +100,7 @@
 
     cursor: pointer;
 
-    @media(max-width: map-get($breakpoints, "small-tablet")) {
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
         position: absolute;
 
         width: auto;
@@ -146,7 +146,7 @@
         z-index: 1;
     }
 
-    @media(max-width: map-get($breakpoints, "small-tablet")) {
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
         max-width: none;
     }
 }
@@ -162,7 +162,7 @@
     padding-bottom: 22px;
 
 
-    @media(max-width: map-get($breakpoints, "small-tablet")) {
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
         flex-direction: column-reverse;
         justify-content: normal;
         align-items: normal;

@@ -37,11 +37,13 @@
 
 .button {
     display: flex;
-    
+    align-items: center;
     width: fit-content;
 
     padding: 20px 40px;
     border-radius: 16px;
+
+    cursor: pointer;
 
     &.--bg-orange {
         background-color: config.$color-orange;
@@ -50,6 +52,12 @@
     &.--bg-white {
         background-color: config.$color-white;
         gap: 8px;
+    }
+
+    &.--bg-white-and-orange {
+        border-radius: 10px;
+        background-color: transparent;
+        border: 1.278px solid $color-orange-400;
     }
 
     @media(max-width: map-get($breakpoints, "large-tablet")) {

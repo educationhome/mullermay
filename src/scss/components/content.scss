@@ -3,7 +3,7 @@
 
 // Flexible Content
 
-.fb-team-member {
+.fb-team-members {
     position: relative;
     overflow: hidden;
 
@@ -20,11 +20,6 @@
 
         & .icon__logo-white {
             display: none;
-
-
-            .fb-review {
-
-            }
         }
     }
 
@@ -122,32 +117,18 @@
     }
 
     &__block {
+        align-items: flex-start;
+        background: #fff;
+        border-radius: 24px;
         display: flex;
+        gap: 8px;
         padding: 24px;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-
-        border-radius: 24px;
-        background: $color-white;
-
-        max-height: 400px;
-        max-width: 362px;
-        width: 100%;
-
-        min-height: 278px;
-
-        @media(max-width: map-get($breakpoints, "small-tablet")) {
-           max-width: none;
-           width: 100%;
-           min-height: 0;
-        }
     }
 
     &__content {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 
         gap: 16px;
 
@@ -160,10 +141,18 @@
         @media(max-width: map-get($breakpoints, "small-tablet")) {
             gap: 8px;
         }
+
+        @media(max-width: map-get($breakpoints, "phone")) {
+            grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+        }
     }
 
     & .padding__top-medium {
         padding-top: 64px;
+    }
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        padding: 24px;
     }
 }
 
@@ -249,11 +238,281 @@
     padding: 32px;
     
     margin-top: 32px;
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        padding: 24px;
+    }
+}
+
+.fb-service {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 64px;
+
+    margin-top: 32px;
+
+    &__block {
+
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        background-color: $color-warm-white80;
+        border-radius: 24px;
+        padding: 24px;
+
+        position: relative;
+        overflow: hidden;
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) {
+            flex-direction: row;
+            padding: 32px;
+        }
+        
+    }
+
+    &__photo {
+        max-height: none;
+        max-width: none;
+
+        width: 100%;
+        height: 100%;
+
+        border-radius: 40px;
+
+        z-index: 1;
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) {
+            max-width: 395px;
+            max-height: 299px;
+        }
+    }
+
+    &__content {
+        z-index: 1;
+
+        & .text-content {
+            margin-top: 32px;
+        }
+    }
+
+    &__time {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        margin-top: 8px;
+    }
+
+    &__load-text-button {
+        display: flex;
+
+        margin: 22px 0 54px 0;
+        width: fit-content;
+        cursor: pointer;
+    }
+
+    &__text {
+        p {
+            display: -webkit-box;
+            max-width: 700px;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            -webkit-line-clamp: 5;
+        }
+
+        &.--is-showed {
+            p {
+                -webkit-line-clamp: unset;
+            }
+        }
+    }
+
+    &__background {
+        position: absolute;
+
+        bottom: -200px;
+        left: -451px;
+    }
+
+    &__text-close {
+        display: block;
+
+        &.--hide {
+            display: none;
+        }
+    }
+
+    &__text-open {
+        display: block;
+
+        &.--hide {
+            display: none;
+        }
+    }
+
+}
+
+.fb-team-member {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 64px;
+
+    margin-top: 32px;
+
+    &__block {
+
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        padding: 24px;
+
+        background-color: $color-warm-white80;
+        border-radius: 24px;
+
+        position: relative;
+        overflow: hidden;
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) {
+            flex-direction: row;
+            padding: 0;
+        }
+        
+    }
+
+    &__photo {
+        position: relative;
+        
+        display: flex;
+        justify-content: center;
+
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        border-radius: 40px;
+
+        border-radius: 24px;
+        background: $color-warm-white90;
+
+        align-self: flex-end;
+
+        z-index: 1;
+
+        & .icon__background-team-member {
+            display: block;
+            position: absolute;
+            z-index: -1;
+
+            left: -45px;
+            bottom: -29px;
+
+            @media(min-width: map-get($breakpoints, "mid-tablet")) {
+               display: none;
+            }
+        }
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) { 
+            max-width: 412px;
+            background: transparent;
+        }
+
+        & img {
+            object-fit: contain;
+            max-width: 224px;
+            min-height: 297px;
+
+
+            margin: 6px 28px 0 28px;
+
+            @media(min-width: map-get($breakpoints, "small-tablet")) {
+                min-width: 412px;
+                margin-top: 48px;
+            }
+        }
+    }
+
+    &__content {
+        z-index: 1;
+
+        & .text-content {
+            margin-top: 32px;
+        }
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) {
+            padding: 32px 32px 0 32px;
+        }
+    }
+
+    &__load-text-button {
+        display: flex;
+
+        margin: 22px 0 54px 0;
+        width: fit-content;
+        cursor: pointer;
+
+        align-items: center
+    }
+
+    &__text {
+        display: -webkit-box;
+        max-width: 700px;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 7;
+
+        p {
+            margin-bottom: 18px;
+        }
+
+        p:last-child {
+            margin-bottom: 5px;
+        }
+
+        &.--is-showed {
+            -webkit-line-clamp: unset;
+        }
+    }
+
+    &__background {
+        display: none;
+
+        position: absolute;
+
+        bottom: -200px;
+        left: -451px;
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) {
+            display: block;
+        }
+    }
+
+    &__text-close {
+        display: block;
+
+        &.--hide {
+            display: none;
+        }
+    }
+
+    &__text-open {
+        display: block;
+
+        &.--hide {
+            display: none;
+        }
+    }
+
 }
 
 .text-content {
     p {
-        @include paragraph;
+        @include paragraph__body;
     }
 
     strong {
@@ -263,8 +522,56 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    &.--dsp-wbkt {
+        display: -webkit-box;
+        gap: 0;
+    }
+
+    h3 {
+        @include heading-h3;
+    }
 }
 
+.impress-and-privacy__text {
+    & p {
+        @include paragraph__small;
+    }
+
+    strong {
+        @include paragraph;
+        font-weight: 600;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    display: flex;
+    flex-direction: column;
+
+    &.--dsp-wbkt {
+        display: -webkit-box;
+        gap: 0;
+    }
+
+    & ul {
+        list-style: inside;
+        padding-left: 15px;
+        @include paragraph__small;
+    }
+}
+
+.imprint-and-privacy__header {
+    & button {
+        margin: 64px 0 64px 0;
+
+        @media(min-width: map-get($breakpoints, "small-tablet")) {
+            margin: 64px 0 128px 0;
+        }
+    }
+}
 
 .fb-review {
     &__item {
@@ -381,7 +688,6 @@
 
 
 .container__404 {
-    background-color: $color-warm-white90;
     border-radius: 40px;
 
     padding: 64px;
@@ -414,10 +720,6 @@
         } 
     }
 
-    &-mobile-image {
-        display: none;
-    }
-
     @media(max-width: map-get($breakpoints, "small-tablet")) {
         align-items: flex-start;
 
@@ -433,11 +735,108 @@
         }
 
         &-image {
-            display: none;
+            max-width: 137px;
+            max-height: 55px;
         }
 
-        &-mobile-image {
-            display: initial;
+    }
+}
+
+
+.fb-google-maps {
+
+
+    &__block {
+        margin-left: 0;
+        margin-right: 0;
+
+        & #map {
+            border-radius: 0px;
+            height: 410px;
+        }
+
+        @media(min-width: map-get($breakpoints, "phone")) {
+            & #map {
+                height: 505px;
+            }
+        }
+
+        @media(min-width: map-get($breakpoints, "mid-tablet")) {
+            position: relative;
+
+            & #map {
+                border-radius: 40px;
+                height: 605px;
+            }
+
+            @include container--small;
+        }
+    }
+
+    &__info {
+
+        &.--is-desktop {
+            display: none;
+
+            @media(min-width: map-get($breakpoints, "mid-tablet")) {
+                position: absolute;
+    
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+        
+                max-width: 250px;
+                max-height: 474px;
+                width: 100%;
+                padding: 32px;
+        
+                top: 0;
+                border-radius: 40px;
+        
+                margin: 62px 0 62px 20px;
+        
+                background-color: $color-white;
+            }
+
+            @media(min-width: map-get($breakpoints, "tablet")) {
+                max-width: 308px;
+                top: 5%;
+                margin: 62px 0 62px 49px;
+            }
+        }
+
+        &.--is-mobile {
+    
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-top: 24px;
+    
+            @include container--small;
+
+            max-width: 328px;
+
+            @media(min-width: map-get($breakpoints, "mid-tablet")) {
+               display: none;
+            }
+        }
+
+        & a {
+            width: fit-content;
+        }
+    }
+
+    &__logo {
+        display: flex;
+        gap: 4px;
+    }
+
+    &__kontakt {
+        display: flex;
+        flex-direction: column;
+
+        & a {
+            width: fit-content;
         }
     }
 }

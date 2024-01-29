@@ -21,19 +21,18 @@ $text404 = get_field("404_text", "options");
     <!-- /Header -->
 
     <!-- 404 Error -->
-    <div class="container__small || container__404">
-        <img class="container__404-image" src="<?php echo $icon404["url"]; ?>" alt="<?php echo $icon404["title"]; ?>">
-        <img class="container__404-mobile-image" src="<?php echo $mobileIcon404["url"]; ?>" alt="<?php echo $mobileIcon404["title"]; ?>">
+    <div class="container--small container__404">
+        <img class="container__404-image lazy" data-src="<?php echo $icon404["url"]; ?>" alt="<?php echo $icon404["title"]; ?>">
 
         <div class="container__404-text">
-            <h2 class="heading heading__h2"><?php echo $header404; ?></h2>
+            <h2 class="heading heading-h2"><?php echo $header404; ?></h2>
             <div class="container__404-textarea">
                 <?php echo $text404; ?>
             </div>
         </div>
 
         <a href="<?php echo home_url(); ?>" type="button" class="button --bg-orange">
-            <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
+            <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold paragraph__small">
                 <?php _e("Zur Startseite"); ?>
             </p>
         </a>

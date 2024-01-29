@@ -3,10 +3,13 @@
 .mullermaySwiper {
     & .swiper-wrapper {
         display: flex;
+
+        height: auto;
     }
 
     & .swiper-slide {
         width: auto;
+        max-width: 1300px;
     }
 
     & img {
@@ -106,5 +109,9 @@
         & .fb-review__item {
             flex-direction: column;
         }
+    }
+
+    & .swiper-wrapper  {
+        height: auto;
     }
 }

@@ -7,7 +7,6 @@ export class Information_Button {
         this.infoContent = document.querySelector(".notification__content");
         this.closeButton = document.querySelector(".notification__close-button");
         this.infoBlock = document.querySelector(".notification__block");
-        // console.log(this.root);
         
         if(!this.root || !this.closeButton || !this.infoContent || !this.infoBlock) {
             return;
@@ -30,16 +29,19 @@ export class Information_Button {
 
     openInfoWindow() {
         const tl = gsap.timeline();
-        tl.to(this.infoContent, {zIndex: 11})
-        .to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0.3)" })
-        .to(this.infoBlock, { y: "-35%", duration: 0.1, ease: "expo.out" }, "-=0.1")
+        tl.set(this.infoContent, {zIndex: 11});
+        tl.addLabel("start");
+        tl.to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0.3)", duration: 0.1 }, "start");
+        tl.to(this.infoBlock, { y: "-15%", duration: 0, ease: "power2.out" }, "start");
     }
 
+    // tl set add Label
     closeInfoButton() {
         const tl = gsap.timeline();
-        tl.to(this.infoBlock, { y: "100%", duration: 0.001 })
-        .to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 })
-        .to(this.infoContent, {zIndex: -1, delay: 0.2})
+        tl.addLabel("end");
+        tl.to(this.infoBlock, { y: "100%", duration: 0 }, "end");
+        tl.to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 }, "end");
+        tl.set(this.infoContent, {zIndex: -1, delay: 0.3})
     }
 
 }

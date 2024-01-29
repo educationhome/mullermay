@@ -55,13 +55,23 @@
     }
 
     &__footer-logo-white {
-        width: 56.286px;
-        height: 27.629px;
+        width: 40px;
+        height: 18px;
+
+        @media (min-width: map-get($breakpoints, "small-tablet")) {
+            width: 56.286px;
+            height: 27.629px;
+        }
     }
 
     &__footer-logo-text-white {
-        width: 187.447px;
-        height: 34.861px;
+        width: 119.157px;
+        height: 22.161px;
+
+        @media (min-width: map-get($breakpoints, "small-tablet")) {
+            width: 187.447px;
+            height: 34.861px;
+        }
     }
 
     &__footer-soc-media {
@@ -84,5 +94,28 @@
         max-width: 24px;
         width: 100%;
         height: 100%;
+        transform: rotate(180deg);
+    }
+
+    &__time {
+        max-height: 24px;
+        max-width: 24px;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__background-team-member {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__logo-text-small {
+        width: 96.747px;
+        height: 17.993px;
+    }
+
+    &__logo-small {
+        width: 24.406px;
+        height: 14.26px;
     }
 }

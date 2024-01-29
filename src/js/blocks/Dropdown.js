@@ -9,8 +9,8 @@ export class DropDown {
             return;
         }
         
-        this.dropDownQuestion = document.querySelectorAll(".fb-drop-down__question");
-        this.dropDown = document.querySelectorAll(".fb-drop-down");
+        this.dropDownQuestion = this.root.querySelectorAll(".fb-drop-down__question");
+        this.dropDown = this.root.querySelectorAll(".fb-drop-down");
 
         this.dropDown.forEach(element => {
             this.saveHeight(element);
@@ -28,6 +28,8 @@ export class DropDown {
         this.dropDownQuestion.forEach(element => {
             element.addEventListener("click", (e) => this.openDropDown(e));
         });
+
+        addEventListener("resize", () => this.uploadHeightDataSet());
     }
 
     openDropDown(element) {
@@ -48,15 +50,12 @@ export class DropDown {
             const tl = gsap.timeline();
             tl.to(dropDownText, { marginTop: "10px", duration: 0 })
             .to(dropDownText, { maxHeight: dropDownHeight, duration: 0.5, ease: "expo.out" })
-            return;
         } else {
             const tl = gsap.timeline();
             tl.to(dropDownText, { maxHeight: "0", duration: 0.5, ease: "expo.out" })
             .to(dropDownText, { display: "none", duration: 0 })
             .to(dropDownText, { marginTop: "0", duration: 0 }, "-=0.250")
         }
-
-        
     }
 
     getHeight(element) {
@@ -65,7 +64,7 @@ export class DropDown {
         return dropDownHeight;
     }
 
-    saveHeight(element) { 
+    saveHeight(element) {
         const height = this.getHeight(element);
         element.dataset.height = height;
     }
@@ -74,6 +73,17 @@ export class DropDown {
         const dropDownText = element.querySelector(".fb-drop-down__text");
         dropDownText.style.display = "none";
         dropDownText.style.maxHeight = 0;
+    }
+
+    uploadHeightDataSet() {
+        const dropDowns = document.querySelectorAll(".fb-drop-down__text");
+        dropDowns.forEach(element => {
+            element.style.maxHeight = "none";
+            element.style.display = "flex";
+
+            this.saveHeight(element.parentElement);
+            this.hideDropDownText(element.parentElement);
+        });
     }
 
 }

@@ -8,19 +8,19 @@ $menuItems = getMenuItems();
 
 ?>
 
-<div class="container__small || header__section || margin__top-super-small">
+<div class="container--small header__section margin__top-super-small">
 
     <div class="header__text-container">
         
         <span class="overline">
             <?php echo $overline; ?>
         </span>
-        <h1 class="heading heading__h1 --header || text-wrapper__headline">
+        <h1 class="heading heading-h1 --header text-wrapper__headline">
             <?php echo $headline; ?>
         </h1>
 
         <div class="header-buttons">
-            <a href="#" type="button" class="button --bg-orange">
+            <a href="/terminbuchung/" type="button" class="button --bg-orange">
                 <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                     <?php _e("Termin finden"); ?>
                 </p>
@@ -40,9 +40,9 @@ $menuItems = getMenuItems();
 
     <div class="header__background-container">
         <?php if ($headerBackground["type"] === "video"): ?>
-            <video src="<?php echo $headerBackground["url"] ?>" playsinline loop muted autoplay></video>
+            <video class="lazy" data-src="<?php echo $headerBackground["url"] ?>" playsinline loop muted autoplay></video>
         <?php elseif ($headerBackground["type"] === "image"): ?>
-            <img src="<?php echo $headerBackground["url"] ?>" alt="<?php echo $headerBackground["title"] ?>"> 
+            <img class="lazy" data-src="<?php echo $headerBackground["url"] ?>" alt="<?php echo $headerBackground["title"] ?>"> 
         <?php endif; ?>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="622" height="368" viewBox="0 0 622 368" fill="none" class="icon__header-video-form">

@@ -1,18 +1,55 @@
 @use "../settings/config";
 
+
+
+@mixin paragraph__body {
+    font-family: config.$font-secondary;
+
+    word-break: break-word;
+    font-size: config.$font-size-paragraph;
+
+    color: $color-dark-grey;
+    font-weight: 500;
+    line-height: 30px;
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        font-size: config.$font-size-paragraph--mobile;
+    }
+   
+}
+
+@mixin paragraph__small {
+    font-family: config.$font-secondary;
+    
+    font-weight: 400;
+    word-break: break-word;
+    font-size: config.$font-size-paragraph--small;
+
+    color: $color-dark-grey;
+
+    line-height: config.$line-height-paragraph;
+}
+
 @mixin paragraph {
     font-family: config.$font-secondary;
     font-size: config.$font-size-paragraph;
     font-weight: 400;
     word-break: break-word;
 
-    color: #2E2D2C;
+    color: $color-dark-grey;
 
     line-height: config.$line-height-paragraph;
 
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        font-size: config.$font-size-paragraph--mobile;
+    }
+
+    &__op-8 {
+        opacity: 0.8;
+    }
 
     &__small {
-        font-size: config.$font-size-paragraph--small;
+        @include paragraph__small;
     }
 
     &__medium {
@@ -26,7 +63,7 @@
 
     &__semi-bold {
         font-weight: 600;
-        line-height: 24px;
+        line-height: 30px;
     }
 
     &__dark-grey {
@@ -35,6 +72,14 @@
 
     &__dark-green {
         color: config.$color-dark-green;
+    }
+
+    &__purple {
+        color: config.$color-purple;
+    }
+
+    &__orange {
+        color: config.$color-orange-400;
     }
 
     &__primary-family {
@@ -50,11 +95,6 @@
         color: config.$color-warm-white;
     }
 
-    &__body {
-        font-weight: 400;
-        line-height: 24px;
-    }
-
     &__copyright {
         opacity: 0.6;
         color: rgba(255, 247, 236, 0.50);
@@ -68,5 +108,86 @@
 
     &__ln_h_normal {
         line-height: normal;
+    }
+
+    &__body {
+        @include paragraph__body;
+    }
+}
+
+
+@mixin heading {
+    font-family:  config.$font-primary;
+    word-break: break-word;
+    line-height: $line-height;
+
+
+    &-h1 {
+        font-size: config.$font-size-heading-h1;
+        font-weight: 600;
+        color: config.$color-purple;
+
+        @media (max-width: map-get($breakpoints, "tablet")) {
+            font-size: config.$font-size-heading-h1--mobile;
+        }
+
+        @media(max-width: map-get($breakpoints, "phone")) {
+            font-size: config.$font-size-heading-h1--small;
+        }
+
+        &.--header {
+            margin: 8px 0 32px 0; 
+        }
+    }
+
+    &-h2 {
+        font-size: config.$font-size-heading-h2;
+        font-weight: 600;
+        color: config.$color-purple;
+
+        @media (max-width: map-get($breakpoints, "small-tablet")) {
+            font-size: config.$font-size-heading-h2--mobile;
+        }
+
+        @media(max-width: map-get($breakpoints, "phone")) {
+            font-size: config.$font-size-heading-h2--small;
+        }
+    }
+
+    &-h3 {
+        @include heading-h3;
+    }
+
+    &__uppercase {
+        text-transform: uppercase;
+    }
+}
+
+@mixin heading-h3 {
+    font-family:  config.$font-primary;
+    color: config.$color-purple;
+    font-size: $font-size-heading-h3;
+    font-weight: 600;
+    word-break: break-word;
+
+    @media(max-width: map-get($breakpoints, "small-tablet")) {
+        font-size: $font-size-heading-h3--mobile;
+    }
+}
+
+@mixin container--small {
+    max-width: 1300px;
+    margin: 64px auto;
+
+    @media(max-width: map-get($breakpoints, "small-desktop")) {
+        margin: 64px;
+    }
+
+    @media(max-width: map-get($breakpoints, "tablet")) {
+        margin: 32px;
+    }
+    
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
+        margin: 0 16px;
     }
 }

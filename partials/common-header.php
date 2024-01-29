@@ -7,7 +7,8 @@ $notificationText = $notificationContent["text"];
 $notificationOpenTimes = $notificationContent["openTimes"];
 ?>
 
-<header class="header__desktop || container__small">
+
+<header class="header__desktop container--small">
 
     <div class="header__inner --is-desktop">
         <a class="header__inner__logo" href="<?php echo home_url(); ?>">
@@ -43,9 +44,9 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 
 </header>
 
-<header class="header__mobile || padding__top-super-small" data-header-mobile>
+<header class="header__mobile padding__top-super-small" data-header-mobile>
 
-    <div class="header__inner --is-mobile || container__small"> 
+    <div class="header__inner --is-mobile container--small"> 
         <a class="header__inner__logo" href="<?php echo home_url(); ?>">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo",
@@ -88,8 +89,8 @@ $notificationOpenTimes = $notificationContent["openTimes"];
         </div>
 
         <div class="notification__block-content">
-            <p class="paragraph paragraph__body paragraph__warm-white paragraph__small"><?php echo $notificationText; ?></p>
-            <p class="paragraph paragraph__body paragraph__warm-white paragraph__small"><?php echo $notificationOpenTimes; ?></p>
+            <p class="paragraph paragraph__warm-white paragraph__small"><?php echo $notificationText; ?></p>
+            <p class="paragraph paragraph__warm-white paragraph__small"><?php echo $notificationOpenTimes; ?></p>
         </div>
     </div>
 </div>

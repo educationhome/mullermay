@@ -9,6 +9,8 @@ $color-warm-white90: #FEEBD2;
 $color-dark-grey: #2E2D2C;
 $color-dark-green: #103928;
 $color-orange: #EE974B;
+$color-grey: rgba(29, 27, 32, 1);
+$color-orange-400: #CF6100;
 $color-white: #FFF;
 
 $color-background: $color-warm-white;
@@ -39,8 +41,8 @@ $font-size-heading-h2--small : 35px;
 
 // h3
 
-$font-size-heading-h3: 2.1em;
-$font-size-heading-h3--mobile: 1.9em;
+$font-size-heading-h3: 33px;
+$font-size-heading-h3--mobile: 30px;
 
 // paragraph
 
@@ -54,7 +56,7 @@ $font-size-paragraph--small--mobile: 14px;
 $line-height: 105%;
 $line-height-h2: 110%;
 $line-height-h3: 115%;
-$line-height-paragraph: 30px;
+$line-height-paragraph: 28px;
 $line-height-overline: 100%;
 
 
@@ -69,9 +71,11 @@ $breakpoints: (
     "small-tablet":  768px,
     "mid-tablet": 896px,
     "tablet": 1024px,
+    "medium-tablet": 1200px,
     "large-tablet": 1300px,
     "small-desktop": 1440px,
     "desktop": 1920px,
+    "large-desktop": 2300px,
 );
 
 

@@ -23,6 +23,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.69.5",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "vanilla-lazyload": "^17.8.5"
   }
 }

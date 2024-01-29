@@ -6,16 +6,29 @@ add_filter( "acf/fields/wysiwyg/toolbars" , "my_toolbars"  );
 function my_toolbars( $toolbars )
 {
 
-    $toolbars["MullerMay {paragraph, bolt}"] = array();
-    $toolbars["MullerMay {paragraph, bolt}" ][1] = array("bold");
+    $toolbars["MullerMay WYSIWYG"] = array();
+    $toolbars["MullerMay WYSIWYG" ][1] = array("bold", "link", "unlink", "formatselect");
 
     $toolbars["MullerMay Impressum und Datenschutz"] = array();
     $toolbars["MullerMay Impressum und Datenschutz"][1] = array("bold", "link", "unlink", "bullist");
 
+    $toolbars["MullerMay Google Maps"] = array();
+    $toolbars["MullerMay Google Maps"][1] = array("bold", "link", "unlink", "formatselect");
+
+    $toolbars["MullerMay Cookies WYSIWYG"] = array();
+    $toolbars["MullerMay Cookies WYSIWYG"][1] = array("bold", "link", "unlink");
+
     return $toolbars;
 }
 
-// Setup Custom Settings Page 
+// Setup Custom WYSIWYG Format Select
+
+add_filter( "tiny_mce_before_init", function( $settings ){
+    $settings["block_formats"] = "Paragraph=p;Subheading=h3";
+    return $settings;
+});
+
+// Setup Custom General Settings Page 
 
 if (function_exists("acf_add_options_page")) {
     acf_add_options_page([
@@ -25,13 +38,25 @@ if (function_exists("acf_add_options_page")) {
     ]);
 }
 
-// Setup Custom 404 Page 
+// Setup Custom 404 Settings Page 
 
 if (function_exists("acf_add_options_page")) {
     acf_add_options_page([
         "page_title" => "404 Page Settings",
         "menu_title" => "404 Page Settings",
         "menu_slug" => "404-page-settings",
+        "icon_url" => "dashicons-warning",
+    ]);
+}
+
+// Setup Custom Cookie Settings 
+
+if (function_exists("acf_add_options_page")) {
+    acf_add_options_page([
+        "page_title" => "Cookie Settings",
+        "menu_title" => "Cookie Settings ",
+        "menu_slug" => "cookie-settings",
+        "icon_url" => "dashicons-art",
     ]);
 }
 
@@ -137,6 +162,22 @@ function getNotificationContent() {
     return $notificationContent;
 }
 
+// Take Cookies Content
+
+function getCookiesContent() {
+    $cookieIcon = get_field("cookie_icon", "options");
+    $cookieHeadline = get_field("cookie_headline", "options");
+    $cookieText = get_field("cookie_text", "options");
+
+    $cookieContent = [
+        "icon" => $cookieIcon,
+        "headline" => $cookieHeadline,
+        "text" => $cookieText
+    ];
+
+    return $cookieContent;
+}
+
 // Set Flexible Content
 
 function addFlexibleBlock($template, $name, $fields) {
@@ -165,7 +206,7 @@ function register_acf_blocks() {
         "name"              => "dropdown",
         "title"             => __("Runterfallen Block"),
         "render_template"   => "blocks/drop-down.php",
-        "icon" => "arrow down",
+        "icon" => "arrow-down-alt2",
     ));
 
     acf_register_block_type(array(
@@ -176,59 +217,129 @@ function register_acf_blocks() {
     ));
 
     acf_register_block_type(array(
-        "name"              => "home_services_list",
+        "name"              => "services-list",
         "title"             => __("Liste mit Dienstleistungen"),
-        "render_template"   => "blocks/home_services_list.php",
-        "icon" => "align left",
+        "render_template"   => "blocks/home-services-list.php",
+        "icon" => "editor-alignleft",
+        "category" => "services",
     ));
 
     acf_register_block_type(array(
         "name"              => "small-info",
         "title"             => __("Kurzer Informationsblock"),
         "render_template"   => "blocks/small-info.php",
-        "icon" => "align left",
+        "icon" => "editor-alignleft",
+        "category" => "information",
     ));
 
     acf_register_block_type(array(
-        "name"              => "service",
-        "title"             => __("Leistung Block"),
-        "render_template"   => "blocks/service.php",
-        "icon" => "table",
-    ));
-    
-    acf_register_block_type(array(
-        "name"              => "team_member_card",
-        "title"             => __("Karte für Teammitglieder"),
-        "render_template"   => "blocks/team_member_card.php",
+        "name"              => "team-member-card",
+        "title"             => __("Block für Teammitgliedern"),
+        "render_template"   => "blocks/team-members.php",
         "icon" => "id (alt)",
-        "category" =>  "formatting",
+        "category" =>  "team",
+    ));
+
+    acf_register_block_type(array(
+        "name"              => "block-team-member",
+        "title"             => __("Teammitglieder"),
+        "render_template"   => "blocks/team-member-block.php",
+        "icon" => "id (alt)",
+        "category" =>  "team",
     ));
 
     acf_register_block_type(array(
         "name"              => "reviews",
         "title"             => __("Bewertungen"),
         "render_template"   => "blocks/reviews-slider.php",
-        "icon" => "star filled",
-        "category" =>  "formatting",
+        "icon" => "feedback",
+        "category" =>  "",
     ));
 
     acf_register_block_type(array(
         "name"              => "book-now",
         "title"             => __("Jetzt buchen Block"),
         "render_template"   => "blocks/book-now.php",
-        "icon" => "star filled",
-        "category" =>  "formatting",
+        "icon" => "phone",
+        "category" =>  "footer",
     )); 
 
     acf_register_block_type(array(
         "name"              => "common-header",
         "title"             => __("Header Block"),
         "render_template"   => "blocks/header.php",
-        "icon" => "star filled",
-        "category" =>  "formatting",
+        "icon" => "format-aside",
+        "category" =>  "header",
     ));
 
+    acf_register_block_type(array(
+        "name"              => "services-block",
+        "title"             => __("Leistungen Block"),
+        "render_template"   => "blocks/services.php",
+        "icon" => "editor-table",
+        "category" =>  "services",
+    ));
+    
 }
 
 add_action("init", "register_acf_blocks");
+
+function allow_custom_blocks_only() {
+    
+    $allowed_custom_blocks = array(
+        'acf/slider',
+        'acf/dropdown',
+        'acf/googlemaps',
+        'acf/services-list', 
+        'acf/small-info',
+        'acf/info-block',
+        'acf/service', 
+        'acf/home-services-list',
+        'acf/team-member-card',
+        'acf/reviews',
+        'acf/book-now',
+        'acf/common-header',
+        'acf/services-block',
+        'acf/block-team-member',
+        
+    );
+
+    return $allowed_custom_blocks;
+}
+
+add_filter('allowed_block_types', 'allow_custom_blocks_only', 10, 2);
+
+// Create Custom Categories 
+
+function my_custom_block_categories($categories, $post) {
+    return array_merge(
+        $categories,
+        array(
+            array(
+                'slug'  => 'information',
+                'title' => __('Information Blocks', 'mullermay'),
+            ),
+            array(
+                'slug'  => 'team',
+                'title' => __('Team', 'mullermay'),
+            ),
+            array(
+                'slug'  => 'services',
+                'title' => __('Services', 'mullermay'),
+            ),
+            array(
+                'slug'  => 'footer',
+                'title' => __('Footer', 'mullermay'),
+            ),
+            array(
+                'slug'  => 'header',
+                'title' => __('Header', 'mullermay'),
+            ),
+        )
+    );
+}
+add_filter('block_categories', 'my_custom_block_categories', 10, 2);
+
+
+
 ?>
