@@ -31,7 +31,7 @@ export class Services {
             });
         });
 
-        addEventListener("resize", () => this.updateDataSetHeight());
+        document.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
     toggleText(e) {

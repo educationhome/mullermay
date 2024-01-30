@@ -189,8 +189,12 @@
     z-index: -1;
 
     transition: background-color 0.3s ease-in-out;
+}
 
+.cookie {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    height: calc(var(--vh, 1vh) * 100);
 }

@@ -33,44 +33,46 @@ $cookieText = $cookieContent["text"];
 
 
 <div id="js-cookies">
-    <div class="cookie__block">
-        <div class="cookie__scroll-block">
-            <div class="cookie__icon">
-                <img class="lazy" data-src="<?php echo $cookieIcon["url"]; ?>" alt="<?php echo $cookieIcon["title"]; ?>">
-            </div>
+    <div class="cookie">
+        <div class="cookie__block">
+            <div class="cookie__scroll-block">
+                <div class="cookie__icon">
+                    <img class="lazy" data-src="<?php echo $cookieIcon["url"]; ?>" alt="<?php echo $cookieIcon["title"]; ?>">
+                </div>
 
-            <div class="cookie__content">
-                <p class="paragraph paragraph__semi-bold"><?php echo $cookieHeadline; ?></p>
-                <div class="cookie__text">
-                    <?php echo $cookieText; ?>
+                <div class="cookie__content">
+                    <p class="paragraph paragraph__semi-bold"><?php echo $cookieHeadline; ?></p>
+                    <div class="cookie__text">
+                        <?php echo $cookieText; ?>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="cookie__buttons">
-            <div class="cookie__buttons-radio">
-                <input id="essential-cookies" type="radio" disabled>
-                <label for="essential-cookies" class="cookie__buttons-radio-label paragraph paragraph__small paragraph__op-8">
-                    <?php _e("Essentielle Cookies"); ?> 
-                </label>
+            <div class="cookie__buttons">
+                <div class="cookie__buttons-radio">
+                    <input id="essential-cookies" type="radio" disabled>
+                    <label for="essential-cookies" class="cookie__buttons-radio-label paragraph paragraph__small paragraph__op-8">
+                        <?php _e("Essentielle Cookies"); ?> 
+                    </label>
 
-                <input id="optional-cookies" type="checkbox">
-                <label for="optional-cookies" class="cookie__buttons-radio-label --is-orange paragraph paragraph__small paragraph__op-8">
-                    <?php _e("Optionale Cookies"); ?> 
-                </label>
-            </div>
+                    <input id="optional-cookies" type="checkbox">
+                    <label for="optional-cookies" class="cookie__buttons-radio-label --is-orange paragraph paragraph__small paragraph__op-8">
+                        <?php _e("Optionale Cookies"); ?> 
+                    </label>
+                </div>
 
-            <div class="cookie__buttons-button header-buttons">
-                <button id="js-save-settings" class="button --bg-white-and-orange">
-                    <p class="paragraph paragraph__orange paragraph__primary-family paragraph__bold">
-                        <?php _e("Speichern"); ?>
-                    </p>
-                </button>
-                <button id="js-save-all-settings" class="button --bg-orange">
-                    <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
-                        <?php _e("Alle akzeptieren"); ?>
-                    </p>
-                </button>
+                <div class="cookie__buttons-button header-buttons">
+                    <button id="js-save-settings" class="button --bg-white-and-orange">
+                        <p class="paragraph paragraph__orange paragraph__primary-family paragraph__bold">
+                            <?php _e("Speichern"); ?>
+                        </p>
+                    </button>
+                    <button id="js-save-all-settings" class="button --bg-orange">
+                        <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
+                            <?php _e("Alle akzeptieren"); ?>
+                        </p>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

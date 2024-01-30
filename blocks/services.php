@@ -10,7 +10,7 @@ $servicesBlock = get_field("mm_bl_sb_service_block");
 ?>
 
 
-<div class="section container--small" data-template="services">
+<div class="section container--small padding__bottom-medium" data-template="services">
     <div class="section__inner">
         <h2 class="heading heading-h2">
             <?php echo $servicesHeadline; ?>

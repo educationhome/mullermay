@@ -116,3 +116,6 @@ function removeGoogleTagManager() {
 }
 
 export { removeGoogleTagManager };
+
+
+document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
