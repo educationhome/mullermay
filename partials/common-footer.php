@@ -8,7 +8,7 @@ $socMediaItems = getSocMediaItems();
 
 <div id="footer" class="footer-section">
     <div class="footer-section__logo">
-        <a class="header__inner__logo" href="<?php echo home_url(); ?>">
+        <a class="header__inner__logo" href="<?php echo home_url(); ?>" title="Go to Main page">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo-white",
                     "classes" => "icon__footer-logo-white",

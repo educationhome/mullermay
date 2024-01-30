@@ -1,11 +1,12 @@
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta name="description" content="">
     <title>
-        <?php wp_title(); ?>
+        <?php the_title(); ?>
     </title> 
     <link
     rel="stylesheet"
@@ -79,7 +80,7 @@ $cookieText = $cookieContent["text"];
     <div>
         <header class="header__mobile container--small-padding">
             <div class="header__inner --is-mobile"> 
-                <a class="header__inner__logo" href="<?php echo home_url(); ?>">
+                <a class="header__inner__logo" href="<?php echo home_url(); ?>"  title="Go to Main page">
                     <?php get_template_part("partials/common", "sprite-svg", [
                             "name" => "mullermay-logo",
                             "classes" => "icon__header-logo",
@@ -91,7 +92,7 @@ $cookieText = $cookieContent["text"];
                     ]); ?>
                 </a>
 
-                <button class="button__menu" data-close-menu>
+                <button class="button__menu" title="Close Menu" data-close-menu>
                     <?php get_template_part("partials/common", "sprite-svg", [
                             "name" => "close-button",
                             "classes" => "icon__header-menu",
@@ -117,16 +118,16 @@ $cookieText = $cookieContent["text"];
         <div class="menu__footer-links">
             <?php foreach ($menuFooterItems as $menuFooterItem): ?>
                 <?php if($menuFooterItem["customLink"]["mm_is_cl"]): ?>
-                    <a href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__warm-white paragraph__body paragraph__small"><?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?></p></a>
+                    <a href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__warm-white paragraph__small"><?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?></p></a>
                 <?php else: ?>
-                    <a href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__warm-white paragraph__body paragraph__small"><?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?></p></a>
+                    <a href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__warm-white paragraph__small"><?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?></p></a>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
         
         <div class="menu__footer-soc-media">
             <div class="footer-section__links">
-                <p class="paragraph paragraph__warm-white paragraph__body paragraph__small"><?php _e("Folge uns!"); ?></p>
+                <p class="paragraph paragraph__warm-white paragraph__small"><?php _e("Folge uns!"); ?></p>
 
                 <div class="footer-section__soc-media">
                     <?php foreach ($socMediaItems as $socMediaItem): ?>

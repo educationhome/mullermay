@@ -6,6 +6,7 @@ $overline = get_field("mm_bl_page_header_overline");
  
 $menuItems = getMenuItems();
 
+$whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
 ?>
 
 <div class="container--small header__section margin__top-super-small">
@@ -20,21 +21,33 @@ $menuItems = getMenuItems();
         </h1>
 
         <div class="header-buttons">
-            <a href="/terminbuchung/" type="button" class="button --bg-orange">
+            <a href="/terminbuchung/" type="button" class="button --bg-orange" area-label="Find Termin">
                 <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                     <?php _e("Termin finden"); ?>
                 </p>
             </a>
 
-            <a href="#" type="button" class="button --bg-white">
-                <?php get_template_part("partials/common", "sprite-svg", [
-                        "name" => "whatsapp",
-                        "classes" => "icon__whatsapp-logo",
-                ]); ?>
-                <p class="paragraph paragraph__small paragraph__primary-family paragraph__bold paragraph__dark-green">
-                    <?php _e("Auf Whatsapp chatten"); ?>
-                </p>
-            </a>
+            <?php if($whatsApp["mm_is_cl"]): ?>
+                <a href="<?php echo $whatsApp["mm_cl_to_post"]; ?>" type="button" class="button --bg-white" aria-label="Whatsapp Logo">
+                    <?php get_template_part("partials/common", "sprite-svg", [
+                            "name" => "whatsapp",
+                            "classes" => "icon__whatsapp-logo",
+                    ]); ?>
+                    <p class="paragraph paragraph__small paragraph__primary-family paragraph__bold paragraph__dark-green">
+                        <?php echo $whatsApp["mm_cl_label"]; ?>
+                    </p>
+                </a>
+            <?php else: ?>
+                <a href="<?php echo $whatsApp["mm_cl_to_url"]; ?>" type="button" class="button --bg-white" aria-label="Whatsapp Logo">
+                    <?php get_template_part("partials/common", "sprite-svg", [
+                            "name" => "whatsapp",
+                            "classes" => "icon__whatsapp-logo",
+                    ]); ?>
+                    <p class="paragraph paragraph__small paragraph__primary-family paragraph__bold paragraph__dark-green">
+                        <?php echo $whatsApp["mm_cl_label"]; ?>
+                    </p>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 

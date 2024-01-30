@@ -35,7 +35,7 @@ $servicesBlock = get_field("mm_bl_sb_service_block");
                         
                         <div class="text-content fb-service__text"><?php echo $block["mm_bl_sb_bl_text"]; ?></div>
 
-                        <button class="fb-service__load-text-button">
+                        <button class="fb-service__load-text-button" title="Open or Close Text">
                             <p class="paragraph paragraph__semi-bold paragraph__primary-family fb-service__text-open">
                                 <?php _e("Weiterlesen"); ?>
                             </p>

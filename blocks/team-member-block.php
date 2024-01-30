@@ -29,7 +29,7 @@ $teamMemberBlock = get_field("mm_bl_team_member_card");
                         
                         <div class="text-content --dsp-wbkt fb-team-member__text"><?php echo $block["mm_bl_tmc_text"]; ?></div>
 
-                        <button class="fb-team-member__load-text-button">
+                        <button class="fb-team-member__load-text-button" title="Open or Close Text">
                             <p class="paragraph paragraph__semi-bold paragraph__primary-family fb-team-member__text-open">
                                 <?php _e("Weiterlesen"); ?>
                             </p>

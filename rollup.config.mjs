@@ -6,7 +6,7 @@ import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
 import del from "rollup-plugin-delete";
 import glsl from "rollup-plugin-glsl";
-// import {uglify} from "rollup-plugin-uglify";
+import { uglify }  from "rollup-plugin-uglify";
 
 
 
@@ -46,21 +46,21 @@ export default {
             // Source maps are on by default
             sourceMap: false
         }),
-        // isProd && uglify({
-        //     compress: {
-        //         drop_console: false,
-        //         drop_debugger: true,
-        //         pure_funcs: [
-        //             "console.log",
-        //         ],
-        //     },
-        //     mangle: {
-        //         reserved: [
-        //             "console.log",
-        //             "window.history",
-        //         ],
-        //         properties: false,
-        //     },
-        // }),
+        isProd && uglify({
+            compress: {
+                drop_console: false,
+                drop_debugger: true,
+                pure_funcs: [
+                    "console.log",
+                ],
+            },
+            mangle: {
+                reserved: [
+                    "console.log",
+                    "window.history",
+                ],
+                properties: false,
+            },
+        }),
     ],
 };
