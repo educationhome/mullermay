@@ -30,6 +30,7 @@ export class Information_Button {
     openInfoWindow() {
         const tl = gsap.timeline();
         tl.set(this.infoContent, {zIndex: 11});
+        tl.set(document.body, {overflow: "hidden"});
         tl.addLabel("start");
         tl.to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0.3)", duration: 0.1 }, "start");
         tl.to(this.infoBlock, { y: "-15%", duration: 0, ease: "power2.out" }, "start");
@@ -42,6 +43,7 @@ export class Information_Button {
         tl.to(this.infoBlock, { y: "100%", duration: 0 }, "end");
         tl.to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 }, "end");
         tl.set(this.infoContent, {zIndex: -1, delay: 0.3})
+        tl.set(document.body, {overflow: "auto"});
     }
 
 }

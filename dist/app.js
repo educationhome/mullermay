@@ -7050,6 +7050,7 @@ class Information_Button {
     openInfoWindow() {
         const tl = gsapWithCSS.timeline();
         tl.set(this.infoContent, {zIndex: 11});
+        tl.set(document.body, {overflow: "hidden"});
         tl.addLabel("start");
         tl.to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0.3)", duration: 0.1 }, "start");
         tl.to(this.infoBlock, { y: "-15%", duration: 0, ease: "power2.out" }, "start");
@@ -7062,6 +7063,7 @@ class Information_Button {
         tl.to(this.infoBlock, { y: "100%", duration: 0 }, "end");
         tl.to(this.infoContent, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 }, "end");
         tl.set(this.infoContent, {zIndex: -1, delay: 0.3});
+        tl.set(document.body, {overflow: "auto"});
     }
 
 }
@@ -7426,8 +7428,10 @@ class Cookies {
     constructor() {
         this.root = document.getElementById("js-cookies");
         this.cookiesBlock = this.root.querySelector(".cookie__block");
+        this.saveSettingsButton = this.root.querySelector("#js-save-settings");
+        this.saveAllSettingsButton = this.root.querySelector("#js-save-all-settings"); 
 
-        if(!this.root || !this.cookiesBlock) {
+        if(!this.root) {
             return;
         }
 
@@ -7440,21 +7444,107 @@ class Cookies {
     }
 
     addEvents() {
-        // window.addEventListener("load", () => this.initCookies());
+        window.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                this.checkCookies();
+            }, 500);
+        });
 
         if (this.openCookieButton) {
             this.openCookieButton.addEventListener("click", () => this.openCookieWindow());
         }
+
+        if (this.saveSettingsButton) {
+            this.saveSettingsButton.addEventListener("click", (element) => this.closeCookieWindow(element));
+        }
+
+        if (this.saveAllSettingsButton) {
+            this.saveAllSettingsButton.addEventListener("click", (element) => this.closeCookieWindow(element));
+        }
     }
 
     openCookieWindow() {
+        const cookie = this.getCookie("cookieOptions");
+        const checkbox = this.root.querySelector("#optional-cookies");
         const tl = gsapWithCSS.timeline();
+        checkbox.checked = cookie === 'optional.settings';
+
         tl.set(this.root, {zIndex: 11});
+        tl.set(this.root, {zIndex: 11});
+        tl.set(document.body, {overflow: "hidden"});
         tl.addLabel("start");
         tl.to(this.root, { backgroundColor: "rgba(0, 0, 0, 0.3)", duration: 0.1 }, "start");
-        tl.to( this.cookiesBlock, { y: "-50%", duration: 0, ease: "power2.out" }, "start");
+        tl.to(this.cookiesBlock, { translateY: 0, duration: 0, ease: "power2.out" }, "start");
     }
+
+    closeCookieWindow(element) {
+        const checkbox = this.root.querySelector("#optional-cookies");
+        let timeout = 0;
+
+        if (((element.target.parentElement.id == "js-save-all-settings") || (element.target.id == "js-save-all-settings")) && (!checkbox.checked)) {
+            checkbox.checked = true;
+            timeout = 500;
+        }
+        
+        this.saveSettings();
+
+        setTimeout(() => {
+             const tl = gsapWithCSS.timeline();
+            tl.addLabel("end");
+            tl.to(this.cookiesBlock, { translateY: "160%", duration: 0}, "end");
+            tl.to(this.root, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 }, "end");
+            tl.set(this.root, {zIndex: -1, delay: 0.3});
+            tl.set(document.body, {overflow: "auto"});
+        }, timeout);
+    }
+
+    saveSettings() {
+        const cookieValue = this.getSettings() ? "optional.settings" : "essential.settings";
+
+        (cookieValue === "optional.settings") ? insertGoogleTagManager() : removeGoogleTagManager();
+
+        let expiresDate = new Date();
+        expiresDate.setFullYear(expiresDate.getFullYear() + 1);
+        expiresDate = expiresDate.toUTCString();
+
+        document.cookie = "cookieOptions=" + cookieValue + ";" + "expires=" + expiresDate + "; path=/";
+    }
+
+    checkCookies() {
+        if (!this.getCookie("cookieOptions")) {
+            if (!window.location.href.includes("/impressum-datenschutz/")) {
+               this.openCookieWindow(); 
+            }
+        } else {
+            if (this.getCookie("cookieOptions") == "optional.settings") {
+                insertGoogleTagManager();
+            }
+        }
+    }
+
+    getSettings() {
+        return this.root.querySelector("#optional-cookies").checked;
+    }
+
+    getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == " ") {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
 }
+
+// Mounts
 
 function pagesMount() {
     this.pages = new Map();
@@ -7479,6 +7569,8 @@ function blocksMount() {
 
 blocksMount();
 
+
+
 // Overlay
 
 window.onload = function() {
@@ -7495,3 +7587,56 @@ window.onload = function() {
     });
     
 };
+
+
+
+// Insert Google Tag Manager
+
+function insertGoogleTagManager() {
+    const gtmId = 'GTM-TX3JKFK3';
+
+    if (document.getElementById('gtm-script') || document.getElementById('gtm-iframe')) {
+        return;
+    }
+
+    // Insert Code GTM in <head>
+    var gtmScriptNode = document.createElement('script');
+    gtmScriptNode.id = 'gtm-script';
+    gtmScriptNode.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':" +
+    "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0]," +
+    "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src="+
+    "'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);"+
+    "})(window,document,'script','dataLayer','" + gtmId + "');";
+    document.head.appendChild(gtmScriptNode);
+
+    // Insert noscript iframe after <body>
+    var gtmIframeNode = document.createElement('noscript');
+    gtmIframeNode.id = 'gtm-iframe';
+    var gtmIframe = document.createElement('iframe');
+    gtmIframe.src = 'https://www.googletagmanager.com/ns.html?id=' + gtmId;
+    gtmIframe.style.height = "0";
+    gtmIframe.style.width = "0";
+    gtmIframe.style.display = "none";
+    gtmIframe.style.visibility = "hidden";
+    gtmIframeNode.appendChild(gtmIframe);
+    document.body.insertBefore(gtmIframeNode, document.body.firstChild);
+}
+
+// Delete Google Tag Manager 
+
+function removeGoogleTagManager() {
+    
+    var gtmScript = document.getElementById('gtm-script');
+    if (gtmScript) {
+        gtmScript.parentNode.removeChild(gtmScript);
+    }
+
+    var gtmIframe = document.getElementById('gtm-iframe');
+    if (gtmIframe) {
+        gtmIframe.parentNode.removeChild(gtmIframe);
+    }
+
+    document.querySelectorAll('script[src*="googletagmanager.com/gtm.js"]')
+    .forEach(script => script.remove());
+
+}

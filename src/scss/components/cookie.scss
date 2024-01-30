@@ -107,21 +107,33 @@
 
 .cookie {
     &__block {
+        position: absolute;
+
         display: flex;
-        padding: 32px;
-        max-width: 640px;
         flex-direction: column;
         gap: 20px;
 
+        background: #fff7ec;
         border-radius: 16px;
-        background: $color-warm-white;
 
-        position: absolute;
         margin: 0 16px;
-        bottom: 0;
+        padding: 32px;
 
-        transform: translateY(100%);
-        transition: transform 0.4s ease-in-out;
+        max-width: 640px;
+        transform: translateY(160%);
+        transition: transform .4s ease-in-out;
+
+        @media(max-width: map-get($breakpoints, "phone")) {
+            padding: 24px;
+
+            & .cookie__buttons {
+                gap: 12px;
+
+                & .cookie__buttons-radio {
+                    gap: 12px;
+                }
+            }
+        }
     }
 
     &__text {
@@ -163,8 +175,7 @@
 
     transition: background-color 0.3s ease-in-out;
 
-    overflow: hidden;
-
     display: flex;
     justify-content: center;
+    align-items: center;
 }

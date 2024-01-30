@@ -58,12 +58,12 @@ $cookieText = $cookieContent["text"];
             </div>
 
             <div class="cookie__buttons-button header-buttons">
-                <button class="button --bg-white-and-orange">
+                <button id="js-save-settings" class="button --bg-white-and-orange">
                     <p class="paragraph paragraph__orange paragraph__primary-family paragraph__bold">
                         <?php _e("Speichern"); ?>
                     </p>
                 </button>
-                <button class="button --bg-orange">
+                <button id="js-save-all-settings" class="button --bg-orange">
                     <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                         <?php _e("Alle akzeptieren"); ?>
                     </p>

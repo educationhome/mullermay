@@ -571,6 +571,10 @@
             margin: 64px 0 128px 0;
         }
     }
+
+    @media(max-width: map-get($breakpoints, "mid-tablet")) {
+        padding-top: var(--space-large);
+    }
 }
 
 .fb-review {

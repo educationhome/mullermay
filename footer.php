@@ -7,10 +7,5 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="<?php echo get_template_directory_uri() . "/dist/app.js" ?>"></script>
-        <script>
-        var lazyLoadInstance = new LazyLoad({
-                // Your custom settings go here
-        });
-        </script>
 </body> 
 </html>
