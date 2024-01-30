@@ -7489,7 +7489,7 @@ class Cookies {
         this.saveSettings();
 
         setTimeout(() => {
-             const tl = gsapWithCSS.timeline();
+            const tl = gsapWithCSS.timeline();
             tl.addLabel("end");
             tl.to(this.cookiesBlock, { translateY: "160%", duration: 0}, "end");
             tl.to(this.root, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 }, "end");

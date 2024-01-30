@@ -15,7 +15,7 @@ $bookNowHeadline = get_field("mm_bl_bn_headline");
         <p class="paragraph paragraph__primary-family paragraph__semi-bold paragraph__medium text-wrapper__headline"><?php echo $bookNowHeadline; ?></p>
 
         <div class="book-buttons">
-            <a href="#" type="button" class="button --bg-orange">
+            <a href="/terminbuchung/" type="button" class="button --bg-orange">
                 <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                     <?php _e("Termin finden"); ?>
                 </p>

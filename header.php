@@ -33,14 +33,16 @@ $cookieText = $cookieContent["text"];
 
 <div id="js-cookies">
     <div class="cookie__block">
-        <div class="cookie__icon">
-            <img class="lazy" data-src="<?php echo $cookieIcon["url"]; ?>" alt="<?php echo $cookieIcon["title"]; ?>">
-        </div>
+        <div class="cookie__scroll-block">
+            <div class="cookie__icon">
+                <img class="lazy" data-src="<?php echo $cookieIcon["url"]; ?>" alt="<?php echo $cookieIcon["title"]; ?>">
+            </div>
 
-        <div class="cookie__content">
-            <p class="paragraph paragraph__semi-bold"><?php echo $cookieHeadline; ?></p>
-            <div class="cookie__text">
-                <?php echo $cookieText; ?>
+            <div class="cookie__content">
+                <p class="paragraph paragraph__semi-bold"><?php echo $cookieHeadline; ?></p>
+                <div class="cookie__text">
+                    <?php echo $cookieText; ?>
+                </div>
             </div>
         </div>
 

@@ -162,6 +162,21 @@
 
         gap: 30px;
     }
+
+    &__scroll-block {
+        display: flex;
+        flex-direction: column;
+
+        gap: 20px;
+
+        max-height: 250px;
+        overflow: scroll;
+        
+        @media(min-width: map-get($breakpoints, "small-tablet")) {
+            overflow: auto;
+            max-height: none;
+        }
+    }
 }
 
 #js-cookies {

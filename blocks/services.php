@@ -49,7 +49,7 @@ $servicesBlock = get_field("mm_bl_sb_service_block");
                         </button>
                         
 
-                        <a href="#" type="button" class="button --bg-orange">
+                        <a href="/terminbuchung/" type="button" class="button --bg-orange">
                             <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                                 <?php _e("Termin finden"); ?>
                             </p>
