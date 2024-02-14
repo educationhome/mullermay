@@ -1,4 +1,6 @@
 @import "./config";
+@import "./fonts.scss";
+
 
 #overlay {
     position: fixed;
@@ -11,4 +13,3 @@
     transition: opacity 0.5s ease; 
     z-index: 1000;
 }
-

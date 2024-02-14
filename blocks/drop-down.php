@@ -23,10 +23,10 @@ endforeach;
 ?>
 
 
-<div class="container--small padding__top-medium" data-template="drop-down">
+<div class="container--small padding__bottom-small padding__top-small" data-template="drop-down">
     <h2 class="heading heading-h2"><?php echo $dropDownHeadline; ?></h2>
 
-    <div class="fb-drop-down__container --is-mobile">
+    <div class="fb-drop-down__container--is-mobile">
         <?php foreach($dropDown as $block): ?>
             <div class="fb-drop-down">
                 <div class="fb-drop-down__question">
@@ -48,7 +48,7 @@ endforeach;
         <?php endforeach; ?>
     </div>
 
-    <div class="fb-drop-down__container --is-desktop">
+    <div class="fb-drop-down__container--is-desktop">
         <div class="fb-drop-down-table">
             <?php foreach ($tableDropDown1 as $block): ?>
                 <div class="fb-drop-down">

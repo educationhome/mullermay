@@ -1,5 +1,7 @@
 <?php
 
+add_filter("show_admin_bar", "__return_false");
+
 // Setup Custom WYSIWYG Toolbar
 
 add_filter( "acf/fields/wysiwyg/toolbars" , "my_toolbars"  );
@@ -339,5 +341,67 @@ function my_custom_block_categories($categories, $post) {
     );
 }
 add_filter('block_categories', 'my_custom_block_categories', 10, 2);
+
+
+function remove_wp_block_library_css(){
+ wp_dequeue_style( 'wp-block-library' );
+ wp_dequeue_style( 'wp-block-library-theme' );
+ wp_dequeue_style( 'wc-blocks-style' );
+} 
+add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
+
+// Render Image
+
+function renderImage($imageData, $classes = "", $lazy = true, $showWidthandHeightAttr = true) {
+    if ($lazy) {
+        $classes .= " lazy ";
+    }
+
+    $imageAlt = $imageData["title"];
+    $imageSrc = $imageData["url"];
+    $imageWidth = $imageData["width"];
+    $imageHeight = $imageData["height"];
+
+    $isSVG = isset($imageData["mime_type"]) && strtolower($imageData["mime_type"]) === "image/svg+xml";
+
+    $sizeAttributes = ($isSVG) ? '' : "width=\"$imageWidth\" height=\"$imageHeight\"";
+
+    $html = <<<HTML
+    <img
+     data-src="$imageSrc"
+     alt="$imageAlt"
+     class="$classes"
+     $sizeAttributes
+    >
+    HTML;
+
+    echo $html;
+}
+
+// Render Video
+
+function renderVideo($videoData, $classes = "", $controls = "", $lazy = true, $showWidthAndHeightAttr = true) {
+    if ($lazy) {
+        $classes .= " lazy ";
+    }
+
+    $videoSrc = $videoData["url"];
+    $videoWidth = $videoData["width"];
+    $videoHeight = $videoData["height"];
+
+    $sizeAttributes = ($showWidthAndHeightAttr) ? "width=\"$videoWidth\" height=\"$videoHeight\"" : "";
+
+    $html = <<<HTML
+    <video
+     data-src="$videoSrc"
+     class="$classes"
+     $sizeAttributes
+     $controls
+    >
+    </video>
+    HTML;
+
+    echo $html;
+}
 
 ?>

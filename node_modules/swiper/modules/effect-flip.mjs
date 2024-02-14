@@ -65,7 +65,7 @@ function EffectFlip(_ref) {
       } else if (rtl) {
         rotateY = -rotateY;
       }
-      if (swiper.browser && swiper.browser.isSafari) {
+      if (swiper.browser && swiper.browser.need3dFix) {
         if (Math.abs(rotateY) / 90 % 2 === 1) {
           rotateY += 0.001;
         }

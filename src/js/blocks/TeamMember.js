@@ -12,7 +12,7 @@ export class TeamMember {
 
         this.button = this.root.querySelectorAll(".fb-team-member__load-text-button");
         this.block = this.root.querySelectorAll(".fb-team-member__block");
-
+        
         this.mount();
     }
 
@@ -21,97 +21,113 @@ export class TeamMember {
     }
 
 
+
     addEvents() {
-        this.button.forEach(element => {
-            element.addEventListener("click", (e) => this.toggleText(e));
-        });
+        this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
 
-        addEventListener("DOMContentLoaded", () => {
-            this.block.forEach(element => {
-                this.saveHeight(element);
-            });
-        });
-
-        addEventListener("resize", () => this.updateDataSetHeight());
+        addEventListener("DOMContentLoaded", () => this.block.forEach(element => this.saveHeight(element)));
+    
+        window.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
-    toggleText(e) {
-        const parentEl = e.target.parentElement;
-        const content = parentEl.parentElement.querySelector(".text-content");
-        const teamMemberText = parentEl.parentElement.querySelector(".fb-team-member__text");
-        
-        const teamMemberBlock = parentEl.parentElement.parentElement;
-        const minHeight = teamMemberBlock.dataset.minHeight + "px";
-        const maxHeight = teamMemberBlock.dataset.maxHeight + "px";
+    
 
-        if (content.classList.contains("--is-showed")) {
-            this.hideText(parentEl, teamMemberText, minHeight);
-        } else {
-            this.showText(parentEl, teamMemberText, maxHeight);
+    // Get Height
+
+    getHeight(element, isMax) {
+        const textContainer = element.querySelector(".fb-team-member__text");
+        const isShowed = textContainer.classList.contains("--is-showed");
+
+        textContainer.style.maxHeight = "none";
+
+        if ((isMax && !isShowed) || (!isMax && isShowed)) {
+            textContainer.classList.toggle("--is-showed");
+        }
+
+        const height = textContainer.clientHeight;
+
+        if ((isMax && !isShowed) || (!isMax && isShowed)) {
+            textContainer.classList.toggle("--is-showed");
+        }
+
+        return height;
+    }
+
+
+
+    // Save Height
+
+    saveHeight(element, autoClosingWindow = true) {
+        element.dataset.minHeight = this.getHeight(element, false);
+        element.dataset.maxHeight = this.getHeight(element, true);
+
+        const textContainer = element.querySelector(".fb-team-member__content .fb-team-member__text");
+
+        if (autoClosingWindow) {
+            textContainer.style.maxHeight = `${element.dataset.minHeight}px`;
         }
     }
 
-    showText(parentEl, text, maxHeight) {
-        text.classList.add("--is-showed");
+
+
+    // Toogle Text 
+
+    toggleText(element) {
+        const teamMemberButton = element.currentTarget.closest(".fb-team-member__load-text-button");
+        const teamMemberBlock = teamMemberButton.parentElement.parentElement;
+        const teamMemberContent = teamMemberButton.parentElement.querySelector(".fb-team-member__text")
+        const minHeight = teamMemberBlock.dataset.minHeight + "px";
+        const maxHeight = teamMemberBlock.dataset.maxHeight + "px";
+        
+        teamMemberContent.classList.contains("--is-showed") ? this.hideText(teamMemberContent, minHeight) : this.showText(teamMemberContent, maxHeight);
+    }
+
+    
+
+    // Show Text
+
+    showText(content, maxHeight) {
+        content.classList.add("--is-showed");
 
         const tl = gsap.timeline({
             onStart: function () {
-                parentEl.querySelector(".fb-team-member__text-open").classList.add("--hide");
-                parentEl.querySelector(".fb-team-member__text-close").classList.remove("--hide");
-                parentEl.querySelector(".icon__drop-down-button").style.transform = "rotate(0)";
+                content.parentElement.querySelector(".fb-team-member__text-open").classList.add("--hide");
+                content.parentElement.querySelector(".fb-team-member__text-close").classList.remove("--hide");
+                content.parentElement.querySelector(".icon__drop-down-button").style.transform = "rotate(0)";
             }
         });
 
-        tl.to(text, { maxHeight: maxHeight, duration: 0.5, ease: "expo.out" })
+        tl.to(content, { maxHeight: maxHeight, duration: 0.5, ease: "expo.out" })
     }
 
-    hideText(parentEl, text, minHeight) {
+
+
+    // Hide Text
+
+    hideText(content, minHeight) {
         const tl = gsap.timeline({
             onComplete: function () {
-                text.classList.remove("--is-showed");
+                content.classList.remove("--is-showed");
             },
 
             onStart: function () {
-                parentEl.querySelector(".fb-team-member__text-open").classList.remove("--hide");
-                parentEl.querySelector(".fb-team-member__text-close").classList.add("--hide");
-                parentEl.querySelector(".icon__drop-down-button").style.transform = "rotate(180deg)";
+                content.parentElement.querySelector(".fb-team-member__text-open").classList.remove("--hide");
+                content.parentElement.querySelector(".fb-team-member__text-close").classList.add("--hide");
+                content.parentElement.querySelector(".icon__drop-down-button").style.transform = "rotate(180deg)";
             },
         });
-        
-        tl.to(text, { maxHeight: minHeight, duration: 0.5, ease: "expo.out" })
+
+        tl.to(content, { maxHeight: minHeight, duration: 0.5, ease: "expo.out" });
     }
+
+
+
+    // Update Height (resize Event)
 
     updateDataSetHeight() {
         const textContainer = this.root.querySelectorAll(".fb-team-member__block");
         textContainer.forEach(element => {
-            this.saveHeight(element);
+            this.saveHeight(element, false);
         });
     }
-
-    saveHeight(element) {
-        const minHeight = this.getMinHeight(element);
-        const maxHeight = this.getMaxHeight(element);
-
-        element.dataset.minHeight = minHeight;
-        element.dataset.maxHeight = maxHeight;
-    }
-
-    getMinHeight(element) {
-        const textContainer = element.querySelector(".fb-team-member__text");
-        textContainer.classList.remove("--is-showed");
-        const minHeight = textContainer.clientHeight;
-
-        return minHeight;
-    }
-
-    getMaxHeight(element) {
-        const textContainer = element.querySelector(".fb-team-member__text");
-        textContainer.style.maxHeight = "none";
-        textContainer.classList.add("--is-showed");
-        const maxHeight = textContainer.clientHeight;
-        textContainer.classList.remove("--is-showed");
-
-        return maxHeight;
-    }
-
 }

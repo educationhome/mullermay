@@ -15,7 +15,7 @@ $teamMemberText = get_field("mm_bl_team_member_card_text");
 <div class="container--small padding__bottom-small padding__top-small" data-template="team_member_card">
     <div class="fb-team-members">
         <div class="fb-team-members__image">
-            <img class="lazy" data-src="<?php echo $teamMemberFoto["url"];?>" alt="<?php echo $teamMemberFoto["title"]; ?>">
+            <?php renderImage($teamMemberFoto, "", true); ?>
 
             <?php get_template_part("partials/common", "sprite-svg", [
             "name" => "mullermay-logo-form__warm-white",

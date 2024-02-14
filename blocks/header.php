@@ -9,11 +9,11 @@ $menuItems = getMenuItems();
 $whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
 ?>
 
-<div class="container--small header__section margin__top-super-small">
+<div class="container--small header__section">
 
     <div class="header__text-container">
         
-        <span class="overline">
+        <span class="paragraph paragraph__primary-family paragraph__semi-bold paragraph__purple paragraph__uppercase">
             <?php echo $overline; ?>
         </span>
         <h1 class="heading heading-h1 --header text-wrapper__headline">
@@ -21,14 +21,14 @@ $whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
         </h1>
 
         <div class="header-buttons">
-            <a href="/terminbuchung/" type="button" class="button --bg-orange" area-label="Find Termin">
+            <a href="/terminbuchung/" class="button--bg-orange" >
                 <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                     <?php _e("Termin finden"); ?>
                 </p>
             </a>
 
             <?php if($whatsApp["mm_is_cl"]): ?>
-                <a href="<?php echo $whatsApp["mm_cl_to_post"]; ?>" type="button" class="button --bg-white" aria-label="Whatsapp Logo">
+                <a href="<?php echo $whatsApp["mm_cl_to_post"]; ?>" class="button--bg-white">
                     <?php get_template_part("partials/common", "sprite-svg", [
                             "name" => "whatsapp",
                             "classes" => "icon__whatsapp-logo",
@@ -38,7 +38,7 @@ $whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
                     </p>
                 </a>
             <?php else: ?>
-                <a href="<?php echo $whatsApp["mm_cl_to_url"]; ?>" type="button" class="button --bg-white" aria-label="Whatsapp Logo">
+                <a href="<?php echo $whatsApp["mm_cl_to_url"]; ?>" class="button--bg-white">
                     <?php get_template_part("partials/common", "sprite-svg", [
                             "name" => "whatsapp",
                             "classes" => "icon__whatsapp-logo",
@@ -53,9 +53,9 @@ $whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
 
     <div class="header__background-container">
         <?php if ($headerBackground["type"] === "video"): ?>
-            <video class="lazy" data-src="<?php echo $headerBackground["url"] ?>" playsinline loop muted autoplay></video>
+            <?php renderVideo($headerBackground, "", $controls = "playsinline loop muted autoplay", true, true); ?>
         <?php elseif ($headerBackground["type"] === "image"): ?>
-            <img class="lazy" data-src="<?php echo $headerBackground["url"] ?>" alt="<?php echo $headerBackground["title"] ?>"> 
+            <?php renderImage($headerBackground, "", true); ?>
         <?php endif; ?>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="622" height="368" viewBox="0 0 622 368" fill="none" class="icon__header-video-form">

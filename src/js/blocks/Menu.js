@@ -11,11 +11,13 @@ export class Menu {
         this.closeMenuButton = document.querySelector("[data-close-menu]");
         this.header = document.querySelector("[data-header-mobile]");
 
+        this.resizeThreshold = 896;
+
         this.mount();
     }
 
     mount() {
-        this.addEvents();
+        this.addEvents(); 
     }
 
     addEvents() {
@@ -26,16 +28,26 @@ export class Menu {
         if (this.closeMenuButton) {
             this.closeMenuButton.addEventListener("click", () => this.closeMenu());
         }
+
+        window.addEventListener("resize", () => this.handleResize());
     }
 
     openMenu() {
         this.root.classList.remove("--is-closed");
         this.root.classList.add("--is-opened");
+        document.documentElement.style.overflow = "hidden";
     }
 
     closeMenu() {
         this.root.classList.remove("--is-opened");
         this.root.classList.add("--is-closed");
+        document.documentElement.style.overflow = "auto";
+    }
+
+    handleResize() {
+        if (window.innerWidth > this.resizeThreshold) {
+            this.closeMenu();
+        }
     }
 }
 

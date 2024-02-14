@@ -47,11 +47,10 @@
     }
     
     &__review-logo {
-        height: 72px;
-
-        @media (max-width: map-get($breakpoints, "tablet")) {
-            width: 72px;
-        }
+        max-height: 72px;
+        min-height: 72px;
+        max-width: 72px;
+        min-width: 72px;
     }
 
     &__footer-logo-white {

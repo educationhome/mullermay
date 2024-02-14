@@ -10,8 +10,8 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 
 <header class="header__desktop container--small">
 
-    <div class="header__inner --is-desktop">
-        <a class="header__inner__logo" href="<?php echo home_url(); ?>" title="Go to Main page">
+    <div class="header__inner--is-desktop">
+        <a class="header__inner-logo" href="<?php echo home_url(); ?>" title="Go to Main page">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo",
                     "classes" => "icon__header-logo",
@@ -31,13 +31,13 @@ $notificationOpenTimes = $notificationContent["openTimes"];
             <?php endif; ?>
         <?php endforeach; ?>
 
-        <button class="header__notification-button" data-button="information" title="Notification Button">
+        <button class="header__notification-button paragraph paragraph__primary-family paragraph__bold paragraph__warm-white" data-button="information" title="Notification Button" tabindex="0">
             <?php get_template_part("partials/common", "sprite-svg", [
                 "name" => "notification-button",
                 "classes" => "icon__header-notification",
             ]); ?>
-
-            <p class="paragraph paragraph__primary-family paragraph__bold paragraph__warm-white">Informationen</p>
+            
+            <span><?php _e("Informationen"); ?></span>
         </button>
 
     </div>
@@ -46,8 +46,8 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 
 <header class="header__mobile padding__top-super-small" data-header-mobile>
 
-    <div class="header__inner --is-mobile container--small"> 
-        <a class="header__inner__logo" href="<?php echo home_url(); ?>" title="Go to Main page">
+    <div class="header__inner--is-mobile container--small"> 
+        <a class="header__inner-logo" href="<?php echo home_url(); ?>" title="Go to Main page">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo",
                     "classes" => "icon__header-logo",
@@ -80,7 +80,7 @@ $notificationOpenTimes = $notificationContent["openTimes"];
     <div class="notification__block">
         <div class="notification__block-headline">
             <p class="paragraph paragraph__warm-white paragraph__primary-family paragraph__semi-bold"><?php echo $notificationHeadline; ?></p>
-            <button class="notification__close-button" title="Close Notification">
+            <button class="notification__close-button" title="Close Notification" tabindex="-1">
                 <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "notification-close-button",
                     "classes" => "icon__notification-close-button",

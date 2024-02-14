@@ -13,6 +13,8 @@
 }
 
 .header__desktop {
+    padding-top: 66px;
+
     display: block;
 
     @media(max-width: map-get($breakpoints, "mid-tablet")) {
@@ -25,25 +27,30 @@
 
     border-radius: 16px;
 
-    padding: 8px 16px 8px 21px;
+    padding: 8px;
     min-height: 64px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    &.--is-desktop {
-        & .header__inner__logo {
+    &--is-desktop {
+        @extend .header__inner;
+
+        & .header__inner-logo {
             gap: 11.56px;
         }
     }
     
-    &.--is-mobile {
-        position: relative;
+    &--is-mobile {
+        @extend .header__inner;
 
+        position: relative;
+        padding: 20px 16px;
         display: flex;
 
-        & .header__inner__logo {
+        & .header__inner-logo {
+            margin-left: 0;
             gap: 6.96px;
         }
 
@@ -59,18 +66,10 @@
     }
 
     @media(max-width: map-get($breakpoints, "medium-tablet")) {
-        & .icon__header-logo-text {
-            width: 113.669px;
-        }
-
-        & .icon__header-logo {
-            width: 36.531px;
-        }
-
         & .header__notification-button {
             padding: 16px 16px;
 
-            & p {
+            & span {
                 display: none;
             }
 
@@ -81,8 +80,19 @@
     }
 }
 
-.header__inner__logo {
+.header__inner-logo {
     display: flex;
+
+    margin-left: 16px;
+
+    padding: 4px 0;
+
+    &--no-margin {
+        @extend .header__inner-logo;
+
+        margin-left: 0;
+        width: fit-content;
+    }
 }
 
 .header__notification-button {
@@ -110,7 +120,7 @@
 
         top: 0;
         right: 0;
-        transform: translateY(200%);
+        transform: translateY(180%);
     }
 }
 
@@ -159,8 +169,8 @@
 
     gap: 30px;
 
-    padding-bottom: 22px;
-
+    padding-bottom: 80px;
+    padding-top: 85px;
 
     @media(max-width: map-get($breakpoints, "mid-tablet")) {
         flex-direction: column-reverse;

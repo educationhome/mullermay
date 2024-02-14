@@ -30,12 +30,22 @@
                 width: 16px;
             }
 
-            &.--is-orange {
-
+            &--is-orange {
+                @extend .cookie__buttons-radio-label;
+            
                 &:before {
                     border-color: $color-orange;
                     opacity: 1;
                     cursor: pointer;
+                }
+
+                &:checked {
+                    + .cookie__buttons-radio-label {
+                        &:before {
+                            background-color: transparent;
+                            box-shadow: none;
+                        }
+                    }
                 }
             }
         }
@@ -72,14 +82,14 @@
                 width: 16px;
             }
 
-            &.--is-orange {
+            &--is-orange {
+                @extend .cookie__buttons-radio-label;
 
                 &:before {
                     border-color: $color-orange;
                     opacity: 1;
                     cursor: pointer;
                 }
-                
             }
         }
 
@@ -88,17 +98,6 @@
                 &:before {
                     background-color: $color-orange;
                     box-shadow: inset 0 0 0 0.2rem white;
-                }
-            }
-
-            &.--is-orange {
-                &:checked {
-                    + .cookie__buttons-radio-label {
-                        &:before {
-                            background-color: transparent;
-                            box-shadow: none;
-                        }
-                    }
                 }
             }
         }
@@ -122,6 +121,14 @@
         max-width: 640px;
         transform: translateY(160%);
         transition: transform .4s ease-in-out;
+
+        max-height: 400px;
+        overflow: scroll;
+        
+        @media(min-width: map-get($breakpoints, "small-tablet")) {
+            overflow: auto;
+            max-height: none;
+        }
 
         @media(max-width: map-get($breakpoints, "phone")) {
             padding: 24px;
@@ -162,39 +169,20 @@
 
         gap: 30px;
     }
-
-    &__scroll-block {
-        display: flex;
-        flex-direction: column;
-
-        gap: 20px;
-
-        max-height: 250px;
-        overflow: scroll;
-        
-        @media(min-width: map-get($breakpoints, "small-tablet")) {
-            overflow: auto;
-            max-height: none;
-        }
-    }
 }
 
 #js-cookies {
     background-color: rgba(0, 0, 0, 0);
     width: 100%;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 
     top: 0;
     position: fixed;
     z-index: -1;
 
     transition: background-color 0.3s ease-in-out;
-}
 
-.cookie {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    height: calc(var(--vh, 1vh) * 100);
 }

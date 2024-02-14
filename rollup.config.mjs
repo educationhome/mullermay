@@ -5,8 +5,8 @@ import postcss from "rollup-plugin-postcss";
 import autoprefixer from "autoprefixer";
 import cssnano from "cssnano";
 import del from "rollup-plugin-delete";
-import glsl from "rollup-plugin-glsl";
 import { uglify }  from "rollup-plugin-uglify";
+import babel from "rollup-plugin-babel";
 
 
 
@@ -29,22 +29,24 @@ export default {
         }),
         peerDepsExternal(),
         resolve(),
+        isProd && babel({
+            exclude: "node_modules/**",
+        }),
         commonjs(),
         postcss({
             extract: true,
+            use: [
+                ["sass", {
+                    includePaths: [
+                        "src/scss",
+                        "node_modules",
+                    ],
+                }],
+            ],
             plugins: [
                 autoprefixer(),
                 cssnano(),
             ],
-        }),
-        glsl({
-            include: "assets/shaders/**/*.glsl",
-
-            // Undefined by default
-            exclude: ["node_modules"],
-
-            // Source maps are on by default
-            sourceMap: false
         }),
         isProd && uglify({
             compress: {
@@ -57,10 +59,9 @@ export default {
             mangle: {
                 reserved: [
                     "console.log",
-                    "window.history",
                 ],
-                properties: false,
             },
         }),
     ],
+    
 };

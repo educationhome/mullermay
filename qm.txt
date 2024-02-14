@@ -1,0 +1,158 @@
+
+
+Meta title & text
+
+Development
+
+
+        General:
+
+Fix broken links + 
+
+Use CDN ?
+
+Lighthouse check + 
+
+www redirection ?
+
+404 Page or home redirect + 
+
+No console messages + 
+
+Emails are working and will not be marked as spam ----
+
+Images alt text + 
+ 
+No layout shifts + 
+
+img tags have width and height attributes + 
+
+Server-side rendering + 
+
+No lorem ipsum - art
+
+
+
+        Browser:
+
+Chrome +
+
+Firefox +
+
+Safari +
+
+
+        Devices:
+
+MacBook + 
+
+iPad + 
+
+iPhone + 
+ 
+Android +-
+
+
+        Compression:
+
+Images (Guetzli, TinyPNG, Imageoptim) ---
+
+gzip + 
+
+
+
+        Minify:
+
+JS + 
+
+CSS + 
+
+        Caching:
+
+Active? (Important: New files overwrite the cached files)
+
+Meaningful caching times
+
+
+
+
+        Legal:
+
+Download GoogleFonts + 
+
+Imprint + 
+
+Data Privacy Policy + 
+
+
+
+        Validation:
+
+HTML + 
+
+CSS + - 
+
+
+
+        Mobile:
+
+Correct input types -- 
+
+
+
+        Sharing, App Icons, etc.:
+
+Sharing image -- art
+
+Favicon & App icons + 
+
+Theme color meta + 
+
+Manifest
+
+
+
+        SEO:
+
+Check robots meta (WordPress settings checkbox)
+
+Update Google index (if a website was already available on this domain)
+
+
+
+        Security:
+
+Cross-Site scripting
+
+Mozilla Observatory (Mozilla Observatory )
+
+Cross-site request forgery
+
+SSL with redirect
+
+SQL injection
+
+Strong user passwords
+
+
+
+        Form:
+
+Keyboard navigation + 
+
+Clickable labels + 
+
+
+
+        WordPress:
+
+Disable auto updates (Core / Plugins) + 
+
+Add WPML translation strings -- 
+
+
+
+Доп. сделать:
+ 
+
+- Fonts weight +- ( IPAD , IPHONE )

@@ -45,20 +45,17 @@ blocksMount();
 
 // Overlay
 
-window.onload = function() {
-    
+document.addEventListener("DOMContentLoaded", function() {
     var overlay = document.getElementById("overlay");
     overlay.style.opacity = "0";
 
     overlay.parentNode.removeChild(overlay);
 
     // Set Lazy Loading
-
     var lazyLoadInstance = new LazyLoad({
         elements_selector: ".lazy"
-    });
-    
-};
+    }); 
+});
 
 
 
@@ -117,5 +114,9 @@ function removeGoogleTagManager() {
 
 export { removeGoogleTagManager };
 
-
+window.addEventListener("resize", setViewport);
 document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
+
+function setViewport() {
+    document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
+}

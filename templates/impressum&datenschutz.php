@@ -27,7 +27,7 @@ $iapText = get_field("imprint_and_dataprotection_text");
             <?php echo $iapText; ?>
         </div>
 
-        <button id="open-cookie-window" class="button --bg-orange">
+        <button id="open-cookie-window" class="button--bg-orange">
             <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
                 <?php _e("Cookie Einstellungen anpassen"); ?>
             </p>

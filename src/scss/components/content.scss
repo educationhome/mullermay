@@ -18,6 +18,9 @@
 
     &__image {
 
+        display: flex;
+        align-items: flex-end;
+
         & .icon__logo-white {
             display: none;
         }
@@ -27,7 +30,8 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        margin-bottom: 32px;
+
+        padding-bottom: 32px;
     }
 
     @media(max-width: map-get($breakpoints, "phone")) {
@@ -87,8 +91,6 @@
 
     background-color: $color-warm-white80;
     padding: 32px;
-    
-    margin-top: 32px;
 
     & .heading__h2 {
         max-width: 696px;
@@ -170,6 +172,8 @@
 
         gap: 21px;
 
+        cursor: pointer;
+
         svg {
             transition: transform 0.250s;
             transform: rotate(-180deg);
@@ -178,8 +182,9 @@
 
     &__text {
         overflow: hidden;
-        height: 100%;
-        margin-top: 10px;
+        height: fit-content;
+
+        will-change: height;
     }
 
     &__container {
@@ -187,16 +192,19 @@
         flex-direction: column;
         gap: 16px;
         
-        margin: 32px 0;
-
+        margin: 32px 0 0 0;
         
-        &.--is-mobile {
+        &--is-mobile {
+            @extend .fb-drop-down__container;
+
             @media(min-width: map-get($breakpoints, "small-tablet")) {
                 display: none;
             }
         }
 
-        &.--is-desktop {
+        &--is-desktop {
+            @extend .fb-drop-down__container;
+
             flex-direction: row;
             gap: 32px;
 
@@ -215,7 +223,9 @@
         }
     }
 
-    &.--is-opened {
+    &--is-opened {
+        @extend .fb-drop-down;
+
         .fb-drop-down__question {
             & svg {
                 transform: rotate(0deg);
@@ -236,8 +246,6 @@
 
     background-color: $color-warm-white80;
     padding: 32px;
-    
-    margin-top: 32px;
 
     @media(max-width: map-get($breakpoints, "small-tablet")) {
         padding: 24px;
@@ -250,8 +258,6 @@
     flex-direction: column;
 
     gap: 64px;
-
-    margin-top: 32px;
 
     &__block {
 
@@ -296,6 +302,14 @@
         & .text-content {
             margin-top: 32px;
         }
+
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            & .button--bg-orange {
+                width: 100%;
+
+                justify-content: center
+            }
+        }
     }
 
     &__time {
@@ -312,6 +326,8 @@
         margin: 22px 0 54px 0;
         width: fit-content;
         cursor: pointer;
+
+        align-items: center;
     }
 
     &__text {
@@ -323,10 +339,8 @@
             -webkit-line-clamp: 5;
         }
 
-        &.--is-showed {
-            p {
-                -webkit-line-clamp: unset;
-            }
+        &.--is-showed p {
+            -webkit-line-clamp: unset;
         }
     }
 
@@ -361,8 +375,6 @@
     flex-direction: column;
 
     gap: 64px;
-
-    margin-top: 32px;
 
     &__block {
 
@@ -427,12 +439,17 @@
             max-width: 224px;
             min-height: 297px;
 
-
             margin: 6px 28px 0 28px;
 
             @media(min-width: map-get($breakpoints, "small-tablet")) {
                 min-width: 412px;
                 margin-top: 48px;
+            }
+
+            @media(max-width: map-get($breakpoints, "small-tablet")) {
+                width: 100%;
+                height: 100%;
+                max-width: 400px;
             }
         }
     }
@@ -456,13 +473,14 @@
         width: fit-content;
         cursor: pointer;
 
-        align-items: center
+        align-items: center;
     }
 
     &__text {
         display: -webkit-box;
         max-width: 700px;
         -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
         overflow: hidden;
         -webkit-line-clamp: 7;
 
@@ -523,13 +541,30 @@
     flex-direction: column;
     gap: 32px;
 
-    &.--dsp-wbkt {
+    &--dsp-wbkt {
+        @extend .text-content;
+
         display: -webkit-box;
         gap: 0;
     }
 
     h3 {
         @include heading-h3;
+    }
+
+    &__team-member {
+        p {
+            display: inline;
+
+            @media(max-width: map-get($breakpoints, "small-tablet")) {
+                font-size: config.$font-size-paragraph;
+            }
+        }
+
+        p::after {
+            content: " \A\A";
+            white-space: pre;
+          }
     }
 }
 
@@ -550,11 +585,6 @@
 
     display: flex;
     flex-direction: column;
-
-    &.--dsp-wbkt {
-        display: -webkit-box;
-        gap: 0;
-    }
 
     & ul {
         list-style: inside;
@@ -594,10 +624,14 @@
         
         margin-top: 32px;
 
+        height: 100%;
+
         &-content {
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            // gap: 28px;
+            height: 100%;
+            justify-content: space-between;
         }
     }
 }
@@ -606,14 +640,18 @@
 .fl-book-now {
     display: flex;
     flex-direction: column;
-    padding: 32px 64px;
+    padding: 32px;
 
     align-items: center;
     text-align: center;
-    gap: 64px;
+    gap: 32px;
     border-radius: 16px;
 
     background-color: $color-purple-100;
+
+    & p {
+        max-width: 633px;
+    }
 
     &__soc-media {
         display: flex;
@@ -624,17 +662,26 @@
     }
 
     @media(max-width: map-get($breakpoints, "small-tablet")) {
-        gap: 32px;
+        padding: 24px;
+
+        & p {
+            max-width: 280px;
+        }
     }
 
 }
 
 .notification {
-
     &__content {
+        height: calc(var(--vh, 1vh) * 100);
+
+        display: flex;
+        justify-content: center;
+
+        align-items: flex-end;
+
         background-color: rgba(0, 0, 0, 0);
         width: 100%;
-        height: calc(var(--vh, 1vh) * 100);
 
         top: 0;
         position: fixed;
@@ -643,9 +690,6 @@
         transition: background-color 0.3s ease-in-out;
 
         overflow: hidden;
-
-        display: flex;
-        justify-content: center;
     }
 
     &__block {
@@ -659,7 +703,7 @@
         background-color: $color-purple;
         border-radius: 40px;
 
-        position: absolute;
+        // position: absolute;
         bottom: 0;
 
         transform: translateY(100%);
@@ -779,7 +823,11 @@
 
     &__info {
 
-        &.--is-desktop {
+        box-sizing: content-box;
+      
+        &--is-desktop {
+            @extend .fb-google-maps__info;
+
             display: none;
 
             @media(min-width: map-get($breakpoints, "mid-tablet")) {
@@ -809,7 +857,8 @@
             }
         }
 
-        &.--is-mobile {
+        &--is-mobile {
+            @extend .fb-google-maps__info;
     
             display: flex;
             flex-direction: column;

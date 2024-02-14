@@ -5,7 +5,6 @@
                 key: "AIzaSyAiuuSUolkPIHpw1XKcpPlT13bmcEpXmlQ",
                 });
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="<?php echo get_template_directory_uri() . "/dist/app.js" ?>"></script>
 </body> 
 </html>

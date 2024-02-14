@@ -19,9 +19,9 @@ $mapOpeningHoursHint = $mapOpeningHours["gm_infobox_ophr_hint"];
 ?>
 
 
-<div class="container--small padding__top-small fb-google-maps__block" data-template="google-maps-block">
+<div class="container--small padding__top-small padding__bottom-small fb-google-maps__block" data-template="google-maps-block">
     <div id="map"></div>
-    <div class="fb-google-maps__info --is-desktop">
+    <div class="fb-google-maps__info--is-desktop">
         <div class="fb-google-maps__logo">
             <?php get_template_part("partials/common", "sprite-svg", [
                 "name" => "mullermay-logo-small",
@@ -57,7 +57,7 @@ $mapOpeningHoursHint = $mapOpeningHours["gm_infobox_ophr_hint"];
         </div>
     </div>
 
-    <div class="fb-google-maps__info --is-mobile">
+    <div class="fb-google-maps__info--is-mobile">
 
         <a href="<?php echo $mapAdressLink; ?>" class="paragraph paragraph__semi-bold paragraph__purple" target="_blank">
             <?php echo $mapAdressLabel; ?>

@@ -3,8 +3,8 @@
 .mullermaySwiper {
     & .swiper-wrapper {
         display: flex;
-
-        height: auto;
+        max-height: 714px;
+        height: 100%;
     }
 
     & .swiper-slide {
@@ -21,6 +21,7 @@
         @media (max-width: map-get($breakpoints, "phone")) {
             max-width: 100vw;
             max-height: 514px;
+            height: revert-layer;
         }
        
     }
@@ -46,12 +47,16 @@
         align-items: center;
         justify-content: center;
 
-        &.--is-next {
+        &--is-next {
+            @extend .swiper-arrow-button;
+
             right: var(--swiper-navigation-sides-offset,47px);
             left: auto;
         }
 
-        &.--is-prev {
+        &--is-prev {
+            @extend .swiper-arrow-button;
+
             left: var(--swiper-navigation-sides-offset,47px);
             right: auto;
         }
@@ -60,11 +65,15 @@
             width: 46px;
             height: 46px;
 
-            &.--is-next {
+            &--is-next {
+                @extend .swiper-arrow-button;
+
                 right: var(--swiper-navigation-sides-offset,12px);
             }
     
-            &.--is-prev {
+            &--is-prev {
+                @extend .swiper-arrow-button;
+
                 left: var(--swiper-navigation-sides-offset,12px);
             }
         }
@@ -113,5 +122,17 @@
 
     & .swiper-wrapper  {
         height: auto;
+    }
+
+    & .swiper-slide {
+        height: auto;
+    }
+}
+
+.slider {
+    padding: 64px 0;
+
+    @media (max-width: map-get($breakpoints, "small-tablet")) {
+        padding: 32px 0;
     }
 }

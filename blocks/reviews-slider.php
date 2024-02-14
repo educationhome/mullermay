@@ -23,15 +23,15 @@ $reviewsList = get_field("mm_bl_r_list");
                             "classes" => "icon__review-logo",
                             ]); ?>
                         <?php else: ?>
-                            <img class="lazy" data-src="<?php echo $review["mm_bl_r_icon"]["url"]; ?>" alt="<?php echo $review["mm_bl_r_icon"]["title"]; ?>">
+                            <?php renderImage($review["mm_bl_r_icon"], "", true); ?>
                         <?php endif; ?>
 
                         <div class="fb-review__item-content">
                             <p class="paragraph paragraph__semi-bold"><?php echo $review["mm_bl_r_text_content"]; ?></p>
 
                             <div>
-                                <p class="paragraph"><?php echo $review["mm_bl_r_name"]; ?></p>
-                                <p class="paragraph paragraph__small paragraph__body"><?php echo $review["mm_bl_r_info"]; ?></p>  
+                                <p class="paragraph paragraph__semi-bold"><?php echo $review["mm_bl_r_name"]; ?></p>
+                                <p class="paragraph paragraph__small"><?php echo $review["mm_bl_r_info"]; ?></p>  
                             </div>
                             
                         </div>
@@ -39,6 +39,6 @@ $reviewsList = get_field("mm_bl_r_list");
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="reviews-pagination margin__top-small"></div>
+        <div class="reviews-pagination margin__swiper-pagination"></div>
     </div>
 </div>

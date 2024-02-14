@@ -51,6 +51,10 @@ declare const Swiper: DefineComponent<
       type: PropType<SwiperOptions['oneWayMovement']>;
       default: SwiperOptions['oneWayMovement'];
     };
+    swiperElementNodeName: {
+      type: PropType<SwiperOptions['swiperElementNodeName']>;
+      default: SwiperOptions['swiperElementNodeName'];
+    };
     touchEventsTarget: {
       type: PropType<SwiperOptions['touchEventsTarget']>;
       default: undefined;
@@ -475,21 +479,6 @@ declare const Swiper: DefineComponent<
    * Event will be fired on mousewheel scroll
    */
   scroll: (swiper: SwiperClass, event: WheelEvent) => void;/**
-   * Event will be fired on navigation hide
-   */
-  navigationHide: (swiper: SwiperClass) => void;
-  /**
-   * Event will be fired on navigation show
-   */
-  navigationShow: (swiper: SwiperClass) => void;
-  /**
-   * Event will be fired on navigation prev button click
-   */
-  navigationPrev: (swiper: SwiperClass) => void;
-  /**
-   * Event will be fired on navigation next button click
-   */
-  navigationNext: (swiper: SwiperClass) => void;/**
    * Event will be fired after pagination rendered
    */
   paginationRender: (swiper: SwiperClass, paginationEl: HTMLElement) => void;
@@ -508,6 +497,21 @@ declare const Swiper: DefineComponent<
    * Event will be fired on pagination show
    */
   paginationShow: (swiper: SwiperClass) => void;/**
+   * Event will be fired on navigation hide
+   */
+  navigationHide: (swiper: SwiperClass) => void;
+  /**
+   * Event will be fired on navigation show
+   */
+  navigationShow: (swiper: SwiperClass) => void;
+  /**
+   * Event will be fired on navigation prev button click
+   */
+  navigationPrev: (swiper: SwiperClass) => void;
+  /**
+   * Event will be fired on navigation next button click
+   */
+  navigationNext: (swiper: SwiperClass) => void;/**
    * Event will be fired on draggable scrollbar drag start
    */
   scrollbarDragStart: (swiper: SwiperClass, event: MouseEvent | TouchEvent | PointerEvent) => void;

@@ -22,7 +22,7 @@ $text404 = get_field("404_text", "options");
 
     <!-- 404 Error -->
     <div class="container--small container__404">
-        <img class="container__404-image lazy" data-src="<?php echo $icon404["url"]; ?>" alt="<?php echo $icon404["title"]; ?>">
+        <?php renderImage($icon404, "container__404-image", true); ?>
 
         <div class="container__404-text">
             <h2 class="heading heading-h2"><?php echo $header404; ?></h2>
@@ -31,7 +31,7 @@ $text404 = get_field("404_text", "options");
             </div>
         </div>
 
-        <a href="<?php echo home_url(); ?>" type="button" class="button --bg-orange">
+        <a href="<?php echo home_url(); ?>" class="button--bg-orange">
             <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold paragraph__small">
                 <?php _e("Zur Startseite"); ?>
             </p>

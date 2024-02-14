@@ -38,23 +38,25 @@ export class DropDown {
         if (parentEl.classList.contains("fb-drop-down__question")) {
             parentEl = parentEl.parentElement;
         }
+
+        if (parentEl.classList.contains("icon__drop-down-button")) {
+            parentEl = parentEl.parentElement.parentElement;
+        }
         
         const dropDownText = parentEl.querySelector(".fb-drop-down__text");
         const dropDownHeight = parentEl.dataset.height;
-        
-        parentEl.classList.toggle("--is-opened");
 
-        if (parentEl.classList.contains("--is-opened")) {
-            dropDownText.style.display = "flex";
+        parentEl.classList.toggle("fb-drop-down");
+        parentEl.classList.toggle("fb-drop-down--is-opened");
 
+        if (parentEl.classList.contains("fb-drop-down--is-opened")) {
             const tl = gsap.timeline();
             tl.to(dropDownText, { marginTop: "10px", duration: 0 })
-            .to(dropDownText, { maxHeight: dropDownHeight, duration: 0.5, ease: "expo.out" })
+            .to(dropDownText, { height: dropDownHeight + "px", duration: 0.4})
         } else {
             const tl = gsap.timeline();
-            tl.to(dropDownText, { maxHeight: "0", duration: 0.5, ease: "expo.out" })
-            .to(dropDownText, { display: "none", duration: 0 })
-            .to(dropDownText, { marginTop: "0", duration: 0 }, "-=0.250")
+            tl.to(dropDownText, { height: "0px", duration: 0.4})
+            .to(dropDownText, { marginTop: "0", duration: 0 }, "-=0.1")
         }
     }
 
@@ -71,18 +73,20 @@ export class DropDown {
 
     hideDropDownText(element) {
         const dropDownText = element.querySelector(".fb-drop-down__text");
-        dropDownText.style.display = "none";
-        dropDownText.style.maxHeight = 0;
+        dropDownText.style.height = 0 + "px";
     }
 
     uploadHeightDataSet() {
         const dropDowns = document.querySelectorAll(".fb-drop-down__text");
         dropDowns.forEach(element => {
             element.style.maxHeight = "none";
-            element.style.display = "flex";
+            element.style.height = "fit-content"
 
             this.saveHeight(element.parentElement);
-            this.hideDropDownText(element.parentElement);
+
+            if (!element.parentElement.classList.contains("fb-drop-down--is-opened")) {
+                this.hideDropDownText(element.parentElement);
+            }
         });
     }
 

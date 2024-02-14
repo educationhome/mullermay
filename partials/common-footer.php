@@ -8,7 +8,7 @@ $socMediaItems = getSocMediaItems();
 
 <div id="footer" class="footer-section">
     <div class="footer-section__logo">
-        <a class="header__inner__logo" href="<?php echo home_url(); ?>" title="Go to Main page">
+        <a class="header__inner-logo--no-margin" href="<?php echo home_url(); ?>" title="Go to Main page">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo-white",
                     "classes" => "icon__footer-logo-white",
@@ -24,9 +24,13 @@ $socMediaItems = getSocMediaItems();
     <div class="footer-section__links">
         <?php foreach ($footerItems as $footerItem): ?>
             <?php if($footerItem["customLink"]["mm_is_cl"]): ?>
-                <a href="<?php echo $footerItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__warm-white"><?php echo $footerItem["customLink"]["mm_cl_label"]; ?></p></a>
+                <a href="<?php echo $footerItem["customLink"]["mm_cl_to_post"]; ?>">
+                    <p class="paragraph paragraph__warm-white"><?php echo $footerItem["customLink"]["mm_cl_label"]; ?></p>
+                </a>
             <?php else: ?>
-                <a href="<?php echo $footerItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__warm-white"><?php echo $footerItem["customLink"]["mm_cl_label"]; ?></p></a>
+                <a href="<?php echo $footerItem["customLink"]["mm_cl_to_url"]; ?>">
+                    <p class="paragraph paragraph__warm-white"><?php echo $footerItem["customLink"]["mm_cl_label"]; ?></p>
+                </a>
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
@@ -38,11 +42,11 @@ $socMediaItems = getSocMediaItems();
             <?php foreach ($socMediaItems as $socMediaItem): ?>
                 <?php if($socMediaItem["customLink"]["mm_is_cl"]): ?>
                     <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_post"]; ?>">
-                        <img class="lazy" data-src="<?php echo $socMediaItem["icon"]["url"]; ?>" alt="<?php echo $socMediaItem["icon"]["title"] ?>">
+                        <?php renderImage($socMediaItem["icon"], "", true); ?>
                     </a>
                 <?php else: ?>
                     <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_url"]; ?>">
-                        <img class="lazy" data-src="<?php echo $socMediaItem["icon"]["url"]; ?>" alt="<?php echo $socMediaItem["icon"]["title"] ?>">
+                        <?php renderImage($socMediaItem["icon"], "", true); ?>
                     </a>
                 <?php endif; ?>
             <?php endforeach; ?>

@@ -18,8 +18,8 @@ $color-background: $color-warm-white;
 
 // Fonts.
 
-$font-primary: 'Asap', sans-serif;
-$font-secondary: 'Inter', sans-serif;
+$font-primary: 'Asap';
+$font-secondary: 'Inter';
 
 
 $font-size-copy-very-small: 1.4em;
@@ -80,9 +80,6 @@ $breakpoints: (
 
 
 :root {
-    --vh: 9.03px;
-
-
     --space-small: 32px;
     --space-medium: 64px;
     --space-large: 100px;

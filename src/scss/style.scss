@@ -2,3 +2,7 @@
 @import "./generic";
 @import "./elements";
 @import "./components";
+
+* {
+    box-sizing: border-box;
+}

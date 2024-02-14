@@ -3,31 +3,15 @@
 
 
 @mixin paragraph__body {
-    font-family: config.$font-secondary;
+    @include paragraph;
 
-    word-break: break-word;
-    font-size: config.$font-size-paragraph;
-
-    color: $color-dark-grey;
     font-weight: 500;
     line-height: 30px;
-
-    @media(max-width: map-get($breakpoints, "small-tablet")) {
-        font-size: config.$font-size-paragraph--mobile;
-    }
-   
 }
 
 @mixin paragraph__small {
-    font-family: config.$font-secondary;
-    
-    font-weight: 400;
-    word-break: break-word;
+    @include paragraph;
     font-size: config.$font-size-paragraph--small;
-
-    color: $color-dark-grey;
-
-    line-height: config.$line-height-paragraph;
 }
 
 @mixin paragraph {
@@ -49,7 +33,7 @@
     }
 
     &__small {
-        @include paragraph__small;
+        font-size: config.$font-size-paragraph--small;
     }
 
     &__medium {
@@ -110,8 +94,19 @@
         line-height: normal;
     }
 
-    &__body {
-        @include paragraph__body;
+    &__body {    
+        font-weight: 500;
+        line-height: 30px;
+    }
+
+    &__uppercase {
+        text-transform: uppercase;
+    }
+
+    &__desktop {
+        @media(max-width: map-get($breakpoints, "small-tablet")) {
+            font-size: config.$font-size-paragraph;
+        }     
     }
 }
 
@@ -120,7 +115,6 @@
     font-family:  config.$font-primary;
     word-break: break-word;
     line-height: $line-height;
-
 
     &-h1 {
         font-size: config.$font-size-heading-h1;
@@ -136,7 +130,7 @@
         }
 
         &.--header {
-            margin: 8px 0 32px 0; 
+            margin: 0 0 32px 0; 
         }
     }
 
@@ -177,14 +171,14 @@
 
 @mixin container--small {
     max-width: 1300px;
-    margin: 64px auto;
+    margin: 0 auto;
 
     @media(max-width: map-get($breakpoints, "small-desktop")) {
-        margin: 64px;
+        margin: 0px 64px;
     }
 
     @media(max-width: map-get($breakpoints, "tablet")) {
-        margin: 32px;
+        margin: 0px 32px;
     }
     
     @media(max-width: map-get($breakpoints, "mid-tablet")) {

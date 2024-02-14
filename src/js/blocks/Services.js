@@ -19,98 +19,115 @@ export class Services {
         this.addEvents();
     }
 
+   
 
     addEvents() {
-        this.button.forEach(element => {
-            element.addEventListener("click", (e) => this.toggleText(e));
-        });
+        this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
 
-        addEventListener("DOMContentLoaded", () => {
-            this.block.forEach(element => {
-                this.saveHeight(element);
-            });
-        });
-
-        document.addEventListener("resize", () => this.updateDataSetHeight());
+        window.addEventListener("DOMContentLoaded", () => this.block.forEach(element => this.saveHeight(element)));
+    
+        window.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
-    toggleText(e) {
-        const parentEl = e.target.parentElement;
-        const content = parentEl.parentElement.querySelector(".text-content");
-        const serviceText = parentEl.parentElement.querySelector(".fb-service__text");
-        
-        const serviceBlock = parentEl.parentElement.parentElement;
-        const minHeight = serviceBlock.dataset.minHeight + "px";
-        const maxHeight = serviceBlock.dataset.maxHeight + "px";
+    
 
-        if (content.classList.contains("--is-showed")) {
-            this.hideText(parentEl, serviceText, minHeight);
-        } else {
-            this.showText(parentEl, serviceText, maxHeight);
+    // Get Height
+
+    getHeight(element, isMax) {
+        const textContainer = element.querySelector(".fb-service__text");
+        const isShowed = textContainer.classList.contains("--is-showed");
+
+        textContainer.style.maxHeight = "none";
+
+        if ((isMax && !isShowed) || (!isMax && isShowed)) {
+            textContainer.classList.toggle("--is-showed");
+        }
+
+        const height = textContainer.clientHeight;
+
+        if ((isMax && !isShowed) || (!isMax && isShowed)) {
+            textContainer.classList.toggle("--is-showed");
+        }
+
+        return height;
+    }
+
+
+
+    // Save Height
+
+    saveHeight(element, autoClosingWindow = true) {
+        element.dataset.minHeight = this.getHeight(element, false);
+        element.dataset.maxHeight = this.getHeight(element, true);
+
+        const textContainer = element.querySelector(".fb-service__content .fb-service__text");
+
+        if (autoClosingWindow) {
+            textContainer.style.maxHeight = `${element.dataset.minHeight}px`;
         }
     }
 
-    showText(parentEl, text, maxHeight) {
-        text.classList.add("--is-showed");
+
+
+    // Toogle Text 
+
+    toggleText(element) {
+        const serviceButton = element.currentTarget.closest(".fb-service__load-text-button");
+        const serviceBlock = serviceButton.parentElement.parentElement;
+        const serviceContent = serviceButton.parentElement.querySelector(".fb-service__text")
+        const minHeight = serviceBlock.dataset.minHeight + "px";
+        const maxHeight = serviceBlock.dataset.maxHeight + "px";
+        
+        serviceContent.classList.contains("--is-showed") ? this.hideText(serviceContent, minHeight) : this.showText(serviceContent, maxHeight);
+    }
+
+    
+
+    // Show Text
+
+    showText(content, maxHeight) {
+        content.classList.add("--is-showed");
 
         const tl = gsap.timeline({
             onStart: function () {
-                parentEl.querySelector(".fb-service__text-open").classList.add("--hide");
-                parentEl.querySelector(".fb-service__text-close").classList.remove("--hide");
-                parentEl.querySelector(".icon__drop-down-button.--service").style.transform = "rotate(0)";
+                content.parentElement.querySelector(".fb-service__text-open").classList.add("--hide");
+                content.parentElement.querySelector(".fb-service__text-close").classList.remove("--hide");
+                content.parentElement.querySelector(".icon__drop-down-button").style.transform = "rotate(0)";
             }
         });
 
-        tl.to(text, { maxHeight: maxHeight, duration: 0.5, ease: "expo.out" })
+        tl.to(content, { maxHeight: maxHeight, duration: 0.5, ease: "expo.out" })
     }
 
-    hideText(parentEl, text, minHeight) {
+
+
+    // Hide Text
+
+    hideText(content, minHeight) {
         const tl = gsap.timeline({
             onComplete: function () {
-                text.classList.remove("--is-showed");
+                content.classList.remove("--is-showed");
             },
 
             onStart: function () {
-                parentEl.querySelector(".fb-service__text-open").classList.remove("--hide");
-                parentEl.querySelector(".fb-service__text-close").classList.add("--hide");
-                parentEl.querySelector(".icon__drop-down-button.--service").style.transform = "rotate(180deg)";
+                content.parentElement.querySelector(".fb-service__text-open").classList.remove("--hide");
+                content.parentElement.querySelector(".fb-service__text-close").classList.add("--hide");
+                content.parentElement.querySelector(".icon__drop-down-button").style.transform = "rotate(180deg)";
             },
         });
-        
-        tl.to(text, { maxHeight: minHeight, duration: 0.5, ease: "expo.out" })
+
+        tl.to(content, { maxHeight: minHeight, duration: 0.5, ease: "expo.out" });
     }
+
+
+
+    // Update Height (resize Event)
 
     updateDataSetHeight() {
         const textContainer = this.root.querySelectorAll(".fb-service__block");
         textContainer.forEach(element => {
-            this.saveHeight(element);
+            this.saveHeight(element, false);
         });
-    }
-
-    saveHeight(element) {
-        const minHeight = this.getMinHeight(element);
-        const maxHeight = this.getMaxHeight(element);
-
-        element.dataset.minHeight = minHeight;
-        element.dataset.maxHeight = maxHeight;
-    }
-
-    getMinHeight(element) {
-        const textContainer = element.querySelector(".fb-service__text");
-        textContainer.classList.remove("--is-showed");
-        const minHeight = textContainer.clientHeight;
-
-        return minHeight;
-    }
-
-    getMaxHeight(element) {
-        const textContainer = element.querySelector(".fb-service__text");
-        textContainer.style.maxHeight = "none";
-        textContainer.classList.add("--is-showed");
-        const maxHeight = textContainer.clientHeight;
-        textContainer.classList.remove("--is-showed");
-
-        return maxHeight;
     }
 
 }
