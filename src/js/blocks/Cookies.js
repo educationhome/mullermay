@@ -32,7 +32,6 @@ export class Cookies {
     
 
     addEvents() {
-        console.log("addEvents");
         window.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 checkCookies();

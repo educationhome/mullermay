@@ -24,6 +24,8 @@ export class DropDown {
         this.addEvents();
     }
 
+
+
     addEvents() {
         this.dropDownQuestion.forEach(element => {
             element.addEventListener("click", (e) => this.openDropDown(e));
@@ -31,6 +33,20 @@ export class DropDown {
 
         addEventListener("resize", () => this.uploadHeightDataSet());
     }
+
+
+
+    removeEvents() {
+        if (document.querySelector('[data-template="drop-down"]')) {
+            this.dropDownQuestion.forEach(element => {
+                element.removeEventListener("click", (e) => this.openDropDown(e));
+            });
+
+            removeEventListener("resize", () => this.uploadHeightDataSet());
+        }
+    }
+
+
 
     openDropDown(element) {
         let parentEl = element.target.parentElement;
@@ -60,21 +76,29 @@ export class DropDown {
         }
     }
 
+
+
     getHeight(element) {
         const dropDownText = element.querySelector(".fb-drop-down__text");
         const dropDownHeight = dropDownText.clientHeight;
         return dropDownHeight;
     }
 
+
+
     saveHeight(element) {
         const height = this.getHeight(element);
         element.dataset.height = height;
     }
 
+
+
     hideDropDownText(element) {
         const dropDownText = element.querySelector(".fb-drop-down__text");
         dropDownText.style.height = 0 + "px";
     }
+
+
 
     uploadHeightDataSet() {
         const dropDowns = document.querySelectorAll(".fb-drop-down__text");

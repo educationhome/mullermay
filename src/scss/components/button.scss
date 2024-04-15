@@ -78,7 +78,40 @@
     }
 }
 
-
 .notification__close-button {
     cursor: pointer;
 } 
+
+.where-am-i {
+    display: inline-block;
+}
+  
+.where-am-i::after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    display: block;
+    background: #9566ac;
+    transition: 200ms ease-in;
+}
+
+.where-am-i.active::after {
+    width: 100%;
+}
+
+.where-am-i__mobile {
+    display: inline-block;
+}
+  
+.where-am-i__mobile::after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    display: block;
+    background: #fff7ec;
+    transition: 200ms ease-in;
+}
+
+.where-am-i__mobile.active::after {
+    width: 100%;
+}

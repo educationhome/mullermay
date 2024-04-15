@@ -425,7 +425,7 @@ const addEventListener$1 = (element, eventName, handler) => {
   element.llEvLisnrs[eventName] = handler;
 };
 
-const removeEventListener = (element, eventName, handler) => {
+const removeEventListener$1 = (element, eventName, handler) => {
   element.removeEventListener(eventName, handler);
 };
 
@@ -447,7 +447,7 @@ const removeEventListeners = (element) => {
   const eventListeners = element.llEvLisnrs;
   for (let eventName in eventListeners) {
     const handler = eventListeners[eventName];
-    removeEventListener(element, eventName, handler);
+    removeEventListener$1(element, eventName, handler);
   }
   delete element.llEvLisnrs;
 };
@@ -10463,9 +10463,13 @@ class Menu {
         this.mount();
     }
 
+
+
     mount() {
         this.addEvents(); 
     }
+
+
 
     addEvents() {
         if (this.openMenuButton) {
@@ -10479,17 +10483,40 @@ class Menu {
         window.addEventListener("resize", () => this.handleResize());
     }
 
+
+
+    removeEvents() {
+        if (document.querySelector('[data-template="menu"]')) {
+            if (this.openMenuButton) {
+                this.openMenuButton.removeEventListener("click", () => this.openMenu());
+            }
+
+            if (this.closeMenuButton) {
+                this.closeMenuButton.removeEventListener("click", () => this.closeMenu());
+            }
+
+            window.removeEventListener("resize", () => this.handleResize());
+        }
+        
+    }
+
+
+
     openMenu() {
         this.root.classList.remove("--is-closed");
         this.root.classList.add("--is-opened");
         document.documentElement.style.overflow = "hidden";
     }
 
+
+
     closeMenu() {
         this.root.classList.remove("--is-opened");
         this.root.classList.add("--is-closed");
         document.documentElement.style.overflow = "auto";
     }
+
+
 
     handleResize() {
         if (window.innerWidth > this.resizeThreshold) {
@@ -16649,6 +16676,8 @@ class DropDown {
         this.addEvents();
     }
 
+
+
     addEvents() {
         this.dropDownQuestion.forEach(element => {
             element.addEventListener("click", (e) => this.openDropDown(e));
@@ -16656,6 +16685,20 @@ class DropDown {
 
         addEventListener("resize", () => this.uploadHeightDataSet());
     }
+
+
+
+    removeEvents() {
+        if (document.querySelector('[data-template="drop-down"]')) {
+            this.dropDownQuestion.forEach(element => {
+                element.removeEventListener("click", (e) => this.openDropDown(e));
+            });
+
+            removeEventListener("resize", () => this.uploadHeightDataSet());
+        }
+    }
+
+
 
     openDropDown(element) {
         let parentEl = element.target.parentElement;
@@ -16685,21 +16728,29 @@ class DropDown {
         }
     }
 
+
+
     getHeight(element) {
         const dropDownText = element.querySelector(".fb-drop-down__text");
         const dropDownHeight = dropDownText.clientHeight;
         return dropDownHeight;
     }
 
+
+
     saveHeight(element) {
         const height = this.getHeight(element);
         element.dataset.height = height;
     }
 
+
+
     hideDropDownText(element) {
         const dropDownText = element.querySelector(".fb-drop-down__text");
         dropDownText.style.height = 0 + "px";
     }
+
+
 
     uploadHeightDataSet() {
         const dropDowns = document.querySelectorAll(".fb-drop-down__text");
@@ -16749,8 +16800,8 @@ class Services {
 
     removeEvents() {
         if (document.querySelector("[data-template='services']")) {
-            this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
-            window.addEventListener("resize", () => this.updateDataSetHeight());
+            this.button.forEach(element => element.removeEventListener("click", e => this.toggleText(e)));
+            window.removeEventListener("resize", () => this.updateDataSetHeight());
         }
     }
 
@@ -17057,7 +17108,6 @@ class Cookies {
     
 
     addEvents() {
-        console.log("addEvents");
         window.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
                 checkCookies();
@@ -17343,6 +17393,7 @@ document.addEventListener("DOMContentLoaded", ajaxChangePage);
 
 
 function ajaxChangePage() {
+    whereAmI();
     const ajaxLinks = document.querySelectorAll(".ajax-link");
 
     ajaxLinks.forEach(link => {
@@ -17396,6 +17447,7 @@ function loadPage(url, update = false) {
             const newTemplate = docContent.getAttribute("data-template");
 
             content.setAttribute("data-template", newTemplate);
+            whereAmI();
 
             gsapWithCSS.to(content, { opacity: 0, duration: 0.5, onComplete: 
                 function() {
@@ -17465,4 +17517,31 @@ document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}p
 
 function setViewport() {
     document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
+}
+
+
+
+// Where Am I function (highlight the page where I am)
+
+function whereAmI() {
+    const currentUrl = window.location.href;
+    const menuLinks = document.querySelectorAll(".where-am-i");
+
+    menuLinks.forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active"); 
+        } else {
+            link.classList.remove("active"); 
+        }
+    });
+
+    const menuLinksMobile = document.querySelectorAll(".where-am-i__mobile");
+
+    menuLinksMobile.forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active"); 
+        } else {
+            link.classList.remove("active"); 
+        }
+    });
 }

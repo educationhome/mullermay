@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", ajaxChangePage);
 
 
 function ajaxChangePage() {
+    whereAmI();
     const ajaxLinks = document.querySelectorAll(".ajax-link");
 
     ajaxLinks.forEach(link => {
@@ -236,6 +237,7 @@ function loadPage(url, update = false) {
             const newTemplate = docContent.getAttribute("data-template");
 
             content.setAttribute("data-template", newTemplate);
+            whereAmI();
 
             gsap.to(content, { opacity: 0, duration: 0.5, onComplete: 
                 function() {
@@ -305,4 +307,31 @@ document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}p
 
 function setViewport() {
     document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
+}
+
+
+
+// Where Am I function (highlight the page where I am)
+
+function whereAmI() {
+    const currentUrl = window.location.href;
+    const menuLinks = document.querySelectorAll(".where-am-i");
+
+    menuLinks.forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active"); 
+        } else {
+            link.classList.remove("active"); 
+        }
+    });
+
+    const menuLinksMobile = document.querySelectorAll(".where-am-i__mobile");
+
+    menuLinksMobile.forEach(link => {
+        if (link.href === currentUrl) {
+            link.classList.add("active"); 
+        } else {
+            link.classList.remove("active"); 
+        }
+    });
 }

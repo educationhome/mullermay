@@ -25,11 +25,11 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 
         <?php foreach ($menuItems as $menuItem): ?>
             <?php if($menuItem["customLink"]["mm_is_cl"]): ?>
-                <a class="paragraph paragraph__semi-bold ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>">
+                <a class="paragraph paragraph__semi-bold ajax-link where-am-i" href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>">
                     <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
                 </a>
             <?php else: ?>
-                <a class="paragraph paragraph__semi-bold ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>">
+                <a class="paragraph paragraph__semi-bold ajax-link where-am-i" href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>">
                     <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
                 </a>
             <?php endif; ?>

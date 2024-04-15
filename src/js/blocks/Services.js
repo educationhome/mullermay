@@ -32,8 +32,8 @@ export class Services {
 
     removeEvents() {
         if (document.querySelector("[data-template='services']")) {
-            this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
-            window.addEventListener("resize", () => this.updateDataSetHeight());
+            this.button.forEach(element => element.removeEventListener("click", e => this.toggleText(e)));
+            window.removeEventListener("resize", () => this.updateDataSetHeight());
         }
     }
 

@@ -92,11 +92,11 @@ $cookieText = $cookieContent["text"];
             <div class="menu__links">
                 <?php foreach ($menuItems as $menuItem): ?>
                     <?php if($menuItem["customLink"]["mm_is_cl"]): ?>
-                        <a class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>">
+                        <a class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal ajax-link where-am-i__mobile" href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>">
                             <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
                         </a>
                     <?php else: ?>
-                        <a class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>">
+                        <a class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal ajax-link where-am-i__mobile" href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>">
                             <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
                         </a>
                     <?php endif; ?>
@@ -109,11 +109,11 @@ $cookieText = $cookieContent["text"];
         <div class="menu__footer-links">
             <?php foreach ($menuFooterItems as $menuFooterItem): ?>
                 <?php if($menuFooterItem["customLink"]["mm_is_cl"]): ?>
-                    <a class="paragraph paragraph__warm-white paragraph__small ajax-link" href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_post"]; ?>">
+                    <a class="paragraph paragraph__warm-white paragraph__small ajax-link where-am-i__mobile" href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_post"]; ?>">
                         <?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?>
                     </a>
                 <?php else: ?>
-                    <a class="paragraph paragraph__warm-white paragraph__small ajax-link" href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_url"]; ?>">
+                    <a class="paragraph paragraph__warm-white paragraph__small ajax-link where-am-i__mobile" href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_url"]; ?>">
                         <?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?>
                     </a>
                 <?php endif; ?>
