@@ -24,12 +24,12 @@ $socMediaItems = getSocMediaItems();
     <div class="footer-section__links">
         <?php foreach ($footerItems as $footerItem): ?>
             <?php if($footerItem["customLink"]["mm_is_cl"]): ?>
-                <a href="<?php echo $footerItem["customLink"]["mm_cl_to_post"]; ?>">
-                    <p class="paragraph paragraph__warm-white"><?php echo $footerItem["customLink"]["mm_cl_label"]; ?></p>
+                <a class="paragraph paragraph__warm-white ajax-link" href="<?php echo $footerItem["customLink"]["mm_cl_to_post"]; ?>">
+                    <?php echo $footerItem["customLink"]["mm_cl_label"]; ?>
                 </a>
             <?php else: ?>
-                <a href="<?php echo $footerItem["customLink"]["mm_cl_to_url"]; ?>">
-                    <p class="paragraph paragraph__warm-white"><?php echo $footerItem["customLink"]["mm_cl_label"]; ?></p>
+                <a class="paragraph paragraph__warm-white ajax-link" href="<?php echo $footerItem["customLink"]["mm_cl_to_url"]; ?>">
+                    <?php echo $footerItem["customLink"]["mm_cl_label"]; ?>
                 </a>
             <?php endif; ?>
         <?php endforeach; ?>

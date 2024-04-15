@@ -10391,9 +10391,12 @@ class ServicesList {
     }
 
     removeEvents() {
-        this.paragraphText.forEach(element => {
-            element.removeEventListener("DOMContentLoaded", this.hideText(element));
-        });
+        if (document.querySelector('[data-template="services-list"]')) {
+            this.paragraphText.forEach(element => {
+                element.removeEventListener("DOMContentLoaded", this.hideText(element));
+            });
+        }
+        
     }
 
     hideText(paragraph) {
@@ -16730,6 +16733,7 @@ class Services {
     }
 
     mount() {
+        this.block.forEach(element => this.saveHeight(element));
         this.addEvents();
     }
 
@@ -16737,13 +16741,20 @@ class Services {
 
     addEvents() {
         this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
-
-        window.addEventListener("DOMContentLoaded", () => this.block.forEach(element => this.saveHeight(element)));
     
         window.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
     
+
+    removeEvents() {
+        if (document.querySelector("[data-template='services']")) {
+            this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
+            window.addEventListener("resize", () => this.updateDataSetHeight());
+        }
+    }
+
+
 
     // Get Height
 
@@ -16996,16 +17007,9 @@ class GoogleMaps {
         }
 
         this.map;
-        this.mount();
+        this.initMap();
     }
 
-    mount() {
-        this.addEvents();
-    }
-
-    addEvents() {
-        window.addEventListener("load", () => this.initMap());
-    }
 
   
     async initMap() {

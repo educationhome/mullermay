@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#319197">
+    <meta name="theme-color" content="#FFF7EC">
     <title id="title">
         <?php the_title(); ?>
     </title> 
@@ -67,7 +67,7 @@ $cookieText = $cookieContent["text"];
     <div>
         <header class="header__mobile container--small-padding">
             <div class="header__inner--is-mobile"> 
-                <a class="header__inner-logo" href="<?php echo home_url(); ?>"  title="Go to Main page">
+                <a class="header__inner-logo ajax-link" href="<?php echo home_url(); ?>"  title="Go to Main page">
                     <?php get_template_part("partials/common", "sprite-svg", [
                             "name" => "mullermay-logo",
                             "classes" => "icon__header-logo",
@@ -92,9 +92,13 @@ $cookieText = $cookieContent["text"];
             <div class="menu__links">
                 <?php foreach ($menuItems as $menuItem): ?>
                     <?php if($menuItem["customLink"]["mm_is_cl"]): ?>
-                        <a href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal"><?php echo $menuItem["customLink"]["mm_cl_label"]; ?></p></a>
+                        <a class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>">
+                            <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
+                        </a>
                     <?php else: ?>
-                        <a href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal"><?php echo $menuItem["customLink"]["mm_cl_label"]; ?></p></a>
+                        <a class="paragraph paragraph__warm-white paragraph__primary-family paragraph__menu paragraph__ln_h_normal ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>">
+                            <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
+                        </a>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
@@ -105,9 +109,13 @@ $cookieText = $cookieContent["text"];
         <div class="menu__footer-links">
             <?php foreach ($menuFooterItems as $menuFooterItem): ?>
                 <?php if($menuFooterItem["customLink"]["mm_is_cl"]): ?>
-                    <a href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__warm-white paragraph__small"><?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?></p></a>
+                    <a class="paragraph paragraph__warm-white paragraph__small ajax-link" href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_post"]; ?>">
+                        <?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?>
+                    </a>
                 <?php else: ?>
-                    <a href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__warm-white paragraph__small"><?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?></p></a>
+                    <a class="paragraph paragraph__warm-white paragraph__small ajax-link" href="<?php echo $menuFooterItem["customLink"]["mm_cl_to_url"]; ?>">
+                        <?php echo $menuFooterItem["customLink"]["mm_cl_label"]; ?>
+                    </a>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>

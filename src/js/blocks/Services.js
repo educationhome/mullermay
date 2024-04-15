@@ -16,6 +16,7 @@ export class Services {
     }
 
     mount() {
+        this.block.forEach(element => this.saveHeight(element));
         this.addEvents();
     }
 
@@ -23,13 +24,20 @@ export class Services {
 
     addEvents() {
         this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
-
-        window.addEventListener("DOMContentLoaded", () => this.block.forEach(element => this.saveHeight(element)));
     
         window.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
     
+
+    removeEvents() {
+        if (document.querySelector("[data-template='services']")) {
+            this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
+            window.addEventListener("resize", () => this.updateDataSetHeight());
+        }
+    }
+
+
 
     // Get Height
 

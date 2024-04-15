@@ -8,16 +8,9 @@ export class GoogleMaps {
         }
 
         this.map;
-        this.mount();
+        this.initMap();
     }
 
-    mount() {
-        this.addEvents();
-    }
-
-    addEvents() {
-        window.addEventListener("load", () => this.initMap());
-    }
 
   
     async initMap() {

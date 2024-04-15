@@ -23,9 +23,12 @@ export class ServicesList {
     }
 
     removeEvents() {
-        this.paragraphText.forEach(element => {
-            element.removeEventListener("DOMContentLoaded", this.hideText(element));
-        });
+        if (document.querySelector('[data-template="services-list"]')) {
+            this.paragraphText.forEach(element => {
+                element.removeEventListener("DOMContentLoaded", this.hideText(element));
+            });
+        }
+        
     }
 
     hideText(paragraph) {

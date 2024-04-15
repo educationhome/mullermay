@@ -51,7 +51,7 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 <header class="header__mobile padding__top-super-small" data-header-mobile>
 
     <div class="header__inner--is-mobile container--small"> 
-        <a class="header__inner-logo" href="<?php echo home_url(); ?>" title="Go to Main page">
+        <a class="header__inner-logo ajax-link" href="<?php echo home_url(); ?>" title="Go to Main page">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo",
                     "classes" => "icon__header-logo",
