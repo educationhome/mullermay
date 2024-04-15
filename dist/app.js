@@ -10366,24 +10366,6 @@ class Slider {
     }
 }
 
-class Home {
-
-    constructor() {
-        this.home = document.querySelector('[data-template="home"]');
-
-        if(!this.home) {
-            return;
-        }
-
-        this.mount();
-    }
-
-
-    mount() {
-        
-    }
-}
-
 class ServicesList {
 
     constructor() {
@@ -16588,6 +16570,9 @@ class Information_Button {
             return;
         }
 
+        this.openInfoWindowHandler = () => this.openInfoWindow();
+        this.closeInfoButtonHandler = () => this.closeInfoButton();
+
         this.mount();
     }
 
@@ -16597,10 +16582,20 @@ class Information_Button {
 
     addEvents() {
         this.root.forEach(button => {
-            button.addEventListener("click", () => this.openInfoWindow());
+            button.addEventListener("click", this.openInfoWindowHandler);
         });
 
-        this.closeButton.addEventListener("click", () => this.closeInfoButton()); 
+        this.closeButton.addEventListener("click", this.closeInfoButtonHandler); 
+    }
+
+    removeEvents() {
+        if (document.querySelector('[data-button="information"]')) {
+            this.root.forEach(button => {
+                button.removeEventListener("click", this.openInfoWindowHandler);
+            });
+
+            this.closeButton.removeEventListener("click", this.closeInfoButtonHandler); 
+        }
     }
 
     openInfoWindow() {
@@ -16868,6 +16863,7 @@ class TeamMember {
     }
 
     mount() {
+        this.block.forEach(element => this.saveHeight(element));
         this.addEvents();
     }
 
@@ -16875,13 +16871,20 @@ class TeamMember {
 
     addEvents() {
         this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
-
-        addEventListener("DOMContentLoaded", () => this.block.forEach(element => this.saveHeight(element)));
     
         window.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
     
+
+    removeEvents() {
+        if (document.querySelector("[data-template='team-member']")) {
+            this.button.forEach(element => element.removeEventListener("click", e => this.toggleText(e)));
+        
+            window.removeEventListener("resize", () => this.updateDataSetHeight());
+        }
+        
+    }
 
     // Get Height
 
@@ -17032,67 +17035,99 @@ class Cookies {
         }
 
         this.openCookieButton = document.getElementById("open-cookie-window");
+        this.optionalCheckbox = this.root.querySelector("#optional-cookies");
+
+        this.saveSettingsHandler = () => this.closeCookieWindow(false);
+        this.saveAllSettingsHandler = () => this.closeCookieWindow(true);
+        this.openCookieHandler = () => openCookieWindow();
+
         this.mount();
     }
+
+
 
     mount() {
         this.addEvents();
     }
 
+    
+
     addEvents() {
+        console.log("addEvents");
         window.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => {
-                this.checkCookies();
+                checkCookies();
             }, 500);
         });
 
         if (this.openCookieButton) {
-            this.openCookieButton.addEventListener("click", () => this.openCookieWindow());
+            this.openCookieButton.addEventListener("click", this.openCookieHandler);
         }
 
-        if (this.saveSettingsButton) {
-            this.saveSettingsButton.addEventListener("click", (element) => this.closeCookieWindow(element));
-        }
-
-        if (this.saveAllSettingsButton) {
-            this.saveAllSettingsButton.addEventListener("click", (element) => this.closeCookieWindow(element));
-        }
+        this.saveSettingsButton.addEventListener("click", this.saveSettingsHandler);
+        this.saveAllSettingsButton.addEventListener("click", this.saveAllSettingsHandler);
     }
 
-    openCookieWindow() {
-        const cookie = this.getCookie("cookieOptions");
-        const checkbox = this.root.querySelector("#optional-cookies");
-        const tl = gsapWithCSS.timeline();
-        checkbox.checked = cookie === 'optional.settings';
 
-        tl.set(this.root, {zIndex: 11});
-        tl.set(this.root, {zIndex: 11});
-        tl.set(document.body, {overflow: "hidden"});
+
+    removeEvents() {
+        if (document.getElementById("js-cookies")) {
+            window.removeEventListener("DOMContentLoaded", () => {
+                setTimeout(() => {
+                    checkCookies();
+                }, 500);
+            });
+
+            if (this.openCookieButton) {
+                this.openCookieButton.removeEventListener("click", this.openCookieHandler);
+            }
+
+            this.saveSettingsButton.removeEventListener("click", this.saveSettingsHandler);
+            this.saveAllSettingsButton.removeEventListener("click", this.saveAllSettingsHandler);
+        }
+        
+    }
+
+
+
+    openCookieWindow() {
+        const cookie = getCookie("cookieOptions");
+        this.optionalCheckbox.checked = (cookie === "optional.settings");
+
+        const tl = gsapWithCSS.timeline();
+
+        this.root.style.zIndex = 11;
+        document.body.style.overflow = "hidden";
+
         tl.addLabel("start");
         tl.to(this.root, { backgroundColor: "rgba(0, 0, 0, 0.3)", duration: 0.1 }, "start");
         tl.to(this.cookiesBlock, { translateY: 0, duration: 0, ease: "power2.out" }, "start");
     }
 
-    closeCookieWindow(element) {
-        const checkbox = this.root.querySelector("#optional-cookies");
+
+
+    closeCookieWindow(saveAllSettings) {
         let timeout = 0;
 
-        if (((element.target.parentElement.id == "js-save-all-settings") || (element.target.id == "js-save-all-settings")) && (!checkbox.checked)) {
-            checkbox.checked = true;
+        if (saveAllSettings && !this.optionalCheckbox.checked) {
             timeout = 500;
+            this.optionalCheckbox.checked = true;
         }
-        
-        this.saveSettings();
+
+        const tl = gsapWithCSS.timeline();
 
         setTimeout(() => {
-            const tl = gsapWithCSS.timeline();
             tl.addLabel("end");
             tl.to(this.cookiesBlock, { translateY: "160%", duration: 0}, "end");
-            tl.to(this.root, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3 }, "end");
-            tl.set(this.root, {zIndex: -1, delay: 0.3});
+            tl.to(this.root, { backgroundColor: "rgba(0, 0, 0, 0)", duration: 0.3}, "end");
             tl.set(document.body, {overflow: "auto"});
+            tl.set(this.root, {zIndex: -1, delay: 0.3});
         }, timeout);
+
+        this.saveSettings();
     }
+
+
 
     saveSettings() {
         const cookieValue = this.getSettings() ? "optional.settings" : "essential.settings";
@@ -17106,48 +17141,49 @@ class Cookies {
         document.cookie = "cookieOptions=" + cookieValue + ";" + "expires=" + expiresDate + "; path=/";
     }
 
-    checkCookies() {
-        if (!this.getCookie("cookieOptions")) {
-            if (!window.location.href.includes("/impressum-datenschutz/")) {
-               this.openCookieWindow(); 
-            }
-        } else {
-            if (this.getCookie("cookieOptions") == "optional.settings") {
-                insertGoogleTagManager();
-            }
-        }
-    }
+
+
+    // checkCookies() {
+    //     if (!this.getCookie("cookieOptions")) {
+    //         if (!window.location.href.includes("/impressum-datenschutz/")) {
+    //            this.openCookieWindow(); 
+    //         }
+    //     } else {
+    //         if (this.getCookie("cookieOptions") == "optional.settings") {
+    //             insertGoogleTagManager();
+    //         }
+    //     }
+    // }
+
+
 
     getSettings() {
         return this.root.querySelector("#optional-cookies").checked;
     }
 
-    getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == " ") {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
+
+
+    // Get Cookie
+
+    // getCookie(cname) {
+    //     let name = cname + "=";
+    //     let decodedCookie = decodeURIComponent(document.cookie);
+    //     let ca = decodedCookie.split(";");
+    //     for (let i = 0; i < ca.length; i++) {
+    //         let c = ca[i];
+    //         while (c.charAt(0) == " ") {
+    //             c = c.substring(1);
+    //         }
+    //         if (c.indexOf(name) == 0) {
+    //             return c.substring(name.length, c.length);
+    //         }
+    //     }
+    //     return "";
+    // }
 
 }
 
-// Mounts
-
-function pagesMount() {
-    this.pages = new Map();
-    this.pages.set("home", new Home());
-}
-
-pagesMount();
+// Mount -- Blocks
 
 function blocksMount() {
     this.blocks = new Map();
@@ -17172,29 +17208,35 @@ blocksMount();
 document.addEventListener("DOMContentLoaded", function() {
     var overlay = document.getElementById("overlay");
     overlay.style.opacity = "0";
-
     overlay.parentNode.removeChild(overlay);
 
-    // Set Lazy Loading
+    setLazyLoading(); 
+});
+
+
+
+// Set Lazy Loading 
+
+function setLazyLoading() {
     var lazyLoadInstance = new LazyLoad({
         elements_selector: ".lazy"
     }); 
-});
+}
 
 
 
 // Insert Google Tag Manager
 
 function insertGoogleTagManager() {
-    const gtmId = 'GTM-TX3JKFK3';
+    const gtmId = "GTM-TX3JKFK3";
 
-    if (document.getElementById('gtm-script') || document.getElementById('gtm-iframe')) {
+    if (document.getElementById("gtm-script") || document.getElementById("gtm-iframe")) {
         return;
     }
 
     // Insert Code GTM in <head>
-    var gtmScriptNode = document.createElement('script');
-    gtmScriptNode.id = 'gtm-script';
+    var gtmScriptNode = document.createElement("script");
+    gtmScriptNode.id = "gtm-script";
     gtmScriptNode.innerHTML = "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':" +
     "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0]," +
     "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src="+
@@ -17203,10 +17245,10 @@ function insertGoogleTagManager() {
     document.head.appendChild(gtmScriptNode);
 
     // Insert noscript iframe after <body>
-    var gtmIframeNode = document.createElement('noscript');
-    gtmIframeNode.id = 'gtm-iframe';
-    var gtmIframe = document.createElement('iframe');
-    gtmIframe.src = 'https://www.googletagmanager.com/ns.html?id=' + gtmId;
+    var gtmIframeNode = document.createElement("noscript");
+    gtmIframeNode.id = "gtm-iframe";
+    var gtmIframe = document.createElement("iframe");
+    gtmIframe.src = "https://www.googletagmanager.com/ns.html?id=" + gtmId;
     gtmIframe.style.height = "0";
     gtmIframe.style.width = "0";
     gtmIframe.style.display = "none";
@@ -17215,24 +17257,204 @@ function insertGoogleTagManager() {
     document.body.insertBefore(gtmIframeNode, document.body.firstChild);
 }
 
+
+
 // Delete Google Tag Manager 
 
 function removeGoogleTagManager() {
-    
-    var gtmScript = document.getElementById('gtm-script');
+    var gtmScript = document.getElementById("gtm-script");
     if (gtmScript) {
         gtmScript.parentNode.removeChild(gtmScript);
     }
 
-    var gtmIframe = document.getElementById('gtm-iframe');
+    var gtmIframe = document.getElementById("gtm-iframe");
     if (gtmIframe) {
         gtmIframe.parentNode.removeChild(gtmIframe);
     }
 
     document.querySelectorAll('script[src*="googletagmanager.com/gtm.js"]')
     .forEach(script => script.remove());
-
 }
+
+
+
+// Get Cookie
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(";");
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == " ") {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+
+// Check Cookies
+
+function checkCookies() {
+    if (!getCookie("cookieOptions")) {
+        if (!window.location.href.includes("/impressum-datenschutz/")) {
+           openCookieWindow(); 
+        }
+    } else {
+        if (getCookie("cookieOptions") == "optional.settings") {
+            insertGoogleTagManager();
+        }
+    }
+}
+
+
+
+// Open Cookie Window 
+
+function openCookieWindow() {
+    const cookie = getCookie("cookieOptions");
+    document.querySelector("#optional-cookies").checked = (cookie === "optional.settings");
+
+    const tl = gsapWithCSS.timeline();
+
+    document.getElementById("js-cookies").style.zIndex = 11;
+    document.body.style.overflow = "hidden";
+
+    tl.addLabel("start");
+    tl.to(document.getElementById("js-cookies"), { backgroundColor: "rgba(0, 0, 0, 0.3)", duration: 0.1 }, "start");
+    tl.to(document.querySelector(".cookie__block"), { translateY: 0, duration: 0, ease: "power2.out" }, "start");
+}
+
+
+
+// AJAX page Event listener
+
+document.addEventListener("DOMContentLoaded", ajaxChangePage);
+
+
+
+function ajaxChangePage() {
+    const ajaxLinks = document.querySelectorAll(".ajax-link");
+
+    ajaxLinks.forEach(link => {
+        link.removeEventListener("click", ajaxClickHandler);
+    });
+
+    ajaxLinks.forEach(link => {
+        link.addEventListener("click", ajaxClickHandler);
+    }); 
+}
+
+
+
+function ajaxClickHandler(event) {
+    event.preventDefault();
+    const menu = new Menu();
+    menu.closeMenu();
+
+    scrollToTop();
+
+    const url = this.getAttribute("href");
+
+    loadPage(url);
+}
+
+
+
+// Load Page and Update Page
+
+function loadPage(url, update = false) {
+    if (!update) {
+        window.history.pushState({ path: url }, "", url);
+        window.history.replaceState({ path: url }, "", url); 
+    }
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.text();
+        })
+        .then(html => {
+            clearMounts();
+
+            let content = document.querySelector(".content");
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const title = doc.getElementById("title");
+            const docContent = doc.querySelector(".content");
+            const newTemplate = docContent.getAttribute("data-template");
+
+            content.setAttribute("data-template", newTemplate);
+
+            gsapWithCSS.to(content, { opacity: 0, duration: 0.5, onComplete: 
+                function() {
+                    document.getElementById("title").innerText = title.innerText;
+                    content.innerHTML = "";
+                    content.innerHTML = docContent.innerHTML;
+                    gsapWithCSS.fromTo(content, { opacity: 0 }, { opacity: 1, duration: 1 });
+
+                    updatePage();
+                    ajaxChangePage();
+
+                    setTimeout(() => {
+                        checkCookies();
+                    }, 500);
+                }});
+            })
+        
+        .catch(error => {
+            console.error("There has been a problem with your fetch operation:", error);
+        });
+} 
+
+
+
+// Load Page (Pop State Event)
+
+window.addEventListener("popstate", () => {
+    loadPage(window.location.href, true);
+});
+
+
+
+// Update Page 
+
+function updatePage() {
+    blocksMount();
+    setLazyLoading();
+}
+   
+
+
+// Scroll to Top
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+
+// Clear All Mounts 
+
+function clearMounts() {
+    if (this.blocks) {
+        this.blocks.forEach(block => block.removeEvents?.());
+    }
+}
+
+
+
+// Set View Port 
 
 window.addEventListener("resize", setViewport);
 document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);

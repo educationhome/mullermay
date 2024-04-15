@@ -10,14 +10,14 @@ $pageId = get_the_ID();
 
 ?>
 
-<div id="services-page" data-template="services">
+<div>
 
     <!-- Header -->
     <?php get_template_part("partials/common", "header"); ?>
     <!-- /Header -->
 
     <!-- Content -->
-    <div id="services-page-content">
+    <div class="content" data-template="services">
         <?php the_content(); ?>
     </div>
     <!-- /Content -->

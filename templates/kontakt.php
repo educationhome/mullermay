@@ -14,7 +14,7 @@ get_header();
     <!-- /Header -->
 
     <!-- Content -->
-    <div id="kontakt-page-content">
+    <div class="content" data-template="kontakt">
         <?php the_content(); ?>
     </div>
     <!-- /Content -->

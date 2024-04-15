@@ -16,10 +16,8 @@ $whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
         <p class="paragraph paragraph__primary-family paragraph__semi-bold paragraph__medium text-wrapper__headline"><?php echo $bookNowHeadline; ?></p>
 
         <div class="book-buttons">
-            <a href="/terminbuchung/" class="button--bg-orange" aria-label="Find Termin">
-                <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
-                    <?php _e("Termin finden"); ?>
-                </p>
+            <a href="/terminbuchung/" class="button--bg-orange ajax-link paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold" aria-label="Find Termin">
+                <?php _e("Termin finden"); ?>
             </a>
 
             <?php if($whatsApp["mm_is_cl"]): ?>

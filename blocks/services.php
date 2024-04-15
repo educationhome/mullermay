@@ -47,10 +47,8 @@ $servicesBlock = get_field("mm_bl_sb_service_block");
                         ]); ?>
                     </button>
 
-                    <a href="/terminbuchung/" class="button--bg-orange">
-                        <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
-                            <?php _e("Termin finden"); ?>
-                        </p>
+                    <a href="/terminbuchung/" class="button--bg-orange paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold ajax-link">
+                        <?php _e("Termin finden"); ?>
                     </a>
                 </div>
 

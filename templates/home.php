@@ -10,14 +10,14 @@ $pageId = get_the_ID();
 
 ?>
 
-<div id="home-page" data-template="home">
+<div>
 
     <!-- Header -->
     <?php get_template_part("partials/common", "header"); ?>
     <!-- /Header -->
 
     <!-- Content -->
-    <div id="home-page-content">
+    <div class="content" data-template="home">
         <?php the_content(); ?>
     </div>
     <!-- /Content -->

@@ -7,14 +7,14 @@
 get_header();
 ?>
 
-<div id="faq-page" data-template="faq-page">
+<div>
 
     <!-- Header -->
     <?php get_template_part("partials/common", "header"); ?>
     <!-- /Header -->
 
     <!-- Content -->
-    <div id="faq-page-content">
+    <div class="content" data-template="faq-page">
         <?php the_content(); ?>
     </div>
     <!-- /Content -->

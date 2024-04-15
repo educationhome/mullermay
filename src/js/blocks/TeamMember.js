@@ -17,6 +17,7 @@ export class TeamMember {
     }
 
     mount() {
+        this.block.forEach(element => this.saveHeight(element));
         this.addEvents();
     }
 
@@ -24,13 +25,20 @@ export class TeamMember {
 
     addEvents() {
         this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
-
-        addEventListener("DOMContentLoaded", () => this.block.forEach(element => this.saveHeight(element)));
     
         window.addEventListener("resize", () => this.updateDataSetHeight());
     }
 
     
+
+    removeEvents() {
+        if (document.querySelector("[data-template='team-member']")) {
+            this.button.forEach(element => element.removeEventListener("click", e => this.toggleText(e)));
+        
+            window.removeEventListener("resize", () => this.updateDataSetHeight());
+        }
+        
+    }
 
     // Get Height
 

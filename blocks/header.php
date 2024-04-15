@@ -21,10 +21,8 @@ $whatsApp = get_field("whatsapp_link_mm_custom_link", "options");
         </h1>
 
         <div class="header-buttons">
-            <a href="/terminbuchung/" class="button--bg-orange" >
-                <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
-                    <?php _e("Termin finden"); ?>
-                </p>
+            <a href="/terminbuchung/" class="button--bg-orange paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold ajax-link" >
+                <?php _e("Termin finden"); ?>
             </a>
 
             <?php if($whatsApp["mm_is_cl"]): ?>

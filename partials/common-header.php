@@ -11,7 +11,7 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 <header class="header__desktop container--small">
 
     <div class="header__inner--is-desktop">
-        <a class="header__inner-logo" href="<?php echo home_url(); ?>" title="Go to Main page">
+        <a class="header__inner-logo ajax-link" href="<?php echo home_url(); ?>" title="Go to Main page">
             <?php get_template_part("partials/common", "sprite-svg", [
                     "name" => "mullermay-logo",
                     "classes" => "icon__header-logo",
@@ -25,9 +25,13 @@ $notificationOpenTimes = $notificationContent["openTimes"];
 
         <?php foreach ($menuItems as $menuItem): ?>
             <?php if($menuItem["customLink"]["mm_is_cl"]): ?>
-                <a href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>"><p class="paragraph paragraph__semi-bold"><?php echo $menuItem["customLink"]["mm_cl_label"]; ?></p></a>
+                <a class="paragraph paragraph__semi-bold ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_post"]; ?>">
+                    <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
+                </a>
             <?php else: ?>
-                <a href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>"><p class="paragraph paragraph__semi-bold"><?php echo $menuItem["customLink"]["mm_cl_label"]; ?></p></a>
+                <a class="paragraph paragraph__semi-bold ajax-link" href="<?php echo $menuItem["customLink"]["mm_cl_to_url"]; ?>">
+                    <?php echo $menuItem["customLink"]["mm_cl_label"]; ?>
+                </a>
             <?php endif; ?>
         <?php endforeach; ?>
 

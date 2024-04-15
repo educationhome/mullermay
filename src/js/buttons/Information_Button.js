@@ -12,6 +12,9 @@ export class Information_Button {
             return;
         }
 
+        this.openInfoWindowHandler = () => this.openInfoWindow();
+        this.closeInfoButtonHandler = () => this.closeInfoButton();
+
         this.mount();
     }
 
@@ -21,10 +24,20 @@ export class Information_Button {
 
     addEvents() {
         this.root.forEach(button => {
-            button.addEventListener("click", () => this.openInfoWindow());
+            button.addEventListener("click", this.openInfoWindowHandler);
         });
 
-        this.closeButton.addEventListener("click", () => this.closeInfoButton()); 
+        this.closeButton.addEventListener("click", this.closeInfoButtonHandler); 
+    }
+
+    removeEvents() {
+        if (document.querySelector('[data-button="information"]')) {
+            this.root.forEach(button => {
+                button.removeEventListener("click", this.openInfoWindowHandler);
+            });
+
+            this.closeButton.removeEventListener("click", this.closeInfoButtonHandler); 
+        }
     }
 
     openInfoWindow() {

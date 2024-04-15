@@ -41,10 +41,8 @@ $servicesListBlogList = get_field("mm_bl_hsl_list");
         <?php endforeach; ?>
         
         <div class="margin__top-small">
-            <a href="/leistungen/" class="button--bg-orange">
-                <p class="paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold">
-                    <?php _e("Alle Leistungen"); ?>
-                </p>
+            <a href="/leistungen/" class="button--bg-orange paragraph paragraph__dark-grey paragraph__primary-family paragraph__bold ajax-link">
+                <?php _e("Alle Leistungen"); ?>
             </a>
         </div>
     </div>
