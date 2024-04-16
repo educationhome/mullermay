@@ -16932,7 +16932,7 @@ class TeamMember {
 
 
     addEvents() {
-        this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
+        this.button.forEach(element => element.addEventListener("click", (e) => this.toggleText(e)));
     
         window.addEventListener("resize", () => this.updateDataSetHeight());
     }
@@ -16941,11 +16941,10 @@ class TeamMember {
 
     removeEvents() {
         if (document.querySelector("[data-template='team-member']")) {
-            this.button.forEach(element => element.removeEventListener("click", e => this.toggleText(e)));
+            this.button.forEach(element => element.removeEventListener("click", (e) => this.toggleText(e)));
         
             window.removeEventListener("resize", () => this.updateDataSetHeight());
         }
-        
     }
 
     // Get Height
@@ -17424,51 +17423,84 @@ function ajaxClickHandler(event) {
 // Load Page and Update Page
 
 function loadPage(url, update = false) {
-    if (!update) {
-        window.history.pushState({ path: url }, "", url);
-        window.history.replaceState({ path: url }, "", url); 
-    }
+    return new Promise((resolve, reject) => {
+        if (!update) {
+            window.history.pushState({ path: url }, "", url);
+            window.history.replaceState({ path: url }, "", url); 
+        }
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.text();
-        })
-        .then(html => {
-            clearMounts();
+        const cachedPage = sessionStorage.getItem(url);
 
-            let content = document.querySelector(".content");
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, "text/html");
-            const title = doc.getElementById("title");
-            const docContent = doc.querySelector(".content");
-            const newTemplate = docContent.getAttribute("data-template");
+        if (!update && cachedPage) {
+            displayPage(cachedPage);
+            resolve(cachedPage);
+        } else {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    sessionStorage.setItem(url, html);
+                    displayPage(html);
+                    resolve(html);
+                })
+                .catch(error => {
+                    console.error("There has been a problem with your fetch operation:", error);
+                    reject(error);
+                });
+        }
+    });
+}
 
-            content.setAttribute("data-template", newTemplate);
-            whereAmI();
 
-            gsapWithCSS.to(content, { opacity: 0, duration: 0.5, onComplete: 
-                function() {
-                    document.getElementById("title").innerText = title.innerText;
-                    content.innerHTML = "";
-                    content.innerHTML = docContent.innerHTML;
-                    gsapWithCSS.fromTo(content, { opacity: 0 }, { opacity: 1, duration: 1 });
 
-                    updatePage();
-                    ajaxChangePage();
+function displayPage(html) {
+    clearMounts();
 
-                    setTimeout(() => {
-                        checkCookies();
-                    }, 500);
-                }});
-            })
-        
-        .catch(error => {
-            console.error("There has been a problem with your fetch operation:", error);
-        });
-} 
+    takePagesToDisableCache()
+    .then(result => {
+        checkDisableCachePages(result);
+    });
+
+    let content = document.querySelector(".content");
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const title = doc.getElementById("title");
+    const description = doc.querySelector("#description").getAttribute("content");
+    const ogImage = doc.querySelector("#og-image").getAttribute("content");
+    const ogImageWidth = doc.querySelector("#og-image-width").getAttribute("content");
+    const ogImageHeight = doc.querySelector("#og-image-height").getAttribute("content");
+    const docContent = doc.querySelector(".content");
+    const newTemplate = docContent.getAttribute("data-template");
+
+    content.setAttribute("data-template", newTemplate);
+
+    whereAmI();
+
+    gsapWithCSS.to(content, { opacity: 0, duration: 0.5, onComplete:
+        function () {
+            document.getElementById("title").innerText = title.innerText;
+            document.getElementById("description").setAttribute("content", description);
+            document.getElementById("og-image").setAttribute("content", ogImage);
+            document.getElementById("og-image-width").setAttribute("content", ogImageWidth);
+            document.getElementById("og-image-height").setAttribute("content", ogImageHeight);
+            
+            content.innerHTML = "";
+            content.innerHTML = docContent.innerHTML;
+            gsapWithCSS.fromTo(content, { opacity: 0 }, { opacity: 1, duration: 1 });
+
+            updatePage();
+            ajaxChangePage();
+
+            setTimeout(() => {
+                checkCookies();
+            }, 500);
+        }
+    });
+}
 
 
 
@@ -17544,4 +17576,165 @@ function whereAmI() {
             link.classList.remove("active"); 
         }
     });
+}
+
+
+
+// Preload Pages
+
+function takePagesToPrefetch() {
+    const formData = new FormData();
+    const ADMIN_AJAX_URL = window.location.origin + "/wp-admin/admin-ajax.php";
+
+    formData.append("action", "prefetch_page");
+
+    fetch(ADMIN_AJAX_URL, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        prefetchPages(data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        throw error;
+    });
+}
+
+takePagesToPrefetch();
+
+
+
+function prefetchPages(data) {
+    data.forEach(link => {
+        const url = link["pageLink"];
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.text();
+            })
+            .then(html => {
+                sessionStorage.setItem(url, html);
+            })
+            .catch(error => {
+                console.error("There has been a problem with your fetch operation:", error);
+            });
+    });
+}
+
+
+
+// Pre fetch Links 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll("a[data-prefetch]");
+    links.forEach(link => {
+        link.addEventListener("mouseenter", function prefetchOnce() {
+            prefetchResource(link.href);
+            link.removeEventListener("mouseenter", prefetchOnce);
+        });
+    });
+});
+
+function prefetchResource(url) {
+    const prefetchLink = document.createElement("link");
+    prefetchLink.rel = "prefetch";
+    prefetchLink.href = url;
+    document.head.appendChild(prefetchLink);
+}
+
+
+
+// Disable Caching Pages
+
+async function takePagesToDisableCache() {
+    const formData = new FormData();
+    const ADMIN_AJAX_URL = window.location.origin + "/wp-admin/admin-ajax.php";
+
+    formData.append("action", "disable_page_cache");
+
+    try {
+        const response = await fetch(ADMIN_AJAX_URL, {
+            method: "POST",
+            body: formData
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+}
+
+takePagesToDisableCache()
+    .then(result => {
+        checkDisableCachePages(result);
+    });
+
+
+
+function checkDisableCachePages(links) {
+    const currentUrl = window.location.href;
+
+    links.forEach(link => {
+        if (link["pageLink"] == currentUrl) {
+            setNoCacheMetaTags();
+            sessionStorage.removeItem(currentUrl);
+        } else {
+            removeNoCacheMetaTags();
+        }
+    });
+}
+
+
+
+// Set Meta Tags (No Caching Tags)
+
+function setNoCacheMetaTags() {
+    if (!document.querySelector('meta[http-equiv="Cache-Control"]')) {
+        const metaCacheControl = document.createElement('meta');
+        metaCacheControl.setAttribute("http-equiv", "Cache-Control");
+        metaCacheControl.setAttribute("content", "no-cache, no-store, must-revalidate");
+        document.head.appendChild(metaCacheControl);
+    }
+
+    if (!document.querySelector('meta[http-equiv="Pragma"]')) {
+        const metaPragma = document.createElement("meta");
+        metaPragma.setAttribute("http-equiv", "Pragma");
+        metaPragma.setAttribute("content", "no-cache");
+        document.head.appendChild(metaPragma);
+    }
+
+    if (!document.querySelector('meta[http-equiv="Expires"]')) {
+        const metaExpires = document.createElement("meta");
+        metaExpires.setAttribute("http-equiv", "Expires");
+        metaExpires.setAttribute("content", "0");
+        document.head.appendChild(metaExpires);
+    }
+}
+
+
+
+// Remove No Caching Meta Tags
+
+function removeNoCacheMetaTags() {
+    const cacheControlMeta = document.querySelector('meta[http-equiv="Cache-Control"]');
+    const pragmaMeta = document.querySelector('meta[http-equiv="Pragma"]');
+    const expiresMeta = document.querySelector('meta[http-equiv="Expires"]');
+
+    if (cacheControlMeta) {
+        cacheControlMeta.remove();
+    }
+
+    if (pragmaMeta) {
+        pragmaMeta.remove();
+    }
+
+    if (expiresMeta) {
+        expiresMeta.remove();
+    }
 }

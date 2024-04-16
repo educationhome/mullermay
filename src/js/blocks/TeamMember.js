@@ -24,7 +24,7 @@ export class TeamMember {
 
 
     addEvents() {
-        this.button.forEach(element => element.addEventListener("click", e => this.toggleText(e)));
+        this.button.forEach(element => element.addEventListener("click", (e) => this.toggleText(e)));
     
         window.addEventListener("resize", () => this.updateDataSetHeight());
     }
@@ -33,11 +33,10 @@ export class TeamMember {
 
     removeEvents() {
         if (document.querySelector("[data-template='team-member']")) {
-            this.button.forEach(element => element.removeEventListener("click", e => this.toggleText(e)));
+            this.button.forEach(element => element.removeEventListener("click", (e) => this.toggleText(e)));
         
             window.removeEventListener("resize", () => this.updateDataSetHeight());
         }
-        
     }
 
     // Get Height

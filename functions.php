@@ -344,11 +344,11 @@ add_filter('block_categories', 'my_custom_block_categories', 10, 2);
 
 
 function remove_wp_block_library_css(){
- wp_dequeue_style( 'wp-block-library' );
- wp_dequeue_style( 'wp-block-library-theme' );
- wp_dequeue_style( 'wc-blocks-style' );
+    wp_dequeue_style( 'wp-block-library' );
+    wp_dequeue_style( 'wp-block-library-theme' );
+    wp_dequeue_style( 'wc-blocks-style' );
 } 
-add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
+add_action('wp_enqueue_scripts', 'remove_wp_block_library_css', 100);
 
 // Render Image
 
@@ -402,6 +402,60 @@ function renderVideo($videoData, $classes = "", $controls = "", $lazy = true, $s
     HTML;
 
     echo $html;
+}
+
+// Prefetch Page Function 
+
+add_action("wp_ajax_prefetch_page", "take_pages_to_load"); 
+add_action("wp_ajax_nopriv_prefetch_page", "take_pages_to_load"); 
+
+function take_pages_to_load() {
+    $pageItems = [];
+
+    if (have_rows("gs_prefetch_pages", "options")) {
+        while (have_rows("gs_prefetch_pages", "options")) {
+            the_row();
+            $pageLink = get_sub_field("gs_pp_page_mm_cl_to_post");
+
+            if (!empty($pageLink)) {
+                $pageItems[] = [
+                    "pageLink" => $pageLink
+                ];
+            }
+        } 
+    }
+    
+    header("Content-Type: application/json");
+    echo json_encode($pageItems);
+
+    wp_die();
+}
+
+// No Caching Page Function
+
+add_action("wp_ajax_disable_page_cache", "take_pages_to_disable_cache"); 
+add_action("wp_ajax_nopriv_disable_page_cache", "take_pages_to_disable_cache"); 
+
+function take_pages_to_disable_cache() {
+    $pageItems = [];
+
+    if (have_rows("gs_disable_cache_pages", "options")) {
+        while (have_rows("gs_disable_cache_pages", "options")) {
+            the_row();
+            $pageLink = get_sub_field("gs_dcp_page_mm_cl_to_post");
+
+            if (!empty($pageLink)) {
+                $pageItems[] = [
+                    "pageLink" => $pageLink
+                ];
+            }
+        } 
+    }
+    
+    header("Content-Type: application/json");
+    echo json_encode($pageItems);
+
+    wp_die();
 }
 
 ?>

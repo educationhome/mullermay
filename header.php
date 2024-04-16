@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#FFF7EC">
+    <meta id="description" name="description" content="<?= get_field("p_meta_description", get_the_ID()) ?>">
+    <?php $shareImage = get_field("p_meta_share_image", get_the_ID()) ?>
+    <meta id="og-image" property="og:image" content="<?= $shareImage["link"] ?>">
+    <meta id="og-image-width" property="og:image:width" content="<?= $shareImage["width"] ?>">
+    <meta id="og-image-height" property="og:image:height" content="<?= $shareImage["height"] ?>">
     <title id="title">
         <?php the_title(); ?>
     </title> 
@@ -127,11 +132,11 @@ $cookieText = $cookieContent["text"];
                 <div class="footer-section__soc-media">
                     <?php foreach ($socMediaItems as $socMediaItem): ?>
                         <?php if($socMediaItem["customLink"]["mm_is_cl"]): ?>
-                            <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_post"]; ?>">
+                            <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_post"]; ?>" data-prefetch>
                                 <?php renderImage($socMediaItem["icon"], "", true); ?>
                             </a>
                         <?php else: ?>
-                            <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_url"]; ?>">
+                            <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_url"]; ?>" data-prefetch>
                                 <?php renderImage($socMediaItem["icon"], "", true); ?>
                             </a>
                         <?php endif; ?>

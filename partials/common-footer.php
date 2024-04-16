@@ -41,11 +41,11 @@ $socMediaItems = getSocMediaItems();
         <div class="footer-section__soc-media">
             <?php foreach ($socMediaItems as $socMediaItem): ?>
                 <?php if($socMediaItem["customLink"]["mm_is_cl"]): ?>
-                    <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_post"]; ?>">
+                    <a target="_blank" href="<?php echo $socMediaItem["customLink"]["mm_cl_to_post"]; ?>" data-prefetch>
                         <?php renderImage($socMediaItem["icon"], "", true); ?>
                     </a>
                 <?php else: ?>
-                    <a href="<?php echo $socMediaItem["customLink"]["mm_cl_to_url"]; ?>">
+                    <a target="_blank" href="<?php echo $socMediaItem["customLink"]["mm_cl_to_url"]; ?>" data-prefetch>
                         <?php renderImage($socMediaItem["icon"], "", true); ?>
                     </a>
                 <?php endif; ?>
