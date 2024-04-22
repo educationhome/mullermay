@@ -17236,6 +17236,12 @@ class Cookies {
 
 }
 
+// Get Attribute Safe 
+
+function getAttributeSafe(element, attr) {
+    return element && element.getAttribute(attr) ? element.getAttribute(attr) : "";
+}
+
 // Mount -- Blocks
 
 function blocksMount() {
@@ -17457,6 +17463,8 @@ function loadPage(url, update = false) {
 
 
 
+// Display Page
+
 function displayPage(html) {
     clearMounts();
 
@@ -17468,11 +17476,7 @@ function displayPage(html) {
     let content = document.querySelector(".content");
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-    const title = doc.getElementById("title");
-    const description = doc.querySelector("#description").getAttribute("content");
-    const ogImage = doc.querySelector("#og-image").getAttribute("content");
-    const ogImageWidth = doc.querySelector("#og-image-width").getAttribute("content");
-    const ogImageHeight = doc.querySelector("#og-image-height").getAttribute("content");
+    const metadata = extractMetadata(doc);
     const docContent = doc.querySelector(".content");
     const newTemplate = docContent.getAttribute("data-template");
 
@@ -17480,13 +17484,8 @@ function displayPage(html) {
 
     whereAmI();
 
-    gsapWithCSS.to(content, { opacity: 0, duration: 0.5, onComplete:
-        function () {
-            document.getElementById("title").innerText = title.innerText;
-            document.getElementById("description").setAttribute("content", description);
-            document.getElementById("og-image").setAttribute("content", ogImage);
-            document.getElementById("og-image-width").setAttribute("content", ogImageWidth);
-            document.getElementById("og-image-height").setAttribute("content", ogImageHeight);
+    gsapWithCSS.to(content, { opacity: 0, duration: 0.5, onComplete: () => {
+            updatePageMetadata(metadata);
             
             content.innerHTML = "";
             content.innerHTML = docContent.innerHTML;
@@ -17498,8 +17497,38 @@ function displayPage(html) {
             setTimeout(() => {
                 checkCookies();
             }, 500);
+
+            removeGoogleMapsScriptAndStyle();
+
+            attachEventListenersToLinks();
         }
     });
+}
+
+
+
+// Extract Metadata
+
+function extractMetadata(doc) {
+    return {
+        title: doc.getElementById("title") ? doc.getElementById("title").innerText : "",
+        description: getAttributeSafe(doc.querySelector("#description"), "content"),
+        ogImage: getAttributeSafe(doc.querySelector("#og-image"), "content"),
+        ogImageWidth: getAttributeSafe(doc.querySelector("#og-image-width"), "content"),
+        ogImageHeight: getAttributeSafe(doc.querySelector("#og-image-height"), "content")
+    };
+}
+
+
+
+// Update Page Meta Data
+
+function updatePageMetadata({ title, description, ogImage, ogImageWidth, ogImageHeight }) {
+    document.getElementById("title").innerText = title;
+    document.getElementById("description").setAttribute("content", description);
+    document.getElementById("og-image").setAttribute("content", ogImage);
+    document.getElementById("og-image-width").setAttribute("content", ogImageWidth);
+    document.getElementById("og-image-height").setAttribute("content", ogImageHeight);
 }
 
 
@@ -17594,7 +17623,7 @@ function takePagesToPrefetch() {
     })
     .then(response => response.json())
     .then(data => {
-        prefetchPages(data);
+        prefetchPagesWP(data);
     })
     .catch(error => {
         console.error("Error:", error);
@@ -17606,7 +17635,7 @@ takePagesToPrefetch();
 
 
 
-function prefetchPages(data) {
+function prefetchPagesWP(data) {
     data.forEach(link => {
         const url = link["pageLink"];
 
@@ -17630,15 +17659,32 @@ function prefetchPages(data) {
 
 // Pre fetch Links 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll("a[data-prefetch]");
-    links.forEach(link => {
-        link.addEventListener("mouseenter", function prefetchOnce() {
-            prefetchResource(link.href);
-            link.removeEventListener("mouseenter", prefetchOnce);
-        });
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    attachEventListenersToLinks();
 });
+
+
+
+function attachEventListenersToLinks() {
+    const links = document.querySelectorAll(".ajax-link:not([data-prefetched])");
+    links.forEach(link => {
+        if (!link.hasAttribute("data-event-prefetch")) {
+
+            link.setAttribute("data-event-prefetch", "");
+
+            link.addEventListener("mouseenter", function prefetchOnce() {
+                const cachedPage = sessionStorage.getItem(link.getAttribute("href"));
+
+                if (!cachedPage) {
+                    prefetchResource(link.href);
+                    link.removeEventListener("mouseenter", prefetchOnce);
+                }
+            });
+        }
+    });
+}
+
+
 
 function prefetchResource(url) {
     const prefetchLink = document.createElement("link");
@@ -17682,59 +17728,40 @@ function checkDisableCachePages(links) {
 
     links.forEach(link => {
         if (link["pageLink"] == currentUrl) {
-            setNoCacheMetaTags();
             sessionStorage.removeItem(currentUrl);
-        } else {
-            removeNoCacheMetaTags();
         }
     });
 }
 
 
 
-// Set Meta Tags (No Caching Tags)
+function removeGoogleMapsScriptAndStyle() {
 
-function setNoCacheMetaTags() {
-    if (!document.querySelector('meta[http-equiv="Cache-Control"]')) {
-        const metaCacheControl = document.createElement('meta');
-        metaCacheControl.setAttribute("http-equiv", "Cache-Control");
-        metaCacheControl.setAttribute("content", "no-cache, no-store, must-revalidate");
-        document.head.appendChild(metaCacheControl);
+    // Delete Script 
+
+    var scripts = document.getElementsByTagName("script");
+    var scriptsToRemove = [];
+
+    for (var i = 0; i < scripts.length; i++) {
+        var src = scripts[i].getAttribute("src");
+        if (src && src.includes("maps.googleapis.com/maps")) {
+            scriptsToRemove.push(scripts[i]);
+        }
     }
 
-    if (!document.querySelector('meta[http-equiv="Pragma"]')) {
-        const metaPragma = document.createElement("meta");
-        metaPragma.setAttribute("http-equiv", "Pragma");
-        metaPragma.setAttribute("content", "no-cache");
-        document.head.appendChild(metaPragma);
+    for (var j = 0; j < scriptsToRemove.length; j++) {
+        scriptsToRemove[j].parentNode.removeChild(scriptsToRemove[j]);
     }
 
-    if (!document.querySelector('meta[http-equiv="Expires"]')) {
-        const metaExpires = document.createElement("meta");
-        metaExpires.setAttribute("http-equiv", "Expires");
-        metaExpires.setAttribute("content", "0");
-        document.head.appendChild(metaExpires);
-    }
-}
+    // Delete Style
 
+    var styleElements = document.getElementsByTagName('style');
 
-
-// Remove No Caching Meta Tags
-
-function removeNoCacheMetaTags() {
-    const cacheControlMeta = document.querySelector('meta[http-equiv="Cache-Control"]');
-    const pragmaMeta = document.querySelector('meta[http-equiv="Pragma"]');
-    const expiresMeta = document.querySelector('meta[http-equiv="Expires"]');
-
-    if (cacheControlMeta) {
-        cacheControlMeta.remove();
-    }
-
-    if (pragmaMeta) {
-        pragmaMeta.remove();
-    }
-
-    if (expiresMeta) {
-        expiresMeta.remove();
+    for (var i = 0; i < styleElements.length; i++) {
+        var styleContent = styleElements[i].textContent;
+        
+        if (styleContent && styleContent.includes('.dismissButton')) {
+            styleElements[i].parentNode.removeChild(styleElements[i]);
+        }
     }
 }

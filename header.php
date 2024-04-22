@@ -6,13 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#FFF7EC">
     <meta id="description" name="description" content="<?= get_field("p_meta_description", get_the_ID()) ?>">
-    <?php $shareImage = get_field("p_meta_share_image", get_the_ID()) ?>
-    <meta id="og-image" property="og:image" content="<?= $shareImage["link"] ?>">
-    <meta id="og-image-width" property="og:image:width" content="<?= $shareImage["width"] ?>">
-    <meta id="og-image-height" property="og:image:height" content="<?= $shareImage["height"] ?>">
+    <?php
+        if (!get_field("p_meta_custom_share_image", get_the_ID())) {
+            $shareImage = get_field("p_meta_global_sharing_image", "options");
+        } else {
+            $shareImage = get_field("p_meta_custom_share_image", get_the_ID());
+        }
+        
+        $shareImageLink = $shareImage && isset($shareImage["url"]) ? $shareImage["url"] : "";
+        $shareImageWidth = $shareImage && isset($shareImage["width"]) ? $shareImage["width"] : "";
+        $shareImageHeight = $shareImage && isset($shareImage["height"]) ? $shareImage["height"] : "";
+    ?>
+    <meta id="og-image" property="og:image" content="<?= $shareImageLink ?>">
+    <meta id="og-image-width" property="og:image:width" content="<?= $shareImageWidth ?>">
+    <meta id="og-image-height" property="og:image:height" content="<?= $shareImageHeight ?>">
     <title id="title">
         <?php the_title(); ?>
-    </title> 
+    </title>
     <?php wp_head(); ?>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() . "/dist/app.css" ?>">
 </head>
